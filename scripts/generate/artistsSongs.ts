@@ -4,7 +4,7 @@ import { buildBipartiteGraph, pickPuzzlePair, subgraphAroundPath, type RawNode }
 import { writePuzzle, usedPairs, nextStartDate } from './shared/writePuzzle'
 
 const BASE = 'https://musicbrainz.org/ws/2'
-const USER_AGENT = 'ChainlyGameDataBot/0.1 (https://github.com/) - free daily-puzzle game data generation'
+const USER_AGENT = 'DailyChainGameDataBot/0.1 (https://github.com/) - free daily-puzzle game data generation'
 // MusicBrainz's unauthenticated rate limit is strictly 1 req/sec.
 const rateLimit = createRateLimiter(1100)
 

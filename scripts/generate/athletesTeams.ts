@@ -8,7 +8,7 @@ import { writePuzzle, usedPairs, nextStartDate } from './shared/writePuzzle'
 const LEAGUE_QID = 'Q155223'
 const MIN_TENURE_START = '1990-01-01T00:00:00Z'
 const SPARQL_ENDPOINT = 'https://query.wikidata.org/sparql'
-const USER_AGENT = 'ChainlyGameDataBot/0.1 (https://github.com/) - free daily-puzzle game data generation'
+const USER_AGENT = 'DailyChainGameDataBot/0.1 (https://github.com/) - free daily-puzzle game data generation'
 
 interface SparqlBinding {
   player: { value: string }

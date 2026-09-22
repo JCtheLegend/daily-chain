@@ -14,7 +14,7 @@ export default function ShareResult({ puzzle, state }: { puzzle: Puzzle; state: 
   async function handleShare() {
     if (navigator.share) {
       try {
-        await navigator.share({ text, title: `Chainly ${CATEGORY_META[puzzle.category].title}` })
+        await navigator.share({ text, title: `Daily Chain: ${CATEGORY_META[puzzle.category].title}` })
         return
       } catch {
         // user cancelled the native share sheet, or it's unsupported here — fall through to copy

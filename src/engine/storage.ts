@@ -2,7 +2,7 @@ import type { CategoryId } from './types'
 import type { ChainState } from './chainEngine'
 
 function key(category: CategoryId, date: string): string {
-  return `chainly:${category}:${date}`
+  return `daily-chain:${category}:${date}`
 }
 
 export function loadSavedState(category: CategoryId, date: string): ChainState | null {

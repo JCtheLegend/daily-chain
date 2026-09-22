@@ -8,7 +8,7 @@ export default function Home() {
 
   return (
     <div className="mx-auto flex w-full max-w-xl flex-1 flex-col items-center px-4 py-10">
-      <h1 className="text-3xl font-bold tracking-tight">Chainly</h1>
+      <h1 className="text-3xl font-bold tracking-tight">Daily Chain</h1>
       <p className="mt-2 text-center text-sm text-neutral-500 dark:text-neutral-400">
         A new daily puzzle: connect two people through the real-world things that link them.
       </p>

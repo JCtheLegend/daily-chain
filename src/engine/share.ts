@@ -12,5 +12,5 @@ export function buildShareText(puzzle: Puzzle, state: ChainState, siteUrl: strin
       : `Solved in ${moves} (par ${puzzle.parMoves})`
     : 'Unsolved'
 
-  return [`Chainly ${meta.emoji} #${puzzle.number} — ${meta.title}`, parLine, squares, siteUrl].join('\n')
+  return [`Daily Chain ${meta.emoji} #${puzzle.number} — ${meta.title}`, parLine, squares, siteUrl].join('\n')
 }

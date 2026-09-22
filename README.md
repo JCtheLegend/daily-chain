@@ -1,4 +1,4 @@
-# Chainly
+# Daily Chain
 
 A daily browser puzzle game, mobile-friendly, in the Wordle/Connections family.
 You're given two people from the same world — two actors, two musicians, two
