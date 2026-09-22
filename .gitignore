@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+# Puzzle-generation script cache (API responses) and secrets
+scripts/generate/.cache
+.env
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

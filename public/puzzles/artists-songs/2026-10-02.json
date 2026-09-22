@@ -1,0 +1,932 @@
+{
+  "date": "2026-10-02",
+  "category": "artists-songs",
+  "number": 275,
+  "start": "mb-a-afb680f2-b6eb-4cd7-a70b-a63b25c763d5",
+  "end": "mb-a-1036b808-f58c-4a3e-b461-a2c4492ecf1b",
+  "nodes": {
+    "mb-a-afb680f2-b6eb-4cd7-a70b-a63b25c763d5": {
+      "id": "mb-a-afb680f2-b6eb-4cd7-a70b-a63b25c763d5",
+      "name": "Bruno Mars",
+      "type": "person"
+    },
+    "mb-r-2ac249ee-7a0a-4100-b0c4-2d416cb4aab5": {
+      "id": "mb-r-2ac249ee-7a0a-4100-b0c4-2d416cb4aab5",
+      "name": "24K Magic (All Gold Everything Hype intro / clean)",
+      "type": "work",
+      "subtitle": "2020"
+    },
+    "mb-a-4da8a075-9db8-422e-a154-57386c572d88": {
+      "id": "mb-a-4da8a075-9db8-422e-a154-57386c572d88",
+      "name": "Trinidad James",
+      "type": "person"
+    },
+    "mb-r-4f4c06b6-bd8f-4f00-a306-accc4b3f58a8": {
+      "id": "mb-r-4f4c06b6-bd8f-4f00-a306-accc4b3f58a8",
+      "name": "$hut Up!!! (King Dave Official remix)",
+      "type": "work",
+      "subtitle": "2013"
+    },
+    "mb-a-e4a51f17-a57b-47b1-b37b-f552d0f8e9e6": {
+      "id": "mb-a-e4a51f17-a57b-47b1-b37b-f552d0f8e9e6",
+      "name": "Travis Scott",
+      "type": "person"
+    },
+    "mb-r-6c842abe-dc2f-4517-b10f-25af100e2604": {
+      "id": "mb-r-6c842abe-dc2f-4517-b10f-25af100e2604",
+      "name": "3500 (remix)",
+      "type": "work",
+      "subtitle": "2026"
+    },
+    "mb-a-1036b808-f58c-4a3e-b461-a2c4492ecf1b": {
+      "id": "mb-a-1036b808-f58c-4a3e-b461-a2c4492ecf1b",
+      "name": "Nicki Minaj",
+      "type": "person"
+    },
+    "mb-r-06ea78b4-07ef-449a-b39b-04a6daa64d1f": {
+      "id": "mb-r-06ea78b4-07ef-449a-b39b-04a6daa64d1f",
+      "name": "24k Magic/Señorita (Paul Mond baile flip)",
+      "type": "work"
+    },
+    "mb-r-1286d300-2f52-4643-becc-af09993611bc": {
+      "id": "mb-r-1286d300-2f52-4643-becc-af09993611bc",
+      "name": "All I Ask",
+      "type": "work",
+      "subtitle": "2025"
+    },
+    "mb-r-1f2393fc-6850-497c-ab63-7293dbcb2ccf": {
+      "id": "mb-r-1f2393fc-6850-497c-ab63-7293dbcb2ccf",
+      "name": "24K Magic (G Funk Hype intro / clean)",
+      "type": "work",
+      "subtitle": "2020"
+    },
+    "mb-r-3ea9e082-06ad-4e5a-a44a-45a0f05e16a0": {
+      "id": "mb-r-3ea9e082-06ad-4e5a-a44a-45a0f05e16a0",
+      "name": "24K Magic (All Gold Everything Hype intro / clean)",
+      "type": "work",
+      "subtitle": "2020"
+    },
+    "mb-r-40684d8b-78b3-4cfb-aafc-3fd8a267bb62": {
+      "id": "mb-r-40684d8b-78b3-4cfb-aafc-3fd8a267bb62",
+      "name": "Apt.",
+      "type": "work"
+    },
+    "mb-r-4c867678-2a08-457f-87f1-ebceb009c0a3": {
+      "id": "mb-r-4c867678-2a08-457f-87f1-ebceb009c0a3",
+      "name": "24K Magic (Rock-It! Scientists Hype edit / dirty)",
+      "type": "work",
+      "subtitle": "2020"
+    },
+    "mb-r-5068855a-6f0e-48f1-8047-d0bcd4de6504": {
+      "id": "mb-r-5068855a-6f0e-48f1-8047-d0bcd4de6504",
+      "name": "APT. (instrumental version)",
+      "type": "work",
+      "subtitle": "2024"
+    },
+    "mb-r-59fc27f6-ec73-49a2-8c60-72c8c55ee241": {
+      "id": "mb-r-59fc27f6-ec73-49a2-8c60-72c8c55ee241",
+      "name": "Baby by Me vs Nothin’ on You (DJ Blvd Blend)",
+      "type": "work",
+      "subtitle": "2010"
+    },
+    "mb-r-5b8a93ab-e047-4943-8a7b-bfb55ab29870": {
+      "id": "mb-r-5b8a93ab-e047-4943-8a7b-bfb55ab29870",
+      "name": "APT. (SHEKINAH remix)",
+      "type": "work",
+      "subtitle": "2025"
+    },
+    "mb-r-5d11dc66-04af-43ab-8236-0281d0164de1": {
+      "id": "mb-r-5d11dc66-04af-43ab-8236-0281d0164de1",
+      "name": "Before It Explodes",
+      "type": "work"
+    },
+    "mb-r-5dcf0f17-d13b-47c1-8386-fea1f5e25875": {
+      "id": "mb-r-5dcf0f17-d13b-47c1-8386-fea1f5e25875",
+      "name": "APT.",
+      "type": "work",
+      "subtitle": "2024"
+    },
+    "mb-r-164e0831-d3a3-44c3-95be-544491ded155": {
+      "id": "mb-r-164e0831-d3a3-44c3-95be-544491ded155",
+      "name": "$tay",
+      "type": "work",
+      "subtitle": "2011"
+    },
+    "mb-r-1b063318-2a0a-4d8a-8efd-35a8cee052c2": {
+      "id": "mb-r-1b063318-2a0a-4d8a-8efd-35a8cee052c2",
+      "name": "10-2-10",
+      "type": "work",
+      "subtitle": "2013"
+    },
+    "mb-r-313c9e6c-7048-406d-8f77-4d503cb08fca": {
+      "id": "mb-r-313c9e6c-7048-406d-8f77-4d503cb08fca",
+      "name": "8th Wonder",
+      "type": "work",
+      "subtitle": "2009"
+    },
+    "mb-r-326127cd-fd94-4a33-8344-1355f1cd5a55": {
+      "id": "mb-r-326127cd-fd94-4a33-8344-1355f1cd5a55",
+      "name": "10 2 10 (remix)",
+      "type": "work",
+      "subtitle": "2014"
+    },
+    "mb-r-55b78e45-9c4d-445d-84e6-ee6361a2f53f": {
+      "id": "mb-r-55b78e45-9c4d-445d-84e6-ee6361a2f53f",
+      "name": "4 AM",
+      "type": "work",
+      "subtitle": "2025"
+    },
+    "mb-r-5bbc8cfb-480c-43f8-827d-b225a13d9984": {
+      "id": "mb-r-5bbc8cfb-480c-43f8-827d-b225a13d9984",
+      "name": "5% Tint",
+      "type": "work",
+      "subtitle": "2019"
+    },
+    "mb-r-5cefdce9-b545-4a46-8ece-764c628afa4f": {
+      "id": "mb-r-5cefdce9-b545-4a46-8ece-764c628afa4f",
+      "name": "3 Wayz",
+      "type": "work",
+      "subtitle": "2016"
+    },
+    "mb-r-5ddd23ee-0eab-4546-8186-34487558e6cb": {
+      "id": "mb-r-5ddd23ee-0eab-4546-8186-34487558e6cb",
+      "name": "#727 (Chopped & Screwed)",
+      "type": "work",
+      "subtitle": "2011"
+    },
+    "mb-r-62fc4e42-3e27-4816-b816-ffc5e40c9f44": {
+      "id": "mb-r-62fc4e42-3e27-4816-b816-ffc5e40c9f44",
+      "name": "100 Bottles (remix) (Chopped Not Slopped)",
+      "type": "work",
+      "subtitle": "2014"
+    },
+    "mb-r-64675979-897b-42fa-be59-4b753155e4f5": {
+      "id": "mb-r-64675979-897b-42fa-be59-4b753155e4f5",
+      "name": "2 Fucks",
+      "type": "work",
+      "subtitle": "2013"
+    },
+    "mb-a-48262e82-db9f-4a92-b650-dfef979b73ec": {
+      "id": "mb-a-48262e82-db9f-4a92-b650-dfef979b73ec",
+      "name": "Future",
+      "type": "person"
+    },
+    "mb-a-dff0d392-4cd5-4052-9fbb-f485df3891e5": {
+      "id": "mb-a-dff0d392-4cd5-4052-9fbb-f485df3891e5",
+      "name": "2 Chainz",
+      "type": "person"
+    },
+    "mb-r-0ef587a5-e6bb-4736-ac64-f787203afe40": {
+      "id": "mb-r-0ef587a5-e6bb-4736-ac64-f787203afe40",
+      "name": "2012 (It Ain’t the End)",
+      "type": "work",
+      "subtitle": "2010"
+    },
+    "mb-r-0f257e77-8736-48d9-a224-3a51a436919d": {
+      "id": "mb-r-0f257e77-8736-48d9-a224-3a51a436919d",
+      "name": "5 Star",
+      "type": "work",
+      "subtitle": "2012"
+    },
+    "mb-r-12ed5ab3-8ee5-43d8-bfc8-c1e0fd078317": {
+      "id": "mb-r-12ed5ab3-8ee5-43d8-bfc8-c1e0fd078317",
+      "name": "5 Star Chic",
+      "type": "work",
+      "subtitle": "2014"
+    },
+    "mb-r-1cba163b-c2f8-415d-8cd8-0a4956f8a03f": {
+      "id": "mb-r-1cba163b-c2f8-415d-8cd8-0a4956f8a03f",
+      "name": "All About The Benjamins (DJ Delz Freestyle)",
+      "type": "work",
+      "subtitle": "2013"
+    },
+    "mb-r-26035be0-ddad-48ff-8d6c-8a477b0a4ce9": {
+      "id": "mb-r-26035be0-ddad-48ff-8d6c-8a477b0a4ce9",
+      "name": "20 Dollars (remix)",
+      "type": "work",
+      "subtitle": "2009"
+    },
+    "mb-r-2d6d6765-0f29-4d5a-b367-9d903b534be3": {
+      "id": "mb-r-2d6d6765-0f29-4d5a-b367-9d903b534be3",
+      "name": "700's (dirty version)",
+      "type": "work",
+      "subtitle": "2010"
+    },
+    "mb-r-318aaaa3-452c-4dfc-86b7-ca6e18237900": {
+      "id": "mb-r-318aaaa3-452c-4dfc-86b7-ca6e18237900",
+      "name": "2012 (It Ain’t the End) (acapella) vs. Club Can’t Handle Me (instrumental)",
+      "type": "work",
+      "subtitle": "2011"
+    },
+    "mb-r-3da8ec00-a57a-4625-bd22-c627978c8f63": {
+      "id": "mb-r-3da8ec00-a57a-4625-bd22-c627978c8f63",
+      "name": "2012 (It Ain't the End)",
+      "type": "work",
+      "subtitle": "2010"
+    },
+    "mb-r-3efd7e7e-b721-47fb-bdf4-646b47339b8e": {
+      "id": "mb-r-3efd7e7e-b721-47fb-bdf4-646b47339b8e",
+      "name": "2012 (It Ain't the End)",
+      "type": "work",
+      "subtitle": "2011"
+    },
+    "mb-r-4075b0ad-414e-4514-af95-18e7ae8df135": {
+      "id": "mb-r-4075b0ad-414e-4514-af95-18e7ae8df135",
+      "name": "AGATS2 (Insecure)",
+      "type": "work",
+      "subtitle": "2024"
+    },
+    "mb-r-4d748afe-5e6b-480a-9fda-6cbaf5b5a17b": {
+      "id": "mb-r-4d748afe-5e6b-480a-9fda-6cbaf5b5a17b",
+      "name": "#Twerkit",
+      "type": "work",
+      "subtitle": "2013"
+    },
+    "mb-r-51840879-5851-4314-b6ec-76780816b72f": {
+      "id": "mb-r-51840879-5851-4314-b6ec-76780816b72f",
+      "name": "2012 (Jump Smokers rmx)",
+      "type": "work",
+      "subtitle": "2021"
+    },
+    "mb-r-53bd07f0-762b-4deb-9026-96e9d631e90f": {
+      "id": "mb-r-53bd07f0-762b-4deb-9026-96e9d631e90f",
+      "name": "Ball for Me",
+      "type": "work",
+      "subtitle": "2018"
+    },
+    "mb-r-b75e0d72-3f05-446e-98d9-b8bc773914ef": {
+      "id": "mb-r-b75e0d72-3f05-446e-98d9-b8bc773914ef",
+      "name": "Ball for Me",
+      "type": "work",
+      "subtitle": "2018"
+    },
+    "mb-a-596ffa74-3d08-44ef-b113-765d43d12738": {
+      "id": "mb-a-596ffa74-3d08-44ef-b113-765d43d12738",
+      "name": "Justin Timberlake",
+      "type": "person"
+    },
+    "mb-a-cc2c9c3c-b7bc-4b8b-84d8-4fbd8779e493": {
+      "id": "mb-a-cc2c9c3c-b7bc-4b8b-84d8-4fbd8779e493",
+      "name": "Adele",
+      "type": "person"
+    },
+    "mb-a-10fcef09-1491-402d-85ed-65ad7c126d34": {
+      "id": "mb-a-10fcef09-1491-402d-85ed-65ad7c126d34",
+      "name": "Brody Brown",
+      "type": "person"
+    },
+    "mb-a-3d2ee04c-c21d-424d-91da-afd66258438e": {
+      "id": "mb-a-3d2ee04c-c21d-424d-91da-afd66258438e",
+      "name": "Philip Lawrence",
+      "type": "person"
+    },
+    "mb-a-405528df-2632-4730-80fc-83e775a97651": {
+      "id": "mb-a-405528df-2632-4730-80fc-83e775a97651",
+      "name": "Nate Dogg",
+      "type": "person"
+    },
+    "mb-a-7f233cda-eacb-4235-b681-5f7be343a1a2": {
+      "id": "mb-a-7f233cda-eacb-4235-b681-5f7be343a1a2",
+      "name": "ROSÉ",
+      "type": "person"
+    },
+    "mb-a-919b6269-f1b2-47ba-a12d-41356b24c81b": {
+      "id": "mb-a-919b6269-f1b2-47ba-a12d-41356b24c81b",
+      "name": "DJ Surda",
+      "type": "person"
+    },
+    "mb-a-bf0f7e29-dfe1-416c-b5c6-f9ebc19ea810": {
+      "id": "mb-a-bf0f7e29-dfe1-416c-b5c6-f9ebc19ea810",
+      "name": "Bee Gees",
+      "type": "person"
+    },
+    "mb-a-94c338ff-1985-4429-9dc8-997b61bb5932": {
+      "id": "mb-a-94c338ff-1985-4429-9dc8-997b61bb5932",
+      "name": "B.o.B",
+      "type": "person"
+    },
+    "mb-a-ed3d345c-20e1-4c26-8384-427c5ac58c38": {
+      "id": "mb-a-ed3d345c-20e1-4c26-8384-427c5ac58c38",
+      "name": "Alexandra Burke",
+      "type": "person"
+    },
+    "mb-a-90577992-40cc-4173-adcd-bff6f80d9768": {
+      "id": "mb-a-90577992-40cc-4173-adcd-bff6f80d9768",
+      "name": "Jason Eric",
+      "type": "person"
+    },
+    "mb-a-681bf706-8664-4658-ab1a-39e1d385fae2": {
+      "id": "mb-a-681bf706-8664-4658-ab1a-39e1d385fae2",
+      "name": "Esthero",
+      "type": "person"
+    },
+    "mb-a-942a9807-9c1a-4a0e-a285-1fde2c5be9d1": {
+      "id": "mb-a-942a9807-9c1a-4a0e-a285-1fde2c5be9d1",
+      "name": "Big Sean",
+      "type": "person"
+    },
+    "mb-a-13bcb2bb-db37-4397-baf5-e0f085be2d64": {
+      "id": "mb-a-13bcb2bb-db37-4397-baf5-e0f085be2d64",
+      "name": "Rick Ross",
+      "type": "person"
+    },
+    "mb-a-ade9b668-e38f-41a8-a6e5-51442c5d6468": {
+      "id": "mb-a-ade9b668-e38f-41a8-a6e5-51442c5d6468",
+      "name": "Goodie Mob",
+      "type": "person"
+    },
+    "mb-a-505cc7ac-b92c-46dd-94f2-e22b18fdcf57": {
+      "id": "mb-a-505cc7ac-b92c-46dd-94f2-e22b18fdcf57",
+      "name": "Paul Wall",
+      "type": "person"
+    },
+    "mb-a-08962fc5-ed17-453b-9c68-ff7922eb4957": {
+      "id": "mb-a-08962fc5-ed17-453b-9c68-ff7922eb4957",
+      "name": "Mike Jones",
+      "type": "person"
+    },
+    "mb-a-e0f5273c-637e-4e10-8304-81f2f9a31523": {
+      "id": "mb-a-e0f5273c-637e-4e10-8304-81f2f9a31523",
+      "name": "Slim Thug",
+      "type": "person"
+    },
+    "mb-a-7bd66c18-cb33-49aa-9279-140acedbdb49": {
+      "id": "mb-a-7bd66c18-cb33-49aa-9279-140acedbdb49",
+      "name": "Ty Dolla $ign",
+      "type": "person"
+    },
+    "mb-a-b4cb1fe1-7de8-47de-ae76-d20179636fdf": {
+      "id": "mb-a-b4cb1fe1-7de8-47de-ae76-d20179636fdf",
+      "name": "Low Pros",
+      "type": "person"
+    },
+    "mb-a-8ab5d936-49d1-415e-92c8-151e0e7dd912": {
+      "id": "mb-a-8ab5d936-49d1-415e-92c8-151e0e7dd912",
+      "name": "FERG",
+      "type": "person"
+    },
+    "mb-a-2500e307-4ad1-448d-a430-5ab01ab5c20d": {
+      "id": "mb-a-2500e307-4ad1-448d-a430-5ab01ab5c20d",
+      "name": "Hustle Gang",
+      "type": "person"
+    },
+    "mb-a-f7ba7fbe-c6bd-4ac0-bee9-c25c558d7d62": {
+      "id": "mb-a-f7ba7fbe-c6bd-4ac0-bee9-c25c558d7d62",
+      "name": "T.I.",
+      "type": "person"
+    },
+    "mb-a-8ec6bf47-d22f-4a2f-b930-0f7feb10ea3f": {
+      "id": "mb-a-8ec6bf47-d22f-4a2f-b930-0f7feb10ea3f",
+      "name": "Chip",
+      "type": "person"
+    },
+    "mb-a-bec5d16d-63f3-4bfe-92c6-1c4e3ac502ad": {
+      "id": "mb-a-bec5d16d-63f3-4bfe-92c6-1c4e3ac502ad",
+      "name": "Trae",
+      "type": "person"
+    },
+    "mb-r-083e55a7-3534-43ef-9924-797c08b0904b": {
+      "id": "mb-r-083e55a7-3534-43ef-9924-797c08b0904b",
+      "name": "All I Know",
+      "type": "work",
+      "subtitle": "2017"
+    },
+    "mb-r-0cda4893-06bd-4126-ab4a-c2985570f794": {
+      "id": "mb-r-0cda4893-06bd-4126-ab4a-c2985570f794",
+      "name": "All to Myself",
+      "type": "work",
+      "subtitle": "2024"
+    },
+    "mb-r-19fe9991-0cd9-4575-8e8c-75f5f5b9e89b": {
+      "id": "mb-r-19fe9991-0cd9-4575-8e8c-75f5f5b9e89b",
+      "name": "All to Myself",
+      "type": "work",
+      "subtitle": "2024"
+    },
+    "mb-r-6d23e145-d0a9-4088-823c-c0cd8593bc0f": {
+      "id": "mb-r-6d23e145-d0a9-4088-823c-c0cd8593bc0f",
+      "name": "All I Know",
+      "type": "work",
+      "subtitle": "2016"
+    },
+    "mb-r-77773333-56db-4f92-9ac2-4b0915165dd2": {
+      "id": "mb-r-77773333-56db-4f92-9ac2-4b0915165dd2",
+      "name": "All to Myself",
+      "type": "work",
+      "subtitle": "2024"
+    },
+    "mb-r-3bbbc51e-04fa-47e0-ac38-90c16cdebf97": {
+      "id": "mb-r-3bbbc51e-04fa-47e0-ac38-90c16cdebf97",
+      "name": "7 rings (remix)",
+      "type": "work",
+      "subtitle": "2019"
+    },
+    "mb-a-e03cf5b6-d2ec-4465-adee-226b518bcfcd": {
+      "id": "mb-a-e03cf5b6-d2ec-4465-adee-226b518bcfcd",
+      "name": "Jay Sean",
+      "type": "person"
+    },
+    "mb-a-b02ec63e-e78d-43e5-a594-462e95036e8d": {
+      "id": "mb-a-b02ec63e-e78d-43e5-a594-462e95036e8d",
+      "name": "Yo Gotti",
+      "type": "person"
+    },
+    "mb-a-36494952-f434-45d8-a958-8b4acdbcf8a8": {
+      "id": "mb-a-36494952-f434-45d8-a958-8b4acdbcf8a8",
+      "name": "Gucci Mane",
+      "type": "person"
+    },
+    "mb-a-8a07d810-3d55-4426-a1f6-55f0a68f1dc6": {
+      "id": "mb-a-8a07d810-3d55-4426-a1f6-55f0a68f1dc6",
+      "name": "Trina",
+      "type": "person"
+    },
+    "mb-a-aae03c23-d8b9-4f29-87fc-cccd95c8c254": {
+      "id": "mb-a-aae03c23-d8b9-4f29-87fc-cccd95c8c254",
+      "name": "Stack Bundles",
+      "type": "person"
+    },
+    "mb-a-ee1a5314-3c77-4550-bd43-0175631b6f2b": {
+      "id": "mb-a-ee1a5314-3c77-4550-bd43-0175631b6f2b",
+      "name": "Riot Squad",
+      "type": "person"
+    },
+    "mb-a-4395052a-9b7f-447b-ae9f-6753cc0501d9": {
+      "id": "mb-a-4395052a-9b7f-447b-ae9f-6753cc0501d9",
+      "name": "Ron Browz",
+      "type": "person"
+    },
+    "mb-a-76716b81-e361-427e-a931-19373388387d": {
+      "id": "mb-a-76716b81-e361-427e-a931-19373388387d",
+      "name": "Mase",
+      "type": "person"
+    },
+    "mb-a-4b2c4580-7e17-4277-8b20-5246f5f37b61": {
+      "id": "mb-a-4b2c4580-7e17-4277-8b20-5246f5f37b61",
+      "name": "Shawty Lo",
+      "type": "person"
+    },
+    "mb-a-de335e79-402f-4378-8b18-ec9e68d8f001": {
+      "id": "mb-a-de335e79-402f-4378-8b18-ec9e68d8f001",
+      "name": "OJ da Juiceman",
+      "type": "person"
+    },
+    "mb-a-df4f21f5-04bf-4785-b34a-ea4963c87da8": {
+      "id": "mb-a-df4f21f5-04bf-4785-b34a-ea4963c87da8",
+      "name": "St. Laz",
+      "type": "person"
+    },
+    "mb-a-4593d49a-7f67-46ba-9ec0-126bd676286f": {
+      "id": "mb-a-4593d49a-7f67-46ba-9ec0-126bd676286f",
+      "name": "Flo Rida",
+      "type": "person"
+    },
+    "mb-a-302bd7b9-d012-4360-897a-93b00c855680": {
+      "id": "mb-a-302bd7b9-d012-4360-897a-93b00c855680",
+      "name": "David Guetta",
+      "type": "person"
+    },
+    "mb-a-4e4ebde4-0c56-4dec-844b-6c73adcdd92d": {
+      "id": "mb-a-4e4ebde4-0c56-4dec-844b-6c73adcdd92d",
+      "name": "Juice WRLD",
+      "type": "person"
+    },
+    "mb-a-10a9ff92-9637-4498-afea-7044b2ab0dc0": {
+      "id": "mb-a-10a9ff92-9637-4498-afea-7044b2ab0dc0",
+      "name": "Busta Rhymes",
+      "type": "person"
+    },
+    "mb-a-b1e26560-60e5-4236-bbdb-9aa5a8d5ee19": {
+      "id": "mb-a-b1e26560-60e5-4236-bbdb-9aa5a8d5ee19",
+      "name": "Post Malone",
+      "type": "person"
+    }
+  },
+  "edges": [
+    {
+      "a": "mb-a-1036b808-f58c-4a3e-b461-a2c4492ecf1b",
+      "b": "mb-r-0ef587a5-e6bb-4736-ac64-f787203afe40"
+    },
+    {
+      "a": "mb-a-1036b808-f58c-4a3e-b461-a2c4492ecf1b",
+      "b": "mb-r-0f257e77-8736-48d9-a224-3a51a436919d"
+    },
+    {
+      "a": "mb-a-1036b808-f58c-4a3e-b461-a2c4492ecf1b",
+      "b": "mb-r-12ed5ab3-8ee5-43d8-bfc8-c1e0fd078317"
+    },
+    {
+      "a": "mb-a-1036b808-f58c-4a3e-b461-a2c4492ecf1b",
+      "b": "mb-r-1cba163b-c2f8-415d-8cd8-0a4956f8a03f"
+    },
+    {
+      "a": "mb-a-1036b808-f58c-4a3e-b461-a2c4492ecf1b",
+      "b": "mb-r-26035be0-ddad-48ff-8d6c-8a477b0a4ce9"
+    },
+    {
+      "a": "mb-a-1036b808-f58c-4a3e-b461-a2c4492ecf1b",
+      "b": "mb-r-2d6d6765-0f29-4d5a-b367-9d903b534be3"
+    },
+    {
+      "a": "mb-a-1036b808-f58c-4a3e-b461-a2c4492ecf1b",
+      "b": "mb-r-318aaaa3-452c-4dfc-86b7-ca6e18237900"
+    },
+    {
+      "a": "mb-a-1036b808-f58c-4a3e-b461-a2c4492ecf1b",
+      "b": "mb-r-3da8ec00-a57a-4625-bd22-c627978c8f63"
+    },
+    {
+      "a": "mb-a-1036b808-f58c-4a3e-b461-a2c4492ecf1b",
+      "b": "mb-r-3efd7e7e-b721-47fb-bdf4-646b47339b8e"
+    },
+    {
+      "a": "mb-a-1036b808-f58c-4a3e-b461-a2c4492ecf1b",
+      "b": "mb-r-4075b0ad-414e-4514-af95-18e7ae8df135"
+    },
+    {
+      "a": "mb-a-1036b808-f58c-4a3e-b461-a2c4492ecf1b",
+      "b": "mb-r-4d748afe-5e6b-480a-9fda-6cbaf5b5a17b"
+    },
+    {
+      "a": "mb-a-1036b808-f58c-4a3e-b461-a2c4492ecf1b",
+      "b": "mb-r-51840879-5851-4314-b6ec-76780816b72f"
+    },
+    {
+      "a": "mb-a-e4a51f17-a57b-47b1-b37b-f552d0f8e9e6",
+      "b": "mb-r-164e0831-d3a3-44c3-95be-544491ded155"
+    },
+    {
+      "a": "mb-a-e4a51f17-a57b-47b1-b37b-f552d0f8e9e6",
+      "b": "mb-r-1b063318-2a0a-4d8a-8efd-35a8cee052c2"
+    },
+    {
+      "a": "mb-a-e4a51f17-a57b-47b1-b37b-f552d0f8e9e6",
+      "b": "mb-r-313c9e6c-7048-406d-8f77-4d503cb08fca"
+    },
+    {
+      "a": "mb-a-e4a51f17-a57b-47b1-b37b-f552d0f8e9e6",
+      "b": "mb-r-326127cd-fd94-4a33-8344-1355f1cd5a55"
+    },
+    {
+      "a": "mb-a-e4a51f17-a57b-47b1-b37b-f552d0f8e9e6",
+      "b": "mb-r-4f4c06b6-bd8f-4f00-a306-accc4b3f58a8"
+    },
+    {
+      "a": "mb-a-e4a51f17-a57b-47b1-b37b-f552d0f8e9e6",
+      "b": "mb-r-55b78e45-9c4d-445d-84e6-ee6361a2f53f"
+    },
+    {
+      "a": "mb-a-e4a51f17-a57b-47b1-b37b-f552d0f8e9e6",
+      "b": "mb-r-5bbc8cfb-480c-43f8-827d-b225a13d9984"
+    },
+    {
+      "a": "mb-a-e4a51f17-a57b-47b1-b37b-f552d0f8e9e6",
+      "b": "mb-r-5cefdce9-b545-4a46-8ece-764c628afa4f"
+    },
+    {
+      "a": "mb-a-e4a51f17-a57b-47b1-b37b-f552d0f8e9e6",
+      "b": "mb-r-5ddd23ee-0eab-4546-8186-34487558e6cb"
+    },
+    {
+      "a": "mb-a-e4a51f17-a57b-47b1-b37b-f552d0f8e9e6",
+      "b": "mb-r-62fc4e42-3e27-4816-b816-ffc5e40c9f44"
+    },
+    {
+      "a": "mb-a-e4a51f17-a57b-47b1-b37b-f552d0f8e9e6",
+      "b": "mb-r-64675979-897b-42fa-be59-4b753155e4f5"
+    },
+    {
+      "a": "mb-a-e4a51f17-a57b-47b1-b37b-f552d0f8e9e6",
+      "b": "mb-r-6c842abe-dc2f-4517-b10f-25af100e2604"
+    },
+    {
+      "a": "mb-a-b1e26560-60e5-4236-bbdb-9aa5a8d5ee19",
+      "b": "mb-r-53bd07f0-762b-4deb-9026-96e9d631e90f"
+    },
+    {
+      "a": "mb-a-b1e26560-60e5-4236-bbdb-9aa5a8d5ee19",
+      "b": "mb-r-b75e0d72-3f05-446e-98d9-b8bc773914ef"
+    },
+    {
+      "a": "mb-a-afb680f2-b6eb-4cd7-a70b-a63b25c763d5",
+      "b": "mb-r-06ea78b4-07ef-449a-b39b-04a6daa64d1f"
+    },
+    {
+      "a": "mb-a-afb680f2-b6eb-4cd7-a70b-a63b25c763d5",
+      "b": "mb-r-1286d300-2f52-4643-becc-af09993611bc"
+    },
+    {
+      "a": "mb-a-afb680f2-b6eb-4cd7-a70b-a63b25c763d5",
+      "b": "mb-r-1f2393fc-6850-497c-ab63-7293dbcb2ccf"
+    },
+    {
+      "a": "mb-a-afb680f2-b6eb-4cd7-a70b-a63b25c763d5",
+      "b": "mb-r-2ac249ee-7a0a-4100-b0c4-2d416cb4aab5"
+    },
+    {
+      "a": "mb-a-afb680f2-b6eb-4cd7-a70b-a63b25c763d5",
+      "b": "mb-r-3ea9e082-06ad-4e5a-a44a-45a0f05e16a0"
+    },
+    {
+      "a": "mb-a-afb680f2-b6eb-4cd7-a70b-a63b25c763d5",
+      "b": "mb-r-40684d8b-78b3-4cfb-aafc-3fd8a267bb62"
+    },
+    {
+      "a": "mb-a-afb680f2-b6eb-4cd7-a70b-a63b25c763d5",
+      "b": "mb-r-4c867678-2a08-457f-87f1-ebceb009c0a3"
+    },
+    {
+      "a": "mb-a-afb680f2-b6eb-4cd7-a70b-a63b25c763d5",
+      "b": "mb-r-5068855a-6f0e-48f1-8047-d0bcd4de6504"
+    },
+    {
+      "a": "mb-a-afb680f2-b6eb-4cd7-a70b-a63b25c763d5",
+      "b": "mb-r-59fc27f6-ec73-49a2-8c60-72c8c55ee241"
+    },
+    {
+      "a": "mb-a-afb680f2-b6eb-4cd7-a70b-a63b25c763d5",
+      "b": "mb-r-5b8a93ab-e047-4943-8a7b-bfb55ab29870"
+    },
+    {
+      "a": "mb-a-afb680f2-b6eb-4cd7-a70b-a63b25c763d5",
+      "b": "mb-r-5d11dc66-04af-43ab-8236-0281d0164de1"
+    },
+    {
+      "a": "mb-a-afb680f2-b6eb-4cd7-a70b-a63b25c763d5",
+      "b": "mb-r-5dcf0f17-d13b-47c1-8386-fea1f5e25875"
+    },
+    {
+      "a": "mb-r-3bbbc51e-04fa-47e0-ac38-90c16cdebf97",
+      "b": "mb-a-dff0d392-4cd5-4052-9fbb-f485df3891e5"
+    },
+    {
+      "a": "mb-r-0ef587a5-e6bb-4736-ac64-f787203afe40",
+      "b": "mb-a-e03cf5b6-d2ec-4465-adee-226b518bcfcd"
+    },
+    {
+      "a": "mb-r-0f257e77-8736-48d9-a224-3a51a436919d",
+      "b": "mb-a-b02ec63e-e78d-43e5-a594-462e95036e8d"
+    },
+    {
+      "a": "mb-r-0f257e77-8736-48d9-a224-3a51a436919d",
+      "b": "mb-a-36494952-f434-45d8-a958-8b4acdbcf8a8"
+    },
+    {
+      "a": "mb-r-0f257e77-8736-48d9-a224-3a51a436919d",
+      "b": "mb-a-8a07d810-3d55-4426-a1f6-55f0a68f1dc6"
+    },
+    {
+      "a": "mb-r-12ed5ab3-8ee5-43d8-bfc8-c1e0fd078317",
+      "b": "mb-a-8a07d810-3d55-4426-a1f6-55f0a68f1dc6"
+    },
+    {
+      "a": "mb-r-1cba163b-c2f8-415d-8cd8-0a4956f8a03f",
+      "b": "mb-a-aae03c23-d8b9-4f29-87fc-cccd95c8c254"
+    },
+    {
+      "a": "mb-r-1cba163b-c2f8-415d-8cd8-0a4956f8a03f",
+      "b": "mb-a-ee1a5314-3c77-4550-bd43-0175631b6f2b"
+    },
+    {
+      "a": "mb-r-26035be0-ddad-48ff-8d6c-8a477b0a4ce9",
+      "b": "mb-a-4395052a-9b7f-447b-ae9f-6753cc0501d9"
+    },
+    {
+      "a": "mb-r-26035be0-ddad-48ff-8d6c-8a477b0a4ce9",
+      "b": "mb-a-76716b81-e361-427e-a931-19373388387d"
+    },
+    {
+      "a": "mb-r-26035be0-ddad-48ff-8d6c-8a477b0a4ce9",
+      "b": "mb-a-4b2c4580-7e17-4277-8b20-5246f5f37b61"
+    },
+    {
+      "a": "mb-r-26035be0-ddad-48ff-8d6c-8a477b0a4ce9",
+      "b": "mb-a-de335e79-402f-4378-8b18-ec9e68d8f001"
+    },
+    {
+      "a": "mb-r-2d6d6765-0f29-4d5a-b367-9d903b534be3",
+      "b": "mb-a-df4f21f5-04bf-4785-b34a-ea4963c87da8"
+    },
+    {
+      "a": "mb-r-318aaaa3-452c-4dfc-86b7-ca6e18237900",
+      "b": "mb-a-e03cf5b6-d2ec-4465-adee-226b518bcfcd"
+    },
+    {
+      "a": "mb-r-318aaaa3-452c-4dfc-86b7-ca6e18237900",
+      "b": "mb-a-4593d49a-7f67-46ba-9ec0-126bd676286f"
+    },
+    {
+      "a": "mb-r-318aaaa3-452c-4dfc-86b7-ca6e18237900",
+      "b": "mb-a-302bd7b9-d012-4360-897a-93b00c855680"
+    },
+    {
+      "a": "mb-r-3da8ec00-a57a-4625-bd22-c627978c8f63",
+      "b": "mb-a-e03cf5b6-d2ec-4465-adee-226b518bcfcd"
+    },
+    {
+      "a": "mb-r-3efd7e7e-b721-47fb-bdf4-646b47339b8e",
+      "b": "mb-a-e03cf5b6-d2ec-4465-adee-226b518bcfcd"
+    },
+    {
+      "a": "mb-r-4075b0ad-414e-4514-af95-18e7ae8df135",
+      "b": "mb-a-4e4ebde4-0c56-4dec-844b-6c73adcdd92d"
+    },
+    {
+      "a": "mb-r-4d748afe-5e6b-480a-9fda-6cbaf5b5a17b",
+      "b": "mb-a-10a9ff92-9637-4498-afea-7044b2ab0dc0"
+    },
+    {
+      "a": "mb-r-51840879-5851-4314-b6ec-76780816b72f",
+      "b": "mb-a-e03cf5b6-d2ec-4465-adee-226b518bcfcd"
+    },
+    {
+      "a": "mb-r-164e0831-d3a3-44c3-95be-544491ded155",
+      "b": "mb-a-90577992-40cc-4173-adcd-bff6f80d9768"
+    },
+    {
+      "a": "mb-r-164e0831-d3a3-44c3-95be-544491ded155",
+      "b": "mb-a-681bf706-8664-4658-ab1a-39e1d385fae2"
+    },
+    {
+      "a": "mb-r-1b063318-2a0a-4d8a-8efd-35a8cee052c2",
+      "b": "mb-a-942a9807-9c1a-4a0e-a285-1fde2c5be9d1"
+    },
+    {
+      "a": "mb-r-1b063318-2a0a-4d8a-8efd-35a8cee052c2",
+      "b": "mb-a-13bcb2bb-db37-4397-baf5-e0f085be2d64"
+    },
+    {
+      "a": "mb-r-313c9e6c-7048-406d-8f77-4d503cb08fca",
+      "b": "mb-a-90577992-40cc-4173-adcd-bff6f80d9768"
+    },
+    {
+      "a": "mb-r-326127cd-fd94-4a33-8344-1355f1cd5a55",
+      "b": "mb-a-942a9807-9c1a-4a0e-a285-1fde2c5be9d1"
+    },
+    {
+      "a": "mb-r-326127cd-fd94-4a33-8344-1355f1cd5a55",
+      "b": "mb-a-13bcb2bb-db37-4397-baf5-e0f085be2d64"
+    },
+    {
+      "a": "mb-r-4f4c06b6-bd8f-4f00-a306-accc4b3f58a8",
+      "b": "mb-a-4da8a075-9db8-422e-a154-57386c572d88"
+    },
+    {
+      "a": "mb-r-55b78e45-9c4d-445d-84e6-ee6361a2f53f",
+      "b": "mb-a-dff0d392-4cd5-4052-9fbb-f485df3891e5"
+    },
+    {
+      "a": "mb-r-5bbc8cfb-480c-43f8-827d-b225a13d9984",
+      "b": "mb-a-ade9b668-e38f-41a8-a6e5-51442c5d6468"
+    },
+    {
+      "a": "mb-r-5bbc8cfb-480c-43f8-827d-b225a13d9984",
+      "b": "mb-a-505cc7ac-b92c-46dd-94f2-e22b18fdcf57"
+    },
+    {
+      "a": "mb-r-5bbc8cfb-480c-43f8-827d-b225a13d9984",
+      "b": "mb-a-08962fc5-ed17-453b-9c68-ff7922eb4957"
+    },
+    {
+      "a": "mb-r-5bbc8cfb-480c-43f8-827d-b225a13d9984",
+      "b": "mb-a-e0f5273c-637e-4e10-8304-81f2f9a31523"
+    },
+    {
+      "a": "mb-r-5cefdce9-b545-4a46-8ece-764c628afa4f",
+      "b": "mb-a-7bd66c18-cb33-49aa-9279-140acedbdb49"
+    },
+    {
+      "a": "mb-r-5ddd23ee-0eab-4546-8186-34487558e6cb",
+      "b": "mb-a-90577992-40cc-4173-adcd-bff6f80d9768"
+    },
+    {
+      "a": "mb-r-62fc4e42-3e27-4816-b816-ffc5e40c9f44",
+      "b": "mb-a-b4cb1fe1-7de8-47de-ae76-d20179636fdf"
+    },
+    {
+      "a": "mb-r-62fc4e42-3e27-4816-b816-ffc5e40c9f44",
+      "b": "mb-a-8ab5d936-49d1-415e-92c8-151e0e7dd912"
+    },
+    {
+      "a": "mb-r-64675979-897b-42fa-be59-4b753155e4f5",
+      "b": "mb-a-2500e307-4ad1-448d-a430-5ab01ab5c20d"
+    },
+    {
+      "a": "mb-r-64675979-897b-42fa-be59-4b753155e4f5",
+      "b": "mb-a-f7ba7fbe-c6bd-4ac0-bee9-c25c558d7d62"
+    },
+    {
+      "a": "mb-r-64675979-897b-42fa-be59-4b753155e4f5",
+      "b": "mb-a-8ec6bf47-d22f-4a2f-b930-0f7feb10ea3f"
+    },
+    {
+      "a": "mb-r-64675979-897b-42fa-be59-4b753155e4f5",
+      "b": "mb-a-94c338ff-1985-4429-9dc8-997b61bb5932"
+    },
+    {
+      "a": "mb-r-64675979-897b-42fa-be59-4b753155e4f5",
+      "b": "mb-a-bec5d16d-63f3-4bfe-92c6-1c4e3ac502ad"
+    },
+    {
+      "a": "mb-r-6c842abe-dc2f-4517-b10f-25af100e2604",
+      "b": "mb-a-48262e82-db9f-4a92-b650-dfef979b73ec"
+    },
+    {
+      "a": "mb-r-6c842abe-dc2f-4517-b10f-25af100e2604",
+      "b": "mb-a-dff0d392-4cd5-4052-9fbb-f485df3891e5"
+    },
+    {
+      "a": "mb-r-6c842abe-dc2f-4517-b10f-25af100e2604",
+      "b": "mb-a-1036b808-f58c-4a3e-b461-a2c4492ecf1b"
+    },
+    {
+      "a": "mb-r-53bd07f0-762b-4deb-9026-96e9d631e90f",
+      "b": "mb-a-1036b808-f58c-4a3e-b461-a2c4492ecf1b"
+    },
+    {
+      "a": "mb-r-b75e0d72-3f05-446e-98d9-b8bc773914ef",
+      "b": "mb-a-1036b808-f58c-4a3e-b461-a2c4492ecf1b"
+    },
+    {
+      "a": "mb-r-083e55a7-3534-43ef-9924-797c08b0904b",
+      "b": "mb-a-48262e82-db9f-4a92-b650-dfef979b73ec"
+    },
+    {
+      "a": "mb-r-0cda4893-06bd-4126-ab4a-c2985570f794",
+      "b": "mb-a-48262e82-db9f-4a92-b650-dfef979b73ec"
+    },
+    {
+      "a": "mb-r-19fe9991-0cd9-4575-8e8c-75f5f5b9e89b",
+      "b": "mb-a-48262e82-db9f-4a92-b650-dfef979b73ec"
+    },
+    {
+      "a": "mb-r-6d23e145-d0a9-4088-823c-c0cd8593bc0f",
+      "b": "mb-a-48262e82-db9f-4a92-b650-dfef979b73ec"
+    },
+    {
+      "a": "mb-r-77773333-56db-4f92-9ac2-4b0915165dd2",
+      "b": "mb-a-48262e82-db9f-4a92-b650-dfef979b73ec"
+    },
+    {
+      "a": "mb-r-06ea78b4-07ef-449a-b39b-04a6daa64d1f",
+      "b": "mb-a-596ffa74-3d08-44ef-b113-765d43d12738"
+    },
+    {
+      "a": "mb-r-1286d300-2f52-4643-becc-af09993611bc",
+      "b": "mb-a-cc2c9c3c-b7bc-4b8b-84d8-4fbd8779e493"
+    },
+    {
+      "a": "mb-r-1286d300-2f52-4643-becc-af09993611bc",
+      "b": "mb-a-10fcef09-1491-402d-85ed-65ad7c126d34"
+    },
+    {
+      "a": "mb-r-1286d300-2f52-4643-becc-af09993611bc",
+      "b": "mb-a-3d2ee04c-c21d-424d-91da-afd66258438e"
+    },
+    {
+      "a": "mb-r-1f2393fc-6850-497c-ab63-7293dbcb2ccf",
+      "b": "mb-a-405528df-2632-4730-80fc-83e775a97651"
+    },
+    {
+      "a": "mb-r-2ac249ee-7a0a-4100-b0c4-2d416cb4aab5",
+      "b": "mb-a-4da8a075-9db8-422e-a154-57386c572d88"
+    },
+    {
+      "a": "mb-r-3ea9e082-06ad-4e5a-a44a-45a0f05e16a0",
+      "b": "mb-a-4da8a075-9db8-422e-a154-57386c572d88"
+    },
+    {
+      "a": "mb-r-40684d8b-78b3-4cfb-aafc-3fd8a267bb62",
+      "b": "mb-a-7f233cda-eacb-4235-b681-5f7be343a1a2"
+    },
+    {
+      "a": "mb-r-4c867678-2a08-457f-87f1-ebceb009c0a3",
+      "b": "mb-a-919b6269-f1b2-47ba-a12d-41356b24c81b"
+    },
+    {
+      "a": "mb-r-4c867678-2a08-457f-87f1-ebceb009c0a3",
+      "b": "mb-a-bf0f7e29-dfe1-416c-b5c6-f9ebc19ea810"
+    },
+    {
+      "a": "mb-r-5068855a-6f0e-48f1-8047-d0bcd4de6504",
+      "b": "mb-a-7f233cda-eacb-4235-b681-5f7be343a1a2"
+    },
+    {
+      "a": "mb-r-59fc27f6-ec73-49a2-8c60-72c8c55ee241",
+      "b": "mb-a-94c338ff-1985-4429-9dc8-997b61bb5932"
+    },
+    {
+      "a": "mb-r-5b8a93ab-e047-4943-8a7b-bfb55ab29870",
+      "b": "mb-a-7f233cda-eacb-4235-b681-5f7be343a1a2"
+    },
+    {
+      "a": "mb-r-5d11dc66-04af-43ab-8236-0281d0164de1",
+      "b": "mb-a-ed3d345c-20e1-4c26-8384-427c5ac58c38"
+    },
+    {
+      "a": "mb-r-5dcf0f17-d13b-47c1-8386-fea1f5e25875",
+      "b": "mb-a-7f233cda-eacb-4235-b681-5f7be343a1a2"
+    }
+  ],
+  "parMoves": 6
+}

@@ -1,0 +1,1554 @@
+{
+  "date": "2026-10-20",
+  "category": "athletes-teams",
+  "number": 293,
+  "start": "wd-Q295364",
+  "end": "wd-Q192707",
+  "nodes": {
+    "wd-Q295364": {
+      "id": "wd-Q295364",
+      "name": "Ben Wallace",
+      "type": "person"
+    },
+    "wd-Q169165-s1995": {
+      "id": "wd-Q169165-s1995",
+      "name": "Washington Wizards",
+      "type": "work",
+      "subtitle": "1995–96"
+    },
+    "wd-Q3776411": {
+      "id": "wd-Q3776411",
+      "name": "Greg Grant",
+      "type": "person"
+    },
+    "wd-Q131364-s1989": {
+      "id": "wd-Q131364-s1989",
+      "name": "New York Knicks",
+      "type": "work",
+      "subtitle": "1989–90"
+    },
+    "wd-Q2347268": {
+      "id": "wd-Q2347268",
+      "name": "Jerrod Mustaf",
+      "type": "person"
+    },
+    "wd-Q164177-s1991": {
+      "id": "wd-Q164177-s1991",
+      "name": "Phoenix Suns",
+      "type": "work",
+      "subtitle": "1991–92"
+    },
+    "wd-Q192707": {
+      "id": "wd-Q192707",
+      "name": "Charles Barkley",
+      "type": "person"
+    },
+    "wd-Q169165-s1996": {
+      "id": "wd-Q169165-s1996",
+      "name": "Washington Wizards",
+      "type": "work",
+      "subtitle": "1996–97"
+    },
+    "wd-Q169165-s1997": {
+      "id": "wd-Q169165-s1997",
+      "name": "Washington Wizards",
+      "type": "work",
+      "subtitle": "1997–98"
+    },
+    "wd-Q169165-s1998": {
+      "id": "wd-Q169165-s1998",
+      "name": "Washington Wizards",
+      "type": "work",
+      "subtitle": "1998–99"
+    },
+    "wd-Q128109-s2005": {
+      "id": "wd-Q128109-s2005",
+      "name": "Chicago Bulls",
+      "type": "work",
+      "subtitle": "2005–06"
+    },
+    "wd-Q128109-s2006": {
+      "id": "wd-Q128109-s2006",
+      "name": "Chicago Bulls",
+      "type": "work",
+      "subtitle": "2006–07"
+    },
+    "wd-Q128109-s2007": {
+      "id": "wd-Q128109-s2007",
+      "name": "Chicago Bulls",
+      "type": "work",
+      "subtitle": "2007–08"
+    },
+    "wd-Q169661-s1999": {
+      "id": "wd-Q169661-s1999",
+      "name": "Detroit Pistons",
+      "type": "work",
+      "subtitle": "1999–00"
+    },
+    "wd-Q169661-s2000": {
+      "id": "wd-Q169661-s2000",
+      "name": "Detroit Pistons",
+      "type": "work",
+      "subtitle": "2000–01"
+    },
+    "wd-Q169661-s2001": {
+      "id": "wd-Q169661-s2001",
+      "name": "Detroit Pistons",
+      "type": "work",
+      "subtitle": "2001–02"
+    },
+    "wd-Q169661-s2002": {
+      "id": "wd-Q169661-s2002",
+      "name": "Detroit Pistons",
+      "type": "work",
+      "subtitle": "2002–03"
+    },
+    "wd-Q169661-s2003": {
+      "id": "wd-Q169661-s2003",
+      "name": "Detroit Pistons",
+      "type": "work",
+      "subtitle": "2003–04"
+    },
+    "wd-Q169661-s2004": {
+      "id": "wd-Q169661-s2004",
+      "name": "Detroit Pistons",
+      "type": "work",
+      "subtitle": "2004–05"
+    },
+    "wd-Q169661-s2005": {
+      "id": "wd-Q169661-s2005",
+      "name": "Detroit Pistons",
+      "type": "work",
+      "subtitle": "2005–06"
+    },
+    "wd-Q169661-s2008": {
+      "id": "wd-Q169661-s2008",
+      "name": "Detroit Pistons",
+      "type": "work",
+      "subtitle": "2008–09"
+    },
+    "wd-Q169661-s2009": {
+      "id": "wd-Q169661-s2009",
+      "name": "Detroit Pistons",
+      "type": "work",
+      "subtitle": "2009–10"
+    },
+    "wd-Q169661-s2010": {
+      "id": "wd-Q169661-s2010",
+      "name": "Detroit Pistons",
+      "type": "work",
+      "subtitle": "2010–11"
+    },
+    "wd-Q169661-s2011": {
+      "id": "wd-Q169661-s2011",
+      "name": "Detroit Pistons",
+      "type": "work",
+      "subtitle": "2011–12"
+    },
+    "wd-Q161337-s1998": {
+      "id": "wd-Q161337-s1998",
+      "name": "Orlando Magic",
+      "type": "work",
+      "subtitle": "1998–99"
+    },
+    "wd-Q161337-s1999": {
+      "id": "wd-Q161337-s1999",
+      "name": "Orlando Magic",
+      "type": "work",
+      "subtitle": "1999–00"
+    },
+    "wd-Q162990-s2007": {
+      "id": "wd-Q162990-s2007",
+      "name": "Cleveland Cavaliers",
+      "type": "work",
+      "subtitle": "2007–08"
+    },
+    "wd-Q162990-s2008": {
+      "id": "wd-Q162990-s2008",
+      "name": "Cleveland Cavaliers",
+      "type": "work",
+      "subtitle": "2008–09"
+    },
+    "wd-Q460116": {
+      "id": "wd-Q460116",
+      "name": "Gheorghe Mureșan",
+      "type": "person"
+    },
+    "wd-Q131364-s1990": {
+      "id": "wd-Q131364-s1990",
+      "name": "New York Knicks",
+      "type": "work",
+      "subtitle": "1990–91"
+    },
+    "wd-Q138089-s1990": {
+      "id": "wd-Q138089-s1990",
+      "name": "Philadelphia 76ers",
+      "type": "work",
+      "subtitle": "1990–91"
+    },
+    "wd-Q138089-s1991": {
+      "id": "wd-Q138089-s1991",
+      "name": "Philadelphia 76ers",
+      "type": "work",
+      "subtitle": "1991–92"
+    },
+    "wd-Q138089-s1992": {
+      "id": "wd-Q138089-s1992",
+      "name": "Philadelphia 76ers",
+      "type": "work",
+      "subtitle": "1992–93"
+    },
+    "wd-Q163480-s1990": {
+      "id": "wd-Q163480-s1990",
+      "name": "Charlotte Hornets",
+      "type": "work",
+      "subtitle": "1990–91"
+    },
+    "wd-Q162954-s1994": {
+      "id": "wd-Q162954-s1994",
+      "name": "Denver Nuggets",
+      "type": "work",
+      "subtitle": "1994–95"
+    },
+    "wd-Q164177-s1990": {
+      "id": "wd-Q164177-s1990",
+      "name": "Phoenix Suns",
+      "type": "work",
+      "subtitle": "1990–91"
+    },
+    "wd-Q164177-s1992": {
+      "id": "wd-Q164177-s1992",
+      "name": "Phoenix Suns",
+      "type": "work",
+      "subtitle": "1992–93"
+    },
+    "wd-Q164177-s1993": {
+      "id": "wd-Q164177-s1993",
+      "name": "Phoenix Suns",
+      "type": "work",
+      "subtitle": "1993–94"
+    },
+    "wd-Q939240": {
+      "id": "wd-Q939240",
+      "name": "Oliver Miller",
+      "type": "person"
+    },
+    "wd-Q918347": {
+      "id": "wd-Q918347",
+      "name": "Danny Ainge",
+      "type": "person"
+    },
+    "wd-Q161345-s1995": {
+      "id": "wd-Q161345-s1995",
+      "name": "Houston Rockets",
+      "type": "work",
+      "subtitle": "1995–96"
+    },
+    "wd-Q161345-s1996": {
+      "id": "wd-Q161345-s1996",
+      "name": "Houston Rockets",
+      "type": "work",
+      "subtitle": "1996–97"
+    },
+    "wd-Q161345-s1997": {
+      "id": "wd-Q161345-s1997",
+      "name": "Houston Rockets",
+      "type": "work",
+      "subtitle": "1997–98"
+    },
+    "wd-Q161345-s1998": {
+      "id": "wd-Q161345-s1998",
+      "name": "Houston Rockets",
+      "type": "work",
+      "subtitle": "1998–99"
+    },
+    "wd-Q161345-s1999": {
+      "id": "wd-Q161345-s1999",
+      "name": "Houston Rockets",
+      "type": "work",
+      "subtitle": "1999–00"
+    },
+    "wd-Q164177-s1994": {
+      "id": "wd-Q164177-s1994",
+      "name": "Phoenix Suns",
+      "type": "work",
+      "subtitle": "1994–95"
+    },
+    "wd-Q164177-s1995": {
+      "id": "wd-Q164177-s1995",
+      "name": "Phoenix Suns",
+      "type": "work",
+      "subtitle": "1995–96"
+    },
+    "wd-Q33133736": {
+      "id": "wd-Q33133736",
+      "name": "Wes Unseld Jr.",
+      "type": "person"
+    },
+    "wd-Q188222": {
+      "id": "wd-Q188222",
+      "name": "Jannero Pargo",
+      "type": "person"
+    },
+    "wd-Q2354968": {
+      "id": "wd-Q2354968",
+      "name": "Randy Holcomb",
+      "type": "person"
+    },
+    "wd-Q314413": {
+      "id": "wd-Q314413",
+      "name": "Kirk Hinrich",
+      "type": "person"
+    },
+    "wd-Q275183": {
+      "id": "wd-Q275183",
+      "name": "Luol Deng",
+      "type": "person"
+    },
+    "wd-Q444027": {
+      "id": "wd-Q444027",
+      "name": "Andrés Nocioni",
+      "type": "person"
+    },
+    "wd-Q557148": {
+      "id": "wd-Q557148",
+      "name": "P. J. Brown",
+      "type": "person"
+    },
+    "wd-Q311735": {
+      "id": "wd-Q311735",
+      "name": "Joakim Noah",
+      "type": "person"
+    },
+    "wd-Q205326": {
+      "id": "wd-Q205326",
+      "name": "Derrick Rose",
+      "type": "person"
+    },
+    "wd-Q1606362": {
+      "id": "wd-Q1606362",
+      "name": "Eric Montross",
+      "type": "person"
+    },
+    "wd-Q1101335": {
+      "id": "wd-Q1101335",
+      "name": "Clifford Robinson",
+      "type": "person"
+    },
+    "wd-Q298531": {
+      "id": "wd-Q298531",
+      "name": "Chauncey Billups",
+      "type": "person"
+    },
+    "wd-Q317045": {
+      "id": "wd-Q317045",
+      "name": "Mehmet Okur",
+      "type": "person"
+    },
+    "wd-Q556418": {
+      "id": "wd-Q556418",
+      "name": "Juan Ignacio Sánchez",
+      "type": "person"
+    },
+    "wd-Q524908": {
+      "id": "wd-Q524908",
+      "name": "Elden Campbell",
+      "type": "person"
+    },
+    "wd-Q195168": {
+      "id": "wd-Q195168",
+      "name": "Alex Acker",
+      "type": "person"
+    },
+    "wd-Q562471": {
+      "id": "wd-Q562471",
+      "name": "Carlos Arroyo",
+      "type": "person"
+    },
+    "wd-Q190094": {
+      "id": "wd-Q190094",
+      "name": "Allen Iverson",
+      "type": "person"
+    },
+    "wd-Q443716": {
+      "id": "wd-Q443716",
+      "name": "Primož Brezec",
+      "type": "person"
+    },
+    "wd-Q552489": {
+      "id": "wd-Q552489",
+      "name": "Walter Herrmann",
+      "type": "person"
+    },
+    "wd-Q202295": {
+      "id": "wd-Q202295",
+      "name": "Tracy McGrady",
+      "type": "person"
+    },
+    "wd-Q493115": {
+      "id": "wd-Q493115",
+      "name": "Andre Drummond",
+      "type": "person"
+    },
+    "wd-Q649511": {
+      "id": "wd-Q649511",
+      "name": "Kyle Singler",
+      "type": "person"
+    },
+    "wd-Q2309877": {
+      "id": "wd-Q2309877",
+      "name": "Isaac Austin",
+      "type": "person"
+    },
+    "wd-Q324842": {
+      "id": "wd-Q324842",
+      "name": "Danny Schayes",
+      "type": "person"
+    },
+    "wd-Q2309146": {
+      "id": "wd-Q2309146",
+      "name": "Gerald Wilkins",
+      "type": "person"
+    },
+    "wd-Q2327974": {
+      "id": "wd-Q2327974",
+      "name": "Michael Doleac",
+      "type": "person"
+    },
+    "wd-Q313473": {
+      "id": "wd-Q313473",
+      "name": "Earl Boykins",
+      "type": "person"
+    },
+    "wd-Q311533": {
+      "id": "wd-Q311533",
+      "name": "Dominique Wilkins",
+      "type": "person"
+    },
+    "wd-Q317209": {
+      "id": "wd-Q317209",
+      "name": "Penny Hardaway",
+      "type": "person"
+    },
+    "wd-Q2664263": {
+      "id": "wd-Q2664263",
+      "name": "Bo Outlaw",
+      "type": "person"
+    },
+    "wd-Q2556925": {
+      "id": "wd-Q2556925",
+      "name": "Anthony Johnson",
+      "type": "person"
+    },
+    "wd-Q381721": {
+      "id": "wd-Q381721",
+      "name": "Anthony Parker",
+      "type": "person"
+    },
+    "wd-Q440210": {
+      "id": "wd-Q440210",
+      "name": "Horace Grant",
+      "type": "person"
+    },
+    "wd-Q517309": {
+      "id": "wd-Q517309",
+      "name": "Corey Maggette",
+      "type": "person"
+    },
+    "wd-Q1424128": {
+      "id": "wd-Q1424128",
+      "name": "Ron Mercer",
+      "type": "person"
+    },
+    "wd-Q1424475": {
+      "id": "wd-Q1424475",
+      "name": "Chris Gatling",
+      "type": "person"
+    },
+    "wd-Q523017": {
+      "id": "wd-Q523017",
+      "name": "Miles Simon",
+      "type": "person"
+    },
+    "wd-Q641041": {
+      "id": "wd-Q641041",
+      "name": "Darrell Armstrong",
+      "type": "person"
+    },
+    "wd-Q706052": {
+      "id": "wd-Q706052",
+      "name": "John Amaechi",
+      "type": "person"
+    },
+    "wd-Q3705850": {
+      "id": "wd-Q3705850",
+      "name": "Derek Strong",
+      "type": "person"
+    },
+    "wd-Q3714604": {
+      "id": "wd-Q3714604",
+      "name": "Doug Overton",
+      "type": "person"
+    },
+    "wd-Q3809932": {
+      "id": "wd-Q3809932",
+      "name": "Jonathan Kerner",
+      "type": "person"
+    },
+    "wd-Q2254947": {
+      "id": "wd-Q2254947",
+      "name": "Kiwane Garris",
+      "type": "person"
+    },
+    "wd-Q795227": {
+      "id": "wd-Q795227",
+      "name": "B. J. Armstrong",
+      "type": "person"
+    },
+    "wd-Q1891397": {
+      "id": "wd-Q1891397",
+      "name": "Monty Williams",
+      "type": "person"
+    },
+    "wd-Q935693": {
+      "id": "wd-Q935693",
+      "name": "Chucky Atkins",
+      "type": "person"
+    },
+    "wd-Q955015": {
+      "id": "wd-Q955015",
+      "name": "Pat Garrity",
+      "type": "person"
+    },
+    "wd-Q965169": {
+      "id": "wd-Q965169",
+      "name": "Matt Harpring",
+      "type": "person"
+    },
+    "wd-Q2311290": {
+      "id": "wd-Q2311290",
+      "name": "Andrew DeClercq",
+      "type": "person"
+    },
+    "wd-Q2318219": {
+      "id": "wd-Q2318219",
+      "name": "Cory Alexander",
+      "type": "person"
+    },
+    "wd-Q311895": {
+      "id": "wd-Q311895",
+      "name": "Grant Hill",
+      "type": "person"
+    },
+    "wd-Q1132834": {
+      "id": "wd-Q1132834",
+      "name": "Don Reid",
+      "type": "person"
+    },
+    "wd-Q380541": {
+      "id": "wd-Q380541",
+      "name": "Mike Miller",
+      "type": "person"
+    },
+    "wd-Q1627828": {
+      "id": "wd-Q1627828",
+      "name": "Elliot Perry",
+      "type": "person"
+    },
+    "wd-Q1635374": {
+      "id": "wd-Q1635374",
+      "name": "James Robinson",
+      "type": "person"
+    },
+    "wd-Q2036635": {
+      "id": "wd-Q2036635",
+      "name": "Troy Hudson",
+      "type": "person"
+    },
+    "wd-Q775184": {
+      "id": "wd-Q775184",
+      "name": "Dee Brown",
+      "type": "person"
+    },
+    "wd-Q72353": {
+      "id": "wd-Q72353",
+      "name": "Žydrūnas Ilgauskas",
+      "type": "person"
+    },
+    "wd-Q577516": {
+      "id": "wd-Q577516",
+      "name": "Jawad Williams",
+      "type": "person"
+    },
+    "wd-Q169452": {
+      "id": "wd-Q169452",
+      "name": "Shaquille O'Neal",
+      "type": "person"
+    },
+    "wd-Q2552896": {
+      "id": "wd-Q2552896",
+      "name": "Coby Karl",
+      "type": "person"
+    },
+    "wd-Q169165-s1992": {
+      "id": "wd-Q169165-s1992",
+      "name": "Washington Wizards",
+      "type": "work",
+      "subtitle": "1992–93"
+    },
+    "wd-Q169165-s1993": {
+      "id": "wd-Q169165-s1993",
+      "name": "Washington Wizards",
+      "type": "work",
+      "subtitle": "1993–94"
+    },
+    "wd-Q169165-s1994": {
+      "id": "wd-Q169165-s1994",
+      "name": "Washington Wizards",
+      "type": "work",
+      "subtitle": "1994–95"
+    },
+    "wd-Q2351523": {
+      "id": "wd-Q2351523",
+      "name": "Mitchell Wiggins",
+      "type": "person"
+    },
+    "wd-Q659579": {
+      "id": "wd-Q659579",
+      "name": "Andre Turner",
+      "type": "person"
+    },
+    "wd-Q385436": {
+      "id": "wd-Q385436",
+      "name": "Dana Barros",
+      "type": "person"
+    },
+    "wd-Q3940968": {
+      "id": "wd-Q3940968",
+      "name": "Ronnie Grandison",
+      "type": "person"
+    },
+    "wd-Q634812": {
+      "id": "wd-Q634812",
+      "name": "Rodney Rogers",
+      "type": "person"
+    },
+    "wd-Q313481": {
+      "id": "wd-Q313481",
+      "name": "Dikembe Mutombo",
+      "type": "person"
+    },
+    "wd-Q1627788": {
+      "id": "wd-Q1627788",
+      "name": "Antonio Lang",
+      "type": "person"
+    },
+    "wd-Q3603091": {
+      "id": "wd-Q3603091",
+      "name": "Aaron Swinson",
+      "type": "person"
+    },
+    "wd-Q132880-s1996": {
+      "id": "wd-Q132880-s1996",
+      "name": "Toronto Raptors",
+      "type": "work",
+      "subtitle": "1996–97"
+    },
+    "wd-Q132880-s1997": {
+      "id": "wd-Q132880-s1997",
+      "name": "Toronto Raptors",
+      "type": "work",
+      "subtitle": "1997–98"
+    },
+    "wd-Q132880-s1994": {
+      "id": "wd-Q132880-s1994",
+      "name": "Toronto Raptors",
+      "type": "work",
+      "subtitle": "1994–95"
+    },
+    "wd-Q132880-s1995": {
+      "id": "wd-Q132880-s1995",
+      "name": "Toronto Raptors",
+      "type": "work",
+      "subtitle": "1995–96"
+    },
+    "wd-Q169661-s1993": {
+      "id": "wd-Q169661-s1993",
+      "name": "Detroit Pistons",
+      "type": "work",
+      "subtitle": "1993–94"
+    },
+    "wd-Q169661-s1994": {
+      "id": "wd-Q169661-s1994",
+      "name": "Detroit Pistons",
+      "type": "work",
+      "subtitle": "1994–95"
+    },
+    "wd-Q132893-s1995": {
+      "id": "wd-Q132893-s1995",
+      "name": "Dallas Mavericks",
+      "type": "work",
+      "subtitle": "1995–96"
+    },
+    "wd-Q132893-s1996": {
+      "id": "wd-Q132893-s1996",
+      "name": "Dallas Mavericks",
+      "type": "work",
+      "subtitle": "1996–97"
+    },
+    "wd-Q170558-s2002": {
+      "id": "wd-Q170558-s2002",
+      "name": "Minnesota Timberwolves",
+      "type": "work",
+      "subtitle": "2002–03"
+    },
+    "wd-Q170558-s2003": {
+      "id": "wd-Q170558-s2003",
+      "name": "Minnesota Timberwolves",
+      "type": "work",
+      "subtitle": "2003–04"
+    },
+    "wd-Q167253-s1989": {
+      "id": "wd-Q167253-s1989",
+      "name": "Portland Trail Blazers",
+      "type": "work",
+      "subtitle": "1989–90"
+    },
+    "wd-Q167253-s1990": {
+      "id": "wd-Q167253-s1990",
+      "name": "Portland Trail Blazers",
+      "type": "work",
+      "subtitle": "1990–91"
+    },
+    "wd-Q167253-s1991": {
+      "id": "wd-Q167253-s1991",
+      "name": "Portland Trail Blazers",
+      "type": "work",
+      "subtitle": "1991–92"
+    },
+    "wd-Q947656": {
+      "id": "wd-Q947656",
+      "name": "Elmer Bennett",
+      "type": "person"
+    },
+    "wd-Q193637": {
+      "id": "wd-Q193637",
+      "name": "Scottie Pippen",
+      "type": "person"
+    },
+    "wd-Q965310": {
+      "id": "wd-Q965310",
+      "name": "Cuttino Mobley",
+      "type": "person"
+    },
+    "wd-Q192955": {
+      "id": "wd-Q192955",
+      "name": "Steve Nash",
+      "type": "person"
+    },
+    "wd-Q221341": {
+      "id": "wd-Q221341",
+      "name": "Jason Kidd",
+      "type": "person"
+    }
+  },
+  "edges": [
+    {
+      "a": "wd-Q202295",
+      "b": "wd-Q169661-s2009"
+    },
+    {
+      "a": "wd-Q202295",
+      "b": "wd-Q169661-s2010"
+    },
+    {
+      "a": "wd-Q1606362",
+      "b": "wd-Q169661-s1999"
+    },
+    {
+      "a": "wd-Q1606362",
+      "b": "wd-Q169661-s2000"
+    },
+    {
+      "a": "wd-Q190094",
+      "b": "wd-Q169661-s2008"
+    },
+    {
+      "a": "wd-Q195168",
+      "b": "wd-Q169661-s2004"
+    },
+    {
+      "a": "wd-Q195168",
+      "b": "wd-Q169661-s2005"
+    },
+    {
+      "a": "wd-Q195168",
+      "b": "wd-Q169661-s2008"
+    },
+    {
+      "a": "wd-Q1101335",
+      "b": "wd-Q169661-s2000"
+    },
+    {
+      "a": "wd-Q1101335",
+      "b": "wd-Q169661-s2001"
+    },
+    {
+      "a": "wd-Q1101335",
+      "b": "wd-Q169661-s2002"
+    },
+    {
+      "a": "wd-Q3776411",
+      "b": "wd-Q131364-s1989"
+    },
+    {
+      "a": "wd-Q3776411",
+      "b": "wd-Q131364-s1990"
+    },
+    {
+      "a": "wd-Q188222",
+      "b": "wd-Q128109-s2005"
+    },
+    {
+      "a": "wd-Q205326",
+      "b": "wd-Q128109-s2007"
+    },
+    {
+      "a": "wd-Q2354968",
+      "b": "wd-Q128109-s2005"
+    },
+    {
+      "a": "wd-Q295364",
+      "b": "wd-Q169165-s1995"
+    },
+    {
+      "a": "wd-Q295364",
+      "b": "wd-Q169165-s1996"
+    },
+    {
+      "a": "wd-Q295364",
+      "b": "wd-Q169165-s1997"
+    },
+    {
+      "a": "wd-Q295364",
+      "b": "wd-Q169165-s1998"
+    },
+    {
+      "a": "wd-Q298531",
+      "b": "wd-Q169661-s2001"
+    },
+    {
+      "a": "wd-Q298531",
+      "b": "wd-Q169661-s2002"
+    },
+    {
+      "a": "wd-Q298531",
+      "b": "wd-Q169661-s2003"
+    },
+    {
+      "a": "wd-Q298531",
+      "b": "wd-Q169661-s2004"
+    },
+    {
+      "a": "wd-Q298531",
+      "b": "wd-Q169661-s2005"
+    },
+    {
+      "a": "wd-Q311735",
+      "b": "wd-Q128109-s2006"
+    },
+    {
+      "a": "wd-Q311735",
+      "b": "wd-Q128109-s2007"
+    },
+    {
+      "a": "wd-Q2347268",
+      "b": "wd-Q131364-s1989"
+    },
+    {
+      "a": "wd-Q2347268",
+      "b": "wd-Q131364-s1990"
+    },
+    {
+      "a": "wd-Q314413",
+      "b": "wd-Q128109-s2005"
+    },
+    {
+      "a": "wd-Q314413",
+      "b": "wd-Q128109-s2006"
+    },
+    {
+      "a": "wd-Q314413",
+      "b": "wd-Q128109-s2007"
+    },
+    {
+      "a": "wd-Q939240",
+      "b": "wd-Q132880-s1996"
+    },
+    {
+      "a": "wd-Q939240",
+      "b": "wd-Q132880-s1997"
+    },
+    {
+      "a": "wd-Q939240",
+      "b": "wd-Q132880-s1994"
+    },
+    {
+      "a": "wd-Q939240",
+      "b": "wd-Q132880-s1995"
+    },
+    {
+      "a": "wd-Q275183",
+      "b": "wd-Q128109-s2005"
+    },
+    {
+      "a": "wd-Q275183",
+      "b": "wd-Q128109-s2006"
+    },
+    {
+      "a": "wd-Q275183",
+      "b": "wd-Q128109-s2007"
+    },
+    {
+      "a": "wd-Q295364",
+      "b": "wd-Q128109-s2005"
+    },
+    {
+      "a": "wd-Q295364",
+      "b": "wd-Q128109-s2006"
+    },
+    {
+      "a": "wd-Q295364",
+      "b": "wd-Q128109-s2007"
+    },
+    {
+      "a": "wd-Q295364",
+      "b": "wd-Q169661-s1999"
+    },
+    {
+      "a": "wd-Q295364",
+      "b": "wd-Q169661-s2000"
+    },
+    {
+      "a": "wd-Q295364",
+      "b": "wd-Q169661-s2001"
+    },
+    {
+      "a": "wd-Q295364",
+      "b": "wd-Q169661-s2002"
+    },
+    {
+      "a": "wd-Q295364",
+      "b": "wd-Q169661-s2003"
+    },
+    {
+      "a": "wd-Q295364",
+      "b": "wd-Q169661-s2004"
+    },
+    {
+      "a": "wd-Q295364",
+      "b": "wd-Q169661-s2005"
+    },
+    {
+      "a": "wd-Q295364",
+      "b": "wd-Q169661-s2008"
+    },
+    {
+      "a": "wd-Q295364",
+      "b": "wd-Q169661-s2009"
+    },
+    {
+      "a": "wd-Q295364",
+      "b": "wd-Q169661-s2010"
+    },
+    {
+      "a": "wd-Q295364",
+      "b": "wd-Q169661-s2011"
+    },
+    {
+      "a": "wd-Q444027",
+      "b": "wd-Q128109-s2005"
+    },
+    {
+      "a": "wd-Q444027",
+      "b": "wd-Q128109-s2006"
+    },
+    {
+      "a": "wd-Q444027",
+      "b": "wd-Q128109-s2007"
+    },
+    {
+      "a": "wd-Q317045",
+      "b": "wd-Q169661-s2001"
+    },
+    {
+      "a": "wd-Q317045",
+      "b": "wd-Q169661-s2002"
+    },
+    {
+      "a": "wd-Q317045",
+      "b": "wd-Q169661-s2003"
+    },
+    {
+      "a": "wd-Q557148",
+      "b": "wd-Q128109-s2005"
+    },
+    {
+      "a": "wd-Q557148",
+      "b": "wd-Q128109-s2006"
+    },
+    {
+      "a": "wd-Q939240",
+      "b": "wd-Q169661-s1993"
+    },
+    {
+      "a": "wd-Q939240",
+      "b": "wd-Q169661-s1994"
+    },
+    {
+      "a": "wd-Q443716",
+      "b": "wd-Q169661-s2008"
+    },
+    {
+      "a": "wd-Q493115",
+      "b": "wd-Q169661-s2011"
+    },
+    {
+      "a": "wd-Q562471",
+      "b": "wd-Q169661-s2004"
+    },
+    {
+      "a": "wd-Q562471",
+      "b": "wd-Q169661-s2005"
+    },
+    {
+      "a": "wd-Q552489",
+      "b": "wd-Q169661-s2008"
+    },
+    {
+      "a": "wd-Q649511",
+      "b": "wd-Q169661-s2011"
+    },
+    {
+      "a": "wd-Q918347",
+      "b": "wd-Q167253-s1989"
+    },
+    {
+      "a": "wd-Q918347",
+      "b": "wd-Q167253-s1990"
+    },
+    {
+      "a": "wd-Q918347",
+      "b": "wd-Q167253-s1991"
+    },
+    {
+      "a": "wd-Q556418",
+      "b": "wd-Q169661-s2001"
+    },
+    {
+      "a": "wd-Q556418",
+      "b": "wd-Q169661-s2002"
+    },
+    {
+      "a": "wd-Q524908",
+      "b": "wd-Q169661-s2002"
+    },
+    {
+      "a": "wd-Q524908",
+      "b": "wd-Q169661-s2003"
+    },
+    {
+      "a": "wd-Q524908",
+      "b": "wd-Q169661-s2004"
+    },
+    {
+      "a": "wd-Q2309877",
+      "b": "wd-Q161337-s1998"
+    },
+    {
+      "a": "wd-Q2311290",
+      "b": "wd-Q161337-s1999"
+    },
+    {
+      "a": "wd-Q221341",
+      "b": "wd-Q132893-s1995"
+    },
+    {
+      "a": "wd-Q939240",
+      "b": "wd-Q132893-s1995"
+    },
+    {
+      "a": "wd-Q939240",
+      "b": "wd-Q132893-s1996"
+    },
+    {
+      "a": "wd-Q72353",
+      "b": "wd-Q162990-s2007"
+    },
+    {
+      "a": "wd-Q72353",
+      "b": "wd-Q162990-s2008"
+    },
+    {
+      "a": "wd-Q577516",
+      "b": "wd-Q162990-s2007"
+    },
+    {
+      "a": "wd-Q577516",
+      "b": "wd-Q162990-s2008"
+    },
+    {
+      "a": "wd-Q298531",
+      "b": "wd-Q132880-s1997"
+    },
+    {
+      "a": "wd-Q324842",
+      "b": "wd-Q161337-s1998"
+    },
+    {
+      "a": "wd-Q295364",
+      "b": "wd-Q161337-s1998"
+    },
+    {
+      "a": "wd-Q295364",
+      "b": "wd-Q161337-s1999"
+    },
+    {
+      "a": "wd-Q3776411",
+      "b": "wd-Q138089-s1990"
+    },
+    {
+      "a": "wd-Q3776411",
+      "b": "wd-Q138089-s1991"
+    },
+    {
+      "a": "wd-Q3776411",
+      "b": "wd-Q138089-s1992"
+    },
+    {
+      "a": "wd-Q2309146",
+      "b": "wd-Q161337-s1998"
+    },
+    {
+      "a": "wd-Q2351523",
+      "b": "wd-Q138089-s1990"
+    },
+    {
+      "a": "wd-Q2351523",
+      "b": "wd-Q138089-s1991"
+    },
+    {
+      "a": "wd-Q2318219",
+      "b": "wd-Q161337-s1999"
+    },
+    {
+      "a": "wd-Q2327974",
+      "b": "wd-Q161337-s1998"
+    },
+    {
+      "a": "wd-Q2327974",
+      "b": "wd-Q161337-s1999"
+    },
+    {
+      "a": "wd-Q313473",
+      "b": "wd-Q161337-s1998"
+    },
+    {
+      "a": "wd-Q385436",
+      "b": "wd-Q138089-s1992"
+    },
+    {
+      "a": "wd-Q295364",
+      "b": "wd-Q162990-s2007"
+    },
+    {
+      "a": "wd-Q295364",
+      "b": "wd-Q162990-s2008"
+    },
+    {
+      "a": "wd-Q311533",
+      "b": "wd-Q161337-s1998"
+    },
+    {
+      "a": "wd-Q311895",
+      "b": "wd-Q161337-s1999"
+    },
+    {
+      "a": "wd-Q202295",
+      "b": "wd-Q161337-s1999"
+    },
+    {
+      "a": "wd-Q317209",
+      "b": "wd-Q161337-s1998"
+    },
+    {
+      "a": "wd-Q2664263",
+      "b": "wd-Q161337-s1998"
+    },
+    {
+      "a": "wd-Q2664263",
+      "b": "wd-Q161337-s1999"
+    },
+    {
+      "a": "wd-Q2556925",
+      "b": "wd-Q161337-s1998"
+    },
+    {
+      "a": "wd-Q2556925",
+      "b": "wd-Q161337-s1999"
+    },
+    {
+      "a": "wd-Q381721",
+      "b": "wd-Q162990-s2008"
+    },
+    {
+      "a": "wd-Q169452",
+      "b": "wd-Q162990-s2008"
+    },
+    {
+      "a": "wd-Q659579",
+      "b": "wd-Q138089-s1990"
+    },
+    {
+      "a": "wd-Q1606362",
+      "b": "wd-Q132893-s1995"
+    },
+    {
+      "a": "wd-Q1606362",
+      "b": "wd-Q132893-s1996"
+    },
+    {
+      "a": "wd-Q634812",
+      "b": "wd-Q162954-s1994"
+    },
+    {
+      "a": "wd-Q381721",
+      "b": "wd-Q161337-s1998"
+    },
+    {
+      "a": "wd-Q440210",
+      "b": "wd-Q161337-s1998"
+    },
+    {
+      "a": "wd-Q1132834",
+      "b": "wd-Q161337-s1999"
+    },
+    {
+      "a": "wd-Q517309",
+      "b": "wd-Q161337-s1998"
+    },
+    {
+      "a": "wd-Q517309",
+      "b": "wd-Q161337-s1999"
+    },
+    {
+      "a": "wd-Q1424128",
+      "b": "wd-Q161337-s1998"
+    },
+    {
+      "a": "wd-Q1424128",
+      "b": "wd-Q161337-s1999"
+    },
+    {
+      "a": "wd-Q1424475",
+      "b": "wd-Q161337-s1998"
+    },
+    {
+      "a": "wd-Q1424475",
+      "b": "wd-Q161337-s1999"
+    },
+    {
+      "a": "wd-Q523017",
+      "b": "wd-Q161337-s1998"
+    },
+    {
+      "a": "wd-Q380541",
+      "b": "wd-Q161337-s1999"
+    },
+    {
+      "a": "wd-Q641041",
+      "b": "wd-Q161337-s1998"
+    },
+    {
+      "a": "wd-Q641041",
+      "b": "wd-Q161337-s1999"
+    },
+    {
+      "a": "wd-Q1627828",
+      "b": "wd-Q161337-s1999"
+    },
+    {
+      "a": "wd-Q706052",
+      "b": "wd-Q161337-s1998"
+    },
+    {
+      "a": "wd-Q706052",
+      "b": "wd-Q161337-s1999"
+    },
+    {
+      "a": "wd-Q3705850",
+      "b": "wd-Q161337-s1998"
+    },
+    {
+      "a": "wd-Q3705850",
+      "b": "wd-Q161337-s1999"
+    },
+    {
+      "a": "wd-Q3714604",
+      "b": "wd-Q161337-s1998"
+    },
+    {
+      "a": "wd-Q3809932",
+      "b": "wd-Q161337-s1998"
+    },
+    {
+      "a": "wd-Q33133736",
+      "b": "wd-Q169165-s1997"
+    },
+    {
+      "a": "wd-Q33133736",
+      "b": "wd-Q169165-s1998"
+    },
+    {
+      "a": "wd-Q939240",
+      "b": "wd-Q164177-s1991"
+    },
+    {
+      "a": "wd-Q939240",
+      "b": "wd-Q164177-s1992"
+    },
+    {
+      "a": "wd-Q939240",
+      "b": "wd-Q164177-s1993"
+    },
+    {
+      "a": "wd-Q2254947",
+      "b": "wd-Q161337-s1998"
+    },
+    {
+      "a": "wd-Q2254947",
+      "b": "wd-Q161337-s1999"
+    },
+    {
+      "a": "wd-Q2552896",
+      "b": "wd-Q162990-s2008"
+    },
+    {
+      "a": "wd-Q1635374",
+      "b": "wd-Q161337-s1999"
+    },
+    {
+      "a": "wd-Q918347",
+      "b": "wd-Q164177-s1991"
+    },
+    {
+      "a": "wd-Q918347",
+      "b": "wd-Q164177-s1992"
+    },
+    {
+      "a": "wd-Q918347",
+      "b": "wd-Q164177-s1993"
+    },
+    {
+      "a": "wd-Q918347",
+      "b": "wd-Q164177-s1994"
+    },
+    {
+      "a": "wd-Q795227",
+      "b": "wd-Q161337-s1998"
+    },
+    {
+      "a": "wd-Q1891397",
+      "b": "wd-Q161337-s1998"
+    },
+    {
+      "a": "wd-Q1891397",
+      "b": "wd-Q161337-s1999"
+    },
+    {
+      "a": "wd-Q2036635",
+      "b": "wd-Q161337-s1999"
+    },
+    {
+      "a": "wd-Q192707",
+      "b": "wd-Q161345-s1995"
+    },
+    {
+      "a": "wd-Q192707",
+      "b": "wd-Q161345-s1996"
+    },
+    {
+      "a": "wd-Q192707",
+      "b": "wd-Q161345-s1997"
+    },
+    {
+      "a": "wd-Q192707",
+      "b": "wd-Q161345-s1998"
+    },
+    {
+      "a": "wd-Q192707",
+      "b": "wd-Q161345-s1999"
+    },
+    {
+      "a": "wd-Q193637",
+      "b": "wd-Q161345-s1997"
+    },
+    {
+      "a": "wd-Q193637",
+      "b": "wd-Q161345-s1998"
+    },
+    {
+      "a": "wd-Q947656",
+      "b": "wd-Q161345-s1996"
+    },
+    {
+      "a": "wd-Q965310",
+      "b": "wd-Q161345-s1997"
+    },
+    {
+      "a": "wd-Q965310",
+      "b": "wd-Q161345-s1998"
+    },
+    {
+      "a": "wd-Q965310",
+      "b": "wd-Q161345-s1999"
+    },
+    {
+      "a": "wd-Q775184",
+      "b": "wd-Q161337-s1999"
+    },
+    {
+      "a": "wd-Q3776411",
+      "b": "wd-Q163480-s1990"
+    },
+    {
+      "a": "wd-Q3940968",
+      "b": "wd-Q163480-s1990"
+    },
+    {
+      "a": "wd-Q935693",
+      "b": "wd-Q161337-s1998"
+    },
+    {
+      "a": "wd-Q935693",
+      "b": "wd-Q161337-s1999"
+    },
+    {
+      "a": "wd-Q955015",
+      "b": "wd-Q161337-s1998"
+    },
+    {
+      "a": "wd-Q955015",
+      "b": "wd-Q161337-s1999"
+    },
+    {
+      "a": "wd-Q965169",
+      "b": "wd-Q161337-s1998"
+    },
+    {
+      "a": "wd-Q965169",
+      "b": "wd-Q161337-s1999"
+    },
+    {
+      "a": "wd-Q192707",
+      "b": "wd-Q164177-s1991"
+    },
+    {
+      "a": "wd-Q192707",
+      "b": "wd-Q164177-s1992"
+    },
+    {
+      "a": "wd-Q192707",
+      "b": "wd-Q164177-s1993"
+    },
+    {
+      "a": "wd-Q192707",
+      "b": "wd-Q164177-s1994"
+    },
+    {
+      "a": "wd-Q192707",
+      "b": "wd-Q164177-s1995"
+    },
+    {
+      "a": "wd-Q192955",
+      "b": "wd-Q164177-s1995"
+    },
+    {
+      "a": "wd-Q939240",
+      "b": "wd-Q170558-s2002"
+    },
+    {
+      "a": "wd-Q939240",
+      "b": "wd-Q170558-s2003"
+    },
+    {
+      "a": "wd-Q313481",
+      "b": "wd-Q162954-s1994"
+    },
+    {
+      "a": "wd-Q3776411",
+      "b": "wd-Q169165-s1995"
+    },
+    {
+      "a": "wd-Q1627788",
+      "b": "wd-Q164177-s1993"
+    },
+    {
+      "a": "wd-Q1627788",
+      "b": "wd-Q164177-s1994"
+    },
+    {
+      "a": "wd-Q460116",
+      "b": "wd-Q169165-s1992"
+    },
+    {
+      "a": "wd-Q460116",
+      "b": "wd-Q169165-s1993"
+    },
+    {
+      "a": "wd-Q460116",
+      "b": "wd-Q169165-s1994"
+    },
+    {
+      "a": "wd-Q460116",
+      "b": "wd-Q169165-s1995"
+    },
+    {
+      "a": "wd-Q460116",
+      "b": "wd-Q169165-s1996"
+    },
+    {
+      "a": "wd-Q460116",
+      "b": "wd-Q169165-s1997"
+    },
+    {
+      "a": "wd-Q3776411",
+      "b": "wd-Q162954-s1994"
+    },
+    {
+      "a": "wd-Q2347268",
+      "b": "wd-Q164177-s1990"
+    },
+    {
+      "a": "wd-Q2347268",
+      "b": "wd-Q164177-s1991"
+    },
+    {
+      "a": "wd-Q2347268",
+      "b": "wd-Q164177-s1992"
+    },
+    {
+      "a": "wd-Q2347268",
+      "b": "wd-Q164177-s1993"
+    },
+    {
+      "a": "wd-Q3603091",
+      "b": "wd-Q164177-s1993"
+    },
+    {
+      "a": "wd-Q221341",
+      "b": "wd-Q164177-s1995"
+    }
+  ],
+  "parMoves": 6
+}
