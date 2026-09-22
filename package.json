@@ -14,7 +14,8 @@
     "generate": "tsx scripts/generate/index.ts",
     "generate:actors": "tsx scripts/generate/actorsMovies.ts",
     "generate:artists": "tsx scripts/generate/artistsSongs.ts",
-    "generate:athletes": "tsx scripts/generate/athletesTeams.ts"
+    "generate:athletes": "tsx scripts/generate/athletesTeams.ts",
+    "validate": "tsx scripts/validate.ts"
   },
   "dependencies": {
     "fuse.js": "^7.5.0",
@@ -29,6 +30,8 @@
     "@types/react-dom": "^19.2.7",
     "@vitejs/plugin-react": "^6.1.1",
     "dotenv": "^18.0.3",
+    "hyparquet": "^1.31.1",
+    "hyparquet-compressors": "^1.1.2",
     "oxlint": "^1.81.0",
     "tailwindcss": "^4.3.3",
     "tsx": "^4.23.15",

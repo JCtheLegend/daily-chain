@@ -7,10 +7,10 @@ export interface CategoryMeta {
   personLabel: string
   workLabel: string
   tagline: string
-  /** Prompt shown when the current chain node is a person (asks for the next work). */
-  personToWorkPrompt: (name: string) => string
-  /** Prompt shown when the current chain node is a work (asks for the next person). */
-  workToPersonPrompt: (name: string) => string
+  /** Prompt when the chain ends on a person: asks for one of their works. */
+  personToWorkPrompt: (person: string) => string
+  /** Prompt when the chain ends on a work: asks for someone else on it. */
+  workToPersonPrompt: (work: string, previousPerson: string) => string
 }
 
 export const CATEGORY_META: Record<CategoryId, CategoryMeta> = {
@@ -20,9 +20,9 @@ export const CATEGORY_META: Record<CategoryId, CategoryMeta> = {
     emoji: '🎬',
     personLabel: 'actor',
     workLabel: 'movie',
-    tagline: 'Connect two actors through the movies they were cast in.',
-    personToWorkPrompt: (name) => `Name a movie ${name} was cast in`,
-    workToPersonPrompt: (name) => `Name an actor also cast in ${name}`,
+    tagline: 'Link two actors through the movies they were cast in.',
+    personToWorkPrompt: (person) => `Name a movie ${person} was in`,
+    workToPersonPrompt: (work, prev) => `Name an actor in ${work} with ${prev}`,
   },
   'artists-songs': {
     id: 'artists-songs',
@@ -30,19 +30,19 @@ export const CATEGORY_META: Record<CategoryId, CategoryMeta> = {
     emoji: '🎵',
     personLabel: 'artist',
     workLabel: 'song',
-    tagline: 'Connect two artists through songs they were featured on together.',
-    personToWorkPrompt: (name) => `Name a song ${name} was featured on`,
-    workToPersonPrompt: (name) => `Name an artist also featured on ${name}`,
+    tagline: 'Link two artists through songs they are credited on together.',
+    personToWorkPrompt: (person) => `Name a song ${person} is credited on with another artist`,
+    workToPersonPrompt: (work, prev) => `Name another artist on ${work} besides ${prev}`,
   },
   'athletes-teams': {
     id: 'athletes-teams',
     title: 'Athletes & Teams',
-    emoji: '🏀',
-    personLabel: 'athlete',
+    emoji: '🏆',
+    personLabel: 'player',
     workLabel: 'team',
-    tagline: 'Connect two NBA players through teams they were teammates on.',
-    personToWorkPrompt: (name) => `Name a team ${name} played a season for`,
-    workToPersonPrompt: (name) => `Name a player also on ${name}`,
+    tagline: 'Link two NBA, NFL, MLB or NHL players through teammates from the same season.',
+    personToWorkPrompt: (person) => `Name a team ${person} played for`,
+    workToPersonPrompt: (work, prev) => `Name a player on the ${work} at the same time as ${prev}`,
   },
 }
 

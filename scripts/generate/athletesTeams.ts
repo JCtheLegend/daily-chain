@@ -1,138 +1,79 @@
 import 'dotenv/config'
-import type { PuzzleEdge, PuzzleNode } from '../../src/engine/types'
-import { pickPuzzlePair, subgraphAroundPath } from './shared/graph'
-import { fetchJsonCached } from './shared/fetchUtil'
-import { writePuzzle, usedPairs, nextStartDate } from './shared/writePuzzle'
+import { puzzleNumberForDate } from '../../src/engine/dailyIndex'
+import { GraphBuilder } from './shared/graph'
+import { generateSeries, type GraphContext } from './shared/series'
+import { seasonLabel, sitelinksByExternalId, type League, type RosterEntry } from './sports/common'
+import { mlbRosters } from './sports/mlb'
+import { nbaRosters } from './sports/nba'
+import { nflRosters } from './sports/nfl'
+import { nhlRosters } from './sports/nhl'
 
-// NBA. Wikidata QID for "National Basketball Association" (P118 league value).
-const LEAGUE_QID = 'Q155223'
-const MIN_TENURE_START = '1990-01-01T00:00:00Z'
-const SPARQL_ENDPOINT = 'https://query.wikidata.org/sparql'
-const USER_AGENT = 'DailyChainGameDataBot/0.1 (https://github.com/) - free daily-puzzle game data generation'
+const LEAGUES: League[] = ['NBA', 'NFL', 'MLB', 'NHL']
+// Sitelinks alone over-rate players famous for something else (an Olympian
+// with a two-year MLB stint), so endpoints also need a real career.
+const ENDPOINT_POOL_SIZE = 80
+const MIN_ENDPOINT_SITELINKS = 8
+const MIN_ENDPOINT_SEASONS = 5
 
-interface SparqlBinding {
-  player: { value: string }
-  playerLabel: { value: string }
-  team: { value: string }
-  teamLabel: { value: string }
-  start: { value: string }
-  end: { value: string }
-  sitelinks: { value: string }
-}
+/**
+ * Team-season graph: players link to "<team> <season>" nodes, so two players
+ * are only connected through a team if they were on it in the same season.
+ */
+function buildLeagueContext(league: League, entries: RosterEntry[], fame: (playerId: string) => number): GraphContext {
+  const g = new GraphBuilder()
+  const seasons = new Map<string, number>()
 
-/** Wikipedia+sister-project article count — used as a fame proxy so puzzle endpoints aren't obscure bench players. */
-const MIN_ENDPOINT_SITELINKS = 30
-
-async function runQuery(): Promise<SparqlBinding[]> {
-  const query = `
-    SELECT ?player ?playerLabel ?team ?teamLabel ?start ?end ?sitelinks WHERE {
-      ?team wdt:P118 wd:${LEAGUE_QID} .
-      ?player p:P54 ?stmt .
-      ?stmt ps:P54 ?team .
-      ?stmt pq:P580 ?start .
-      ?stmt pq:P582 ?end .
-      ?player wikibase:sitelinks ?sitelinks .
-      ?player rdfs:label ?playerLabel . FILTER(LANG(?playerLabel)="en")
-      ?team rdfs:label ?teamLabel . FILTER(LANG(?teamLabel)="en")
-      FILTER(?start >= "${MIN_TENURE_START}"^^xsd:dateTime)
-    }
-  `
-  const url = `${SPARQL_ENDPOINT}?query=${encodeURIComponent(query)}`
-  const data = await fetchJsonCached<{ results: { bindings: SparqlBinding[] } }>(url, {
-    headers: { Accept: 'application/sparql-results+json', 'User-Agent': USER_AGENT },
-  })
-  return data.results.bindings
-}
-
-function qidFromUri(uri: string): string {
-  return uri.split('/').pop()!
-}
-
-/** NBA season "start year": Aug of year Y through Jul of year Y+1 is season Y. */
-function seasonYear(date: Date): number {
-  return date.getUTCMonth() >= 7 /* Aug (0-indexed) */ ? date.getUTCFullYear() : date.getUTCFullYear() - 1
-}
-
-function buildGraphFromBindings(
-  rows: SparqlBinding[],
-): { nodes: Record<string, PuzzleNode>; edges: PuzzleEdge[]; sitelinks: Map<string, number> } {
-  const nodes: Record<string, PuzzleNode> = {}
-  const edges: PuzzleEdge[] = []
-  const edgeSet = new Set<string>()
-  const sitelinks = new Map<string, number>()
-
-  for (const row of rows) {
-    const playerId = `wd-${qidFromUri(row.player.value)}`
-    const teamQid = qidFromUri(row.team.value)
-    const start = new Date(row.start.value)
-    const end = new Date(row.end.value)
-    if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) continue
-
-    nodes[playerId] = { id: playerId, name: row.playerLabel.value, type: 'person' }
-    sitelinks.set(playerId, Number(row.sitelinks.value))
-
-    const fromSeason = seasonYear(start)
-    const toSeason = Math.max(fromSeason, seasonYear(end))
-    for (let year = fromSeason; year <= toSeason; year++) {
-      const workId = `wd-${teamQid}-s${year}`
-      nodes[workId] = {
-        id: workId,
-        name: row.teamLabel.value,
-        type: 'work',
-        subtitle: `${year}–${String((year + 1) % 100).padStart(2, '0')}`,
-      }
-      const key = playerId < workId ? `${playerId}|${workId}` : `${workId}|${playerId}`
-      if (!edgeSet.has(key)) {
-        edgeSet.add(key)
-        edges.push({ a: playerId, b: workId })
-      }
-    }
+  for (const e of entries) {
+    const personId = `${league}-p-${e.playerId}`
+    const workId = `${league}-t-${e.teamKey}-${e.season}`
+    g.addNode({ id: personId, name: e.playerName, type: 'person' })
+    g.addNode({ id: workId, name: e.teamName, aliases: e.teamAliases, type: 'work', subtitle: seasonLabel(league, e.season), year: e.season })
+    g.link(personId, workId)
+    seasons.set(personId, (seasons.get(personId) ?? 0) + 1)
   }
 
-  return { nodes, edges, sitelinks }
+  const pool = new Set(
+    [...seasons.keys()]
+      .map((id) => ({ id, fame: fame(id.slice(`${league}-p-`.length)) }))
+      .filter((p) => p.fame >= MIN_ENDPOINT_SITELINKS && (seasons.get(p.id) ?? 0) >= MIN_ENDPOINT_SEASONS)
+      .sort((a, b) => b.fame - a.fame)
+      .slice(0, ENDPOINT_POOL_SIZE)
+      .map((p) => p.id),
+  )
+  const people = [...seasons.keys()].length
+  console.log(`${league}: ${people} players, ${Object.keys(g.nodes).length - people} team-seasons, ${g.edges.length} links, ${pool.size} endpoint candidates`)
+  console.log(`  e.g. ${[...pool].slice(0, 8).map((id) => g.nodes[id].name).join(', ')}`)
+
+  return { nodes: g.nodes, edges: g.edges, isEndpoint: (id) => pool.has(id), tag: league }
 }
 
 export async function main() {
-  const count = Number(process.argv.find((a) => a.startsWith('--count='))?.split('=')[1] ?? 30)
-  const startDateArg = process.argv.find((a) => a.startsWith('--start-date='))?.split('=')[1]
+  console.log('Loading rosters...')
+  const [nba, nfl, mlb, nhl] = [await nbaRosters(), await nflRosters(), await mlbRosters(), await nhlRosters()]
 
-  console.log('Querying Wikidata for NBA roster history (1990–present)...')
-  const rows = await runQuery()
-  console.log(`Got ${rows.length} dated tenure records.`)
+  console.log('Loading fame (Wikidata sitelinks)...')
+  const [nbaFame, pfrFame, mlbFame, nhlFame] = [
+    await sitelinksByExternalId('P3685'),
+    await sitelinksByExternalId('P3561'),
+    await sitelinksByExternalId('P3541'),
+    await sitelinksByExternalId('P3522'),
+  ]
+  // Wikidata stores Pro-Football-Reference ids with their URL folder ("B/BradTo00").
+  const pfrFameById = new Map([...pfrFame].map(([k, v]) => [k.split('/').pop()!, v]))
 
-  const { nodes, edges, sitelinks } = buildGraphFromBindings(rows)
-  console.log(`Graph: ${Object.keys(nodes).length} nodes, ${edges.length} edges`)
-  const endpointFilter = (id: string) => (sitelinks.get(id) ?? 0) >= MIN_ENDPOINT_SITELINKS
-
-  const exclude = usedPairs('athletes-teams')
-  const date0 = new Date(`${startDateArg ?? nextStartDate('athletes-teams')}T00:00:00Z`)
-
-  let written = 0
-  for (let i = 0; written < count && i < count * 5; i++) {
-    const pair = pickPuzzlePair(nodes, edges, { minPar: 4, maxPar: 8, excludePairs: exclude, endpointFilter })
-    if (!pair) {
-      console.warn('No more valid pairs found; stopping early.')
-      break
-    }
-    const pairKey = pair.start < pair.end ? `${pair.start}|${pair.end}` : `${pair.end}|${pair.start}`
-    exclude.add(pairKey)
-
-    const sub = subgraphAroundPath(nodes, edges, pair.path, 2, 150)
-    const date = new Date(date0)
-    date.setUTCDate(date.getUTCDate() + written)
-    const dateStr = date.toISOString().slice(0, 10)
-
-    writePuzzle({
-      category: 'athletes-teams',
-      date: dateStr,
-      start: pair.start,
-      end: pair.end,
-      nodes: sub.nodes,
-      edges: sub.edges,
-      parMoves: pair.path.length - 1,
-    })
-    written++
+  const contexts: Record<League, GraphContext> = {
+    NBA: buildLeagueContext('NBA', nba, (id) => nbaFame.get(id) ?? 0),
+    NFL: buildLeagueContext('NFL', nfl.entries, (id) => pfrFameById.get(nfl.pfrIds.get(id) ?? '') ?? 0),
+    MLB: buildLeagueContext('MLB', mlb, (id) => mlbFame.get(id) ?? 0),
+    NHL: buildLeagueContext('NHL', nhl, (id) => nhlFame.get(id) ?? 0),
   }
+
+  console.log('Generating puzzles (leagues rotate by day)...')
+  generateSeries({
+    category: 'athletes-teams',
+    maxNodes: 300,
+    contextFor: (date) => contexts[LEAGUES[puzzleNumberForDate(date) % LEAGUES.length]],
+  })
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {

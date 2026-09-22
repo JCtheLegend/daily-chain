@@ -2,92 +2,38 @@ import type { PuzzleEdge, PuzzleNode } from '../../../src/engine/types'
 
 export type RawNode = PuzzleNode
 
-interface BuildGraphOptions {
-  seeds: RawNode[]
-  maxNodes: number
-  worksOfPerson: (personId: string) => Promise<RawNode[]>
-  peopleOfWork: (workId: string) => Promise<RawNode[]>
-  /** Called after each fetch so callers can log crawl progress. */
-  onProgress?: (info: { visited: number; queued: number; nodes: number }) => void
-}
-
-/**
- * Breadth-first crawl of a bipartite person<->work graph. Alternates
- * fetching a person's works and a work's people, capped at maxNodes so the
- * crawl (and the free-API request budget) stays bounded.
- */
-export async function buildBipartiteGraph(
-  opts: BuildGraphOptions,
-): Promise<{ nodes: Record<string, RawNode>; edges: PuzzleEdge[] }> {
-  const nodes: Record<string, RawNode> = {}
-  const edges: PuzzleEdge[] = []
-  const edgeSet = new Set<string>()
-  const visitedPerson = new Set<string>()
-  const visitedWork = new Set<string>()
-  const queue: { id: string; kind: 'person' | 'work' }[] = []
-
-  for (const seed of opts.seeds) {
-    nodes[seed.id] = seed
-    queue.push({ id: seed.id, kind: 'person' })
-  }
-
-  function addEdge(a: string, b: string) {
-    const key = a < b ? `${a}|${b}` : `${b}|${a}`
-    if (edgeSet.has(key)) return
-    edgeSet.add(key)
-    edges.push({ a, b })
-  }
-
-  let visitedCount = 0
-  while (queue.length > 0 && Object.keys(nodes).length < opts.maxNodes) {
-    const item = queue.shift()!
-    if (item.kind === 'person') {
-      if (visitedPerson.has(item.id)) continue
-      visitedPerson.add(item.id)
-      let works: RawNode[]
-      try {
-        works = await opts.worksOfPerson(item.id)
-      } catch (e) {
-        console.warn(`worksOfPerson(${item.id}) failed: ${(e as Error).message}`)
-        continue
-      }
-      for (const w of works) {
-        nodes[w.id] = w
-        addEdge(item.id, w.id)
-        if (!visitedWork.has(w.id)) queue.push({ id: w.id, kind: 'work' })
-      }
-    } else {
-      if (visitedWork.has(item.id)) continue
-      visitedWork.add(item.id)
-      let people: RawNode[]
-      try {
-        people = await opts.peopleOfWork(item.id)
-      } catch (e) {
-        console.warn(`peopleOfWork(${item.id}) failed: ${(e as Error).message}`)
-        continue
-      }
-      for (const p of people) {
-        nodes[p.id] = p
-        addEdge(item.id, p.id)
-        if (!visitedPerson.has(p.id)) queue.push({ id: p.id, kind: 'person' })
-      }
-    }
-    visitedCount++
-    opts.onProgress?.({ visited: visitedCount, queued: queue.length, nodes: Object.keys(nodes).length })
-  }
-
-  return { nodes, edges }
-}
+const adjacencyCache = new WeakMap<PuzzleEdge[], Map<string, string[]>>()
 
 export function buildAdjacency(edges: PuzzleEdge[]): Map<string, string[]> {
-  const adj = new Map<string, string[]>()
+  let adj = adjacencyCache.get(edges)
+  if (adj) return adj
+  adj = new Map()
   for (const e of edges) {
     if (!adj.has(e.a)) adj.set(e.a, [])
     if (!adj.has(e.b)) adj.set(e.b, [])
     adj.get(e.a)!.push(e.b)
     adj.get(e.b)!.push(e.a)
   }
+  adjacencyCache.set(edges, adj)
   return adj
+}
+
+/** Collects person<->work edges without duplicates. */
+export class GraphBuilder {
+  nodes: Record<string, RawNode> = {}
+  edges: PuzzleEdge[] = []
+  private seen = new Set<string>()
+
+  addNode(node: RawNode) {
+    if (!this.nodes[node.id]) this.nodes[node.id] = node
+  }
+
+  link(personId: string, workId: string) {
+    const key = `${personId}|${workId}`
+    if (this.seen.has(key)) return
+    this.seen.add(key)
+    this.edges.push({ a: personId, b: workId })
+  }
 }
 
 /** BFS distance (in edges) from startId to every reachable node. */
@@ -95,8 +41,8 @@ export function bfsDistances(edges: PuzzleEdge[], startId: string): Map<string, 
   const adj = buildAdjacency(edges)
   const dist = new Map<string, number>([[startId, 0]])
   const queue = [startId]
-  while (queue.length) {
-    const cur = queue.shift()!
+  for (let head = 0; head < queue.length; head++) {
+    const cur = queue[head]
     const d = dist.get(cur)!
     for (const next of adj.get(cur) ?? []) {
       if (!dist.has(next)) {
@@ -110,34 +56,32 @@ export function bfsDistances(edges: PuzzleEdge[], startId: string): Map<string, 
 
 export function shortestPath(edges: PuzzleEdge[], startId: string, endId: string): string[] | null {
   const adj = buildAdjacency(edges)
-  const prev = new Map<string, string>()
-  const visited = new Set([startId])
+  const prev = new Map<string, string | null>([[startId, null]])
   const queue = [startId]
-  while (queue.length) {
-    const cur = queue.shift()!
+  for (let head = 0; head < queue.length; head++) {
+    const cur = queue[head]
     if (cur === endId) break
     for (const next of adj.get(cur) ?? []) {
-      if (!visited.has(next)) {
-        visited.add(next)
+      if (!prev.has(next)) {
         prev.set(next, cur)
         queue.push(next)
       }
     }
   }
-  if (!visited.has(endId)) return null
+  if (!prev.has(endId)) return null
   const path = [endId]
-  while (path[path.length - 1] !== startId) {
-    const p = prev.get(path[path.length - 1])
-    if (!p) return null
-    path.push(p)
-  }
+  for (let p = prev.get(endId); p; p = prev.get(p)) path.push(p)
   return path.reverse()
 }
 
+export function pairKey(a: string, b: string): string {
+  return a < b ? `${a}|${b}` : `${b}|${a}`
+}
+
 /**
- * Picks a (start, end) person pair whose shortest path falls in
- * [minPar, maxPar] hops, preferring pairs close to the middle of that
- * range. Returns null if no such pair exists in the crawled graph.
+ * Picks a (start, end) pair among allowed endpoints whose shortest path is in
+ * [minPar, maxPar] edges, aiming for a random target length so difficulty
+ * varies from day to day.
  */
 export function pickPuzzlePair(
   nodes: Record<string, RawNode>,
@@ -145,66 +89,90 @@ export function pickPuzzlePair(
   opts: {
     minPar: number
     maxPar: number
-    excludePairs?: Set<string>
-    /** Restricts which persons may be chosen as start/end (not intermediate path nodes) — e.g. a notability floor so puzzles don't hinge on an obscure name. */
-    endpointFilter?: (id: string) => boolean
+    isEndpoint: (id: string) => boolean
+    excludePairs: Set<string>
+    excludeEndpoints: Set<string>
   },
 ): { start: string; end: string; path: string[] } | null {
-  const endpointFilter = opts.endpointFilter ?? (() => true)
-  const personIds = Object.values(nodes)
-    .filter((n) => n.type === 'person' && endpointFilter(n.id))
-    .map((n) => n.id)
-  const target = opts.minPar + Math.random() * (opts.maxPar - opts.minPar)
-  const shuffled = [...personIds].sort(() => Math.random() - 0.5)
+  const allowed = (id: string) =>
+    nodes[id]?.type === 'person' && opts.isEndpoint(id) && !opts.excludeEndpoints.has(id)
+  const pool = Object.keys(nodes).filter(allowed)
+  // Even edge counts only: person -> work -> person ...
+  const targets: number[] = []
+  for (let p = opts.minPar; p <= opts.maxPar; p += 2) targets.push(p)
+  const target = targets[Math.floor(Math.random() * targets.length)]
+  const shuffled = pool.sort(() => Math.random() - 0.5)
 
-  let best: { start: string; end: string; path: string[]; score: number } | null = null
-
-  for (const start of shuffled.slice(0, Math.min(40, shuffled.length))) {
-    const dist = bfsDistances(edges, start)
-    for (const [end, d] of dist) {
-      if (end === start || d < opts.minPar || d > opts.maxPar) continue
-      if (nodes[end]?.type !== 'person' || !endpointFilter(end)) continue
-      const pairKey = start < end ? `${start}|${end}` : `${end}|${start}`
-      if (opts.excludePairs?.has(pairKey)) continue
-      const score = Math.abs(d - target)
-      if (!best || score < best.score) {
-        const path = shortestPath(edges, start, end)
-        if (path) best = { start, end, path, score }
-      }
+  let best: { start: string; end: string; score: number } | null = null
+  for (const start of shuffled.slice(0, 60)) {
+    for (const [end, d] of bfsDistances(edges, start)) {
+      if (end === start || d < opts.minPar || d > opts.maxPar || !allowed(end)) continue
+      if (opts.excludePairs.has(pairKey(start, end))) continue
+      const score = Math.abs(d - target) + Math.random() * 0.5
+      if (!best || score < best.score) best = { start, end, score }
     }
-    if (best && best.score === 0) break
+    if (best && best.score < 0.5) break
   }
-
-  return best
+  if (!best) return null
+  const path = shortestPath(edges, best.start, best.end)
+  return path ? { start: best.start, end: best.end, path } : null
 }
 
-export function subgraphAroundPath(
+/**
+ * The slice of the full graph bundled into a puzzle: the solution path, every
+ * direct neighbor of it (so any first step off the path is recognised), then
+ * second-degree neighbors up to maxNodes. Nodes near the path also carry the
+ * names of real-world neighbors that didn't make the cut, so the game can say
+ * "real, but not part of today's chain" instead of "wrong".
+ */
+export function buildPuzzleGraph(
   nodes: Record<string, RawNode>,
   edges: PuzzleEdge[],
   path: string[],
-  radius: number,
-  maxNodes: number,
-): { nodes: Record<string, RawNode>; edges: PuzzleEdge[] } {
+  opts: { maxNodes: number; extraNames?: Map<string, string[]>; maxExtrasPerNode?: number },
+): { nodes: Record<string, RawNode>; edges: PuzzleEdge[]; extras: Record<string, string[]> } {
   const adj = buildAdjacency(edges)
-  const included = new Set<string>(path)
-  let frontier = new Set<string>(path)
-
-  for (let hop = 0; hop < radius && included.size < maxNodes; hop++) {
-    const nextFrontier = new Set<string>()
-    for (const id of frontier) {
-      for (const n of adj.get(id) ?? []) {
-        if (included.has(n)) continue
+  const included = new Set(path)
+  const ring1: string[] = []
+  for (const id of path) {
+    for (const n of adj.get(id) ?? []) {
+      if (!included.has(n)) {
         included.add(n)
-        nextFrontier.add(n)
-        if (included.size >= maxNodes) break
+        ring1.push(n)
       }
-      if (included.size >= maxNodes) break
     }
-    frontier = nextFrontier
+  }
+  for (const id of ring1) {
+    if (included.size >= opts.maxNodes) break
+    for (const n of adj.get(id) ?? []) {
+      if (included.size >= opts.maxNodes) break
+      included.add(n)
+    }
   }
 
   const outNodes: Record<string, RawNode> = {}
-  for (const id of included) if (nodes[id]) outNodes[id] = nodes[id]
+  for (const id of included) outNodes[id] = nodes[id]
   const outEdges = edges.filter((e) => included.has(e.a) && included.has(e.b))
-  return { nodes: outNodes, edges: outEdges }
+
+  const extras: Record<string, string[]> = {}
+  const cap = opts.maxExtrasPerNode ?? 80
+  for (const id of [...path, ...ring1]) {
+    const inGraph = new Set((adj.get(id) ?? []).filter((n) => included.has(n)).map((n) => nodes[n].name))
+    const names = new Set<string>()
+    for (const n of adj.get(id) ?? []) if (!included.has(n)) names.add(nodes[n].name)
+    for (const name of opts.extraNames?.get(id) ?? []) names.add(name)
+    const list = [...names].filter((n) => !inGraph.has(n)).slice(0, cap)
+    if (list.length) extras[id] = list
+  }
+
+  return { nodes: outNodes, edges: outEdges, extras }
+}
+
+/** Extra names a title can be guessed by: "Star Wars: A New Hope" -> ["A New Hope", "Star Wars"]. */
+export function titleAliases(title: string): string[] | undefined {
+  const parts = title
+    .split(/:\s+|\s+-\s+|\s+–\s+/)
+    .map((p) => p.trim())
+    .filter((p) => p.length >= 3 && p !== title)
+  return parts.length > 1 ? parts : undefined
 }

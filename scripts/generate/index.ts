@@ -13,8 +13,8 @@ const only = process.argv.find((a) => a.startsWith('--only='))?.split('=')[1]?.s
 async function main() {
   const steps: { id: string; label: string; run: () => Promise<void> }[] = [
     { id: 'actors-movies', label: 'Actors & Movies (TMDb)', run: generateActorsMovies },
-    { id: 'artists-songs', label: 'Artists & Songs (MusicBrainz)', run: generateArtistsSongs },
-    { id: 'athletes-teams', label: 'Athletes & Teams (Wikidata)', run: generateAthletesTeams },
+    { id: 'artists-songs', label: 'Artists & Songs (Deezer)', run: generateArtistsSongs },
+    { id: 'athletes-teams', label: 'Athletes & Teams (NBA/NFL/MLB/NHL rosters)', run: generateAthletesTeams },
   ]
 
   for (const step of steps) {

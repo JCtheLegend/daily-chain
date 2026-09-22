@@ -2,7 +2,7 @@ import type { CategoryId } from './types'
 import type { ChainState } from './chainEngine'
 
 function key(category: CategoryId, date: string): string {
-  return `daily-chain:${category}:${date}`
+  return `daily-chain:v2:${category}:${date}`
 }
 
 export function loadSavedState(category: CategoryId, date: string): ChainState | null {
@@ -22,6 +22,9 @@ export function saveState(category: CategoryId, date: string, state: ChainState)
   }
 }
 
-export function isSolvedToday(category: CategoryId, date: string): boolean {
-  return loadSavedState(category, date)?.won ?? false
+export function solvedStatus(category: CategoryId, date: string): 'solved' | 'revealed' | null {
+  const state = loadSavedState(category, date)
+  if (state?.won) return 'solved'
+  if (state?.revealed) return 'revealed'
+  return null
 }

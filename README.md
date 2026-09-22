@@ -1,108 +1,125 @@
 # Daily Chain
 
-A daily browser puzzle game, mobile-friendly, in the Wordle/Connections family.
-You're given two people from the same world — two actors, two musicians, two
-NBA players — and you have to connect them by building a real chain of
-movies/songs/teams and the people on them, one guess at a time.
+A daily browser puzzle game, built for phones, in the Wordle/Connections
+family. You get two people and forge a chain between them, one real link at a
+time. Play it at <https://jcthelegend.github.io/daily-chain/>.
 
 Three daily games:
 
-- **Actors & Movies** — connect two actors through movies they were cast in (data from [TMDb](https://www.themoviedb.org/)).
-- **Artists & Songs** — connect two musicians through songs they were credited/featured on together (data from [MusicBrainz](https://musicbrainz.org/)).
-- **Athletes & Teams** — connect two NBA players through teams they were *actually teammates on at the same time* (data from [Wikidata](https://www.wikidata.org/), using dated `member of sports team` statements so the "same time" constraint is real, not just "played for the same franchise 20 years apart").
+- **Actors & Movies**: actors linked through movies they were cast in. Data from [TMDb](https://www.themoviedb.org/).
+- **Artists & Songs**: artists linked through songs they're both credited on. Data from [Deezer](https://developers.deezer.com/).
+- **Athletes & Teams**: players linked through teams they were on **in the same season**. The league rotates daily between the NBA, NFL, MLB and NHL.
 
 ## How the game works
 
-Each puzzle bundles a small real-world graph: person nodes and "work" nodes
-(movie/song/team-season), with edges wherever a person actually appears on
-that work. You start at one person and must reach the other by typing, in
-turn, a work connected to your current person, then a person connected to
-that work, and so on. Guesses are matched against the *actual* neighbors of
-your current position (exact name, alias, or a close fuzzy match) — a real
-name that isn't actually reachable from where you are is still wrong, same
-as a Six-Degrees-of-Kevin-Bacon puzzle.
+Each puzzle bundles a slice of a real-world graph. People connect to "works"
+(a movie, a song, or a *team-season* such as "Lakers 2009–10") wherever they
+really appear on them. You start at one person and type a work connected to
+them, then another person on that work, and so on until you reach the target.
 
-There's no backend: puzzles are static JSON files generated ahead of time
-and the whole site is a static bundle, deployable to GitHub Pages for free.
+Every guess is checked against the real neighbors of your current position
+(exact name, alias like "Lakers" or "LAL", or a close fuzzy match):
+
+- 🟩 **Correct**: a real link that still has a route to the target.
+- 🟨 **Real, but no chain**: a true answer that can't reach today's target. It
+  may be a dead end within today's puzzle, or a real credit or roster spot that
+  isn't part of today's graph. The chain doesn't advance.
+- ⬛ **Wrong**: not a link we know of.
+
+For sports, naming a team stands for every season the current player spent
+there. Naming the next player narrows it to the seasons the two actually
+shared, so "at the same time" is enforced.
+
+Players can **undo** the last link or **erase** the chain to try another route.
+A **hint** shows the next link masked ("T__ H____"), then in full. **Reveal**
+gives up and shows a shortest chain. After solving, the result panel shows
+your chain length next to the shortest chain possible that day.
+
+There's no backend. Puzzles are static JSON files generated ahead of time, and
+the whole site is a static bundle on GitHub Pages.
 
 ## Local development
 
-Requires Node `^20.19.0` or `>=22.12.0` (this repo pins `22.23.2` via
-`.nvmrc` — the Vite 8/rolldown native binding silently fails to install on
-older patch versions, which shows up as a `vite build` crash, not a clear
-error).
+Requires Node `^20.19.0` or `>=22.12.0`. This repo pins `22.23.2` in `.nvmrc`.
+On older patch versions the Vite 8/rolldown native binding silently fails to
+install, which shows up as a `vite build` crash rather than a clear error.
 
 ```bash
-nvm use   # if you use nvm
+nvm use
 npm install
 npm run dev
 ```
 
 ## Generating puzzles
 
-Puzzle JSON lives in `public/puzzles/<category>/<date>.json`, plus an
-`index.json` per category listing available dates. `src/pages/GamePage.tsx`
-falls back to the most recent available date if today's isn't published yet,
-so the site never hard-errors on a missing day.
+Puzzle JSON lives in `public/puzzles/<category>/<date>.json`, with an
+`index.json` per category listing the available dates.
 
 ```bash
 cp .env.example .env   # then fill in TMDB_API_KEY
-npm run generate                    # all three categories
-npm run generate:actors             # Actors & Movies only (needs TMDB_API_KEY)
-npm run generate:artists            # Artists & Songs only (no key needed)
-npm run generate:athletes           # Athletes & Teams only (no key needed)
+npm run generate            # all three categories
+npm run generate:actors     # needs TMDB_API_KEY
+npm run generate:artists    # no key needed
+npm run generate:athletes   # no key needed
+npm run validate            # check every published puzzle
 ```
 
-Flags: `--count=30` (days to generate), `--start-date=2026-01-01` (defaults
-to the day after the latest already-published puzzle, so re-running is
-additive and never rewrites a puzzle that might already be live).
+Flags:
 
-**Actors & Movies needs a free TMDb API key** — sign up at
-<https://www.themoviedb.org/settings/api> (a couple minutes, no cost) and
-set `TMDB_API_KEY`. Without it, that generator logs a message and skips
-itself; the other two categories don't need any key.
+- `--count=30`: how many days to generate.
+- `--start-date=2026-01-01`: defaults to the day after the latest published
+  puzzle, so re-running only adds days and never rewrites a live puzzle.
 
-Generated API responses are cached on disk under `scripts/generate/.cache`
-(gitignored) so re-running generation doesn't hammer these free APIs or
-redo work.
+API responses are cached under `scripts/generate/.cache` (gitignored).
 
-### Puzzle quality notes
+### Data sources
 
-- Puzzle endpoints (the two people you're actually asked to connect) are
-  restricted to a notable subset — TMDb's popular-people list, a curated
-  seed list of high-profile recording artists, or NBA players with enough
-  Wikipedia sitelinks — so you're never asked to identify someone obscure.
-  Intermediate connectors in the chain can be less famous, same as any
-  Bacon-number puzzle.
-- Athletes & Teams currently covers the NBA only (`LEAGUE_QID` in
-  `scripts/generate/athletesTeams.ts`); the Wikidata query generalizes to
-  other leagues by swapping that QID, but it's untested beyond the NBA.
+| Category | Graph | Who can be a start/end |
+|---|---|---|
+| Actors & Movies | TMDb credits; documentaries and cameos as themselves excluded | Top-billed stars of TMDb's 300 most-voted movies |
+| Artists & Songs | Deezer top tracks and their credited contributors, seeded from ~110 well-known artists and their frequent collaborators | The seed artists |
+| NBA | ESPN box scores via [sportsdataverse](https://github.com/sportsdataverse/sportsdataverse-data), 2001–02 on (players who actually appeared in a game) | Most-linked players on Wikipedia/Wikidata |
+| NFL | [nflverse](https://github.com/nflverse/nflverse-data) season rosters, 2000 on (practice squad excluded) | Same |
+| MLB | MLB Stats API full-season rosters, 2000 on | Same |
+| NHL | NHL API season rosters, 2000–01 on | Same |
+
+Fame for athletes is the number of Wikipedia/Wikimedia sitelinks on the
+player's Wikidata item. It's looked up through each league's player-ID property
+(for example P3541, MLB.com player ID) on the
+[QLever](https://qlever.cs.uni-freiburg.de/) SPARQL endpoint.
+
+"Same season" is the granularity for sports. A player traded mid-season appears
+on both teams that season, which is the usual definition of teammates.
+
+### Validation
+
+`npm run validate` checks every puzzle:
+
+- structure: bipartite edges, endpoints exist, and the stored par matches the
+  real shortest chain
+- solvability: it replays the shortest solution through the game engine,
+  typing each name exactly as a player would, and the puzzle fails if the game
+  doesn't accept it
+
+Both the deploy and the weekly generation workflows run it, so a broken puzzle
+can't ship.
 
 ## Deploying
 
-This repo deploys to GitHub Pages via `.github/workflows/deploy.yml` on
-every push to `main`. One-time setup after you push this repo to GitHub:
-
-1. Repo Settings → Pages → Source → **GitHub Actions**.
-2. (Optional, for Actors & Movies) Settings → Secrets and variables →
-   Actions → add `TMDB_API_KEY`.
-3. Push to `main` — the site builds and deploys automatically.
-
-`.github/workflows/generate-puzzles.yml` runs weekly (and via manual
-dispatch) to extend the puzzle calendar and commit the new JSON files,
-which in turn triggers a redeploy.
+`.github/workflows/deploy.yml` validates, builds and deploys to GitHub Pages on
+every push to `main`. `.github/workflows/generate-puzzles.yml` runs weekly (or
+by manual dispatch) to extend the calendar, then commits the new puzzles, which
+triggers a redeploy. It needs the `TMDB_API_KEY` repo secret.
 
 ## Architecture
 
-- `src/engine/` — category-agnostic game logic: puzzle loading, chain
-  validation/fuzzy matching, daily puzzle numbering, localStorage
-  persistence, share-text formatting.
-- `src/categories/config.ts` — the only per-category *display* config
-  (labels, prompts, emoji). Adding a fourth category to the UI is mostly
-  adding an entry here plus a puzzle data source.
-- `src/components/`, `src/pages/` — UI.
-- `scripts/generate/shared/` — generic bipartite-graph crawler, BFS
-  shortest-path/puzzle-pair picker, and the puzzle JSON writer, shared by
-  all three category-specific generators.
-- `scripts/generate/{actorsMovies,artistsSongs,athletesTeams}.ts` — one
-  data pipeline per category, each hitting a different free API.
+- `src/engine/`: category-agnostic game logic. Covers matching, dead-end
+  detection, hints, undo, the solution path, daily numbering, persistence and
+  share text.
+- `src/categories/config.ts`: per-category labels and prompts.
+- `src/components/`, `src/pages/`: UI, including the dungeon theme in `src/index.css`.
+- `scripts/generate/shared/`: graph utilities, the puzzle slicer (it also
+  computes the "real but not today" names), the date-series loop, and the writer.
+- `scripts/generate/{actorsMovies,artistsSongs,athletesTeams}.ts` plus
+  `scripts/generate/sports/`: one data pipeline per category or league.
+- `scripts/validate.ts`: the puzzle validator.

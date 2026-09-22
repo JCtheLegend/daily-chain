@@ -23,9 +23,16 @@ jobs:
           node-version: 22.12
           cache: npm
       - run: npm ci
+      # API responses (past seasons, old movies) rarely change; reuse them between runs.
+      - uses: actions/cache@v4
+        with:
+          path: scripts/generate/.cache
+          key: generate-cache-${{ github.run_id }}
+          restore-keys: generate-cache-
       - run: npm run generate -- --count=${{ inputs.count || '14' }}
         env:
           TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+      - run: npm run validate
       - run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"

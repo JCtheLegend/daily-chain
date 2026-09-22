@@ -1,31 +1,40 @@
+import { Fragment } from 'react'
 import type { Puzzle } from '../engine/types'
+import type { ChainStep } from '../engine/chainEngine'
 import ChainNode from './ChainNode'
+import ChainLinks from './ChainLinks'
 
 interface Props {
   puzzle: Puzzle
-  path: string[]
+  steps: ChainStep[]
+  /** When set, shows this full path (the revealed solution) instead of the player's chain. */
+  solution?: string[]
 }
 
-export default function GameBoard({ puzzle, path }: Props) {
+export default function GameBoard({ puzzle, steps, solution }: Props) {
+  const chain = solution ? solution.map((id) => [id]) : steps.map((s) => s.ids)
+  const complete = chain[chain.length - 1][0] === puzzle.end
   const endNode = puzzle.nodes[puzzle.end]
-  const reachedEnd = path[path.length - 1] === puzzle.end
-  const displayIds = reachedEnd ? path : [...path, undefined]
 
   return (
-    <div className="flex w-full flex-col items-center gap-1">
-      {displayIds.map((id, i) => (
-        <div key={id ?? 'pending'} className="flex w-full flex-col items-center gap-1">
+    <div className="flex w-full flex-col items-center">
+      {chain.map((ids, i) => (
+        <Fragment key={`${i}-${ids[0]}`}>
+          {i > 0 && <ChainLinks links={3} />}
           <ChainNode
-            node={id ? puzzle.nodes[id] : null}
-            role={i === 0 ? 'start' : reachedEnd && i === displayIds.length - 1 ? 'end' : undefined}
+            nodes={ids.map((id) => puzzle.nodes[id])}
+            lit={i === 0 || (complete && i === chain.length - 1)}
+            animate={i > 0 && i === chain.length - 1 && !solution}
+            label={i === 0 ? 'From' : complete && i === chain.length - 1 ? 'To' : undefined}
           />
-          {i < displayIds.length - 1 && <div className="h-4 w-px bg-neutral-300 dark:bg-neutral-700" />}
-        </div>
+        </Fragment>
       ))}
-      {!reachedEnd && (
+      {!complete && (
         <>
-          <div className="h-4 w-px bg-neutral-300 dark:bg-neutral-700" />
-          <ChainNode node={endNode} role="end" />
+          <ChainLinks links={3} variant="broken" />
+          <ChainNode nodes={null} />
+          <ChainLinks links={3} variant="broken" />
+          <ChainNode nodes={[endNode]} lit label="To" />
         </>
       )}
     </div>

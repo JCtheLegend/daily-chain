@@ -1,34 +1,45 @@
 import type { PuzzleNode } from '../engine/types'
 
 interface Props {
-  node: PuzzleNode | null
-  role?: 'start' | 'end'
+  nodes: PuzzleNode[] | null
+  lit?: boolean
+  animate?: boolean
+  label?: string
 }
 
-export default function ChainNode({ node, role }: Props) {
-  if (!node) {
+/** Subtitle for a step that may stand for several same-name nodes (e.g. seasons). */
+function stepSubtitle(nodes: PuzzleNode[]): string | undefined {
+  const subs = [...nodes].sort((a, b) => (a.year ?? 0) - (b.year ?? 0)).map((n) => n.subtitle).filter(Boolean)
+  if (subs.length <= 1) return subs[0]
+  if (subs.length === 2) return `${subs[0]} & ${subs[1]}`
+  return `${subs[0]} → ${subs[subs.length - 1]}`
+}
+
+export default function ChainNode({ nodes, lit, animate, label }: Props) {
+  if (!nodes || nodes.length === 0) {
     return (
-      <div className="flex w-full items-center justify-center rounded-lg border-2 border-dashed border-neutral-300 px-4 py-3 text-neutral-400 dark:border-neutral-700 dark:text-neutral-600">
-        ?
-      </div>
+      <div className="plate-empty flex w-full items-center justify-center px-4 py-3 font-display text-lg">?</div>
     )
   }
 
+  const node = nodes[0]
   const isPerson = node.type === 'person'
-  const emphasize = role === 'start' || role === 'end'
+  const subtitle = stepSubtitle(nodes)
 
   return (
     <div
       className={[
-        'flex w-full flex-col items-center rounded-lg px-4 py-3 text-center',
-        isPerson
-          ? 'bg-indigo-600 text-white'
-          : 'border border-neutral-200 bg-neutral-50 text-neutral-800 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-100',
-        emphasize ? 'ring-2 ring-offset-2 ring-indigo-400 dark:ring-offset-neutral-950' : '',
+        'flex w-full flex-col items-center px-8 text-center',
+        isPerson ? 'plate-iron py-3' : 'plate-parchment py-2.5',
+        lit ? 'plate-lit' : '',
+        animate ? 'forge-in' : '',
       ].join(' ')}
     >
-      <span className="font-semibold">{node.name}</span>
-      {node.subtitle && <span className="text-xs opacity-80">{node.subtitle}</span>}
+      {label && <span className="text-[10px] font-bold uppercase tracking-[0.2em] opacity-70">{label}</span>}
+      <span className={isPerson ? 'font-display text-[17px] font-bold' : 'text-[16px] font-bold leading-tight'}>
+        {node.name}
+      </span>
+      {subtitle && <span className="text-xs opacity-75">{subtitle}</span>}
     </div>
   )
 }

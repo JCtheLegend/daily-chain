@@ -8,8 +8,10 @@ export interface PuzzleNode {
   /** Alternate spellings/short forms accepted as a correct guess for this node. */
   aliases?: string[]
   type: NodeType
-  /** Small bit of display context, e.g. a year or team-season. */
+  /** Small bit of display context, e.g. a year or season. */
   subtitle?: string
+  /** Sort key for ordering same-name nodes (e.g. the seasons of one team). */
+  year?: number
 }
 
 export interface PuzzleEdge {
@@ -26,6 +28,14 @@ export interface Puzzle {
   end: string
   nodes: Record<string, PuzzleNode>
   edges: PuzzleEdge[]
-  /** Hop count (edges) of a shortest start->end path. Used as "par". */
+  /** Hop count (edges) of a shortest start->end path. Links = parMoves / 2. */
   parMoves: number
+  /** Extra label for the puzzle, e.g. the league for sports puzzles. */
+  tag?: string
+  /**
+   * Real-world neighbors of a node that aren't part of today's graph (e.g. an
+   * actor's other movies). Lets a true-but-unhelpful guess be told apart from
+   * a wrong one.
+   */
+  extras?: Record<string, string[]>
 }
