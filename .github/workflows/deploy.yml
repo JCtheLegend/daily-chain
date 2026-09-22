@@ -3,6 +3,11 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  # The generator's own push can't trigger `push` (GitHub blocks GITHUB_TOKEN
+  # pushes from starting workflows), so redeploy when it finishes instead.
+  workflow_run:
+    workflows: [Generate puzzles]
+    types: [completed]
   workflow_dispatch:
 
 permissions:
@@ -16,6 +21,7 @@ concurrency:
 
 jobs:
   build:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
