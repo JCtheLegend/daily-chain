@@ -16,6 +16,8 @@ export interface GuessRecord {
   matchedName?: string
   /** Name of the chain node the guess was made from. */
   fromName: string
+  /** A person this guess made unnecessary and removed from the chain. */
+  dropped?: string
 }
 
 /**
@@ -42,6 +44,8 @@ export interface ChainState {
 export type Feedback =
   | { kind: 'recorded'; record: GuessRecord }
   | { kind: 'repeat'; name: string }
+  /** Named the link the chain just came from: stepped back to it. */
+  | { kind: 'reopened'; work: string; person: string }
   | { kind: 'ignored' }
 
 export function initialChainState(puzzle: Puzzle): ChainState {
@@ -177,42 +181,79 @@ export function stepName(puzzle: Puzzle, step: ChainStep): string {
   return puzzle.nodes[step.ids[0]].name
 }
 
+/**
+ * When the chain goes work -> person -> same-named work (Packers -> A.J. Hawk ->
+ * Packers again), that middle person is a "bridge" the chain may not need: if
+ * the next person named also shared the first link with the person before
+ * the bridge, the bridge is dropped.
+ */
+function bridgeAt(puzzle: Puzzle, steps: ChainStep[]) {
+  const n = steps.length - 1
+  if (n < 3 || puzzle.nodes[steps[n].ids[0]].type !== 'work') return null
+  if (normalize(stepName(puzzle, steps[n])) !== normalize(stepName(puzzle, steps[n - 2]))) return null
+  return { firstWork: steps[n - 2], bridgePerson: steps[n - 1], personBefore: steps[n - 3] }
+}
+
+/** Who the next person has to share the current link with: "A.J. Hawk or Jeff Saturday". */
+export function linkedPeople(puzzle: Puzzle, state: ChainState): string[] {
+  const n = state.steps.length - 1
+  if (n < 1) return []
+  const bridge = bridgeAt(puzzle, state.steps)
+  const previous = stepName(puzzle, state.steps[n - 1])
+  return bridge ? [previous, stepName(puzzle, bridge.personBefore)] : [previous]
+}
+
 export function submitGuess(puzzle: Puzzle, state: ChainState, text: string): { state: ChainState; feedback: Feedback } {
   if (state.won || state.revealed || !text.trim()) return { state, feedback: { kind: 'ignored' } }
 
   const adj = adjacency(puzzle)
+  const linked = (a: string, b: string) => adj.get(a)?.includes(b) ?? false
   const used = usedIds(state)
-  const current = state.steps[state.steps.length - 1]
+  const n = state.steps.length - 1
+  const current = state.steps[n]
   const fromName = stepName(puzzle, current)
   const record = (outcome: Outcome, matchedName?: string): { state: ChainState; feedback: Feedback } => {
     const rec: GuessRecord = { text, outcome, matchedName, fromName }
     return { state: { ...state, guesses: [...state.guesses, rec] }, feedback: { kind: 'recorded', record: rec } }
   }
 
-  const neighbors = neighborsOfStep(puzzle, current.ids, used)
-  const matched = bestMatch(groupByName(puzzle, neighbors), text)
+  const bridge = bridgeAt(puzzle, state.steps)
+  const neighbors = new Set(neighborsOfStep(puzzle, current.ids, used))
+  if (bridge) for (const id of neighborsOfStep(puzzle, bridge.firstWork.all, used)) neighbors.add(id)
+  const matched = bestMatch(groupByName(puzzle, [...neighbors]), text)
 
   if (matched) {
     const matchedName = puzzle.nodes[matched[0]].name
-    // Narrow the current step to only the nodes linked to what was just named
-    // (e.g. only the seasons two players actually shared).
-    const narrowedCurrent = current.ids.filter((c) => matched.some((m) => adj.get(c)?.includes(m)))
-    const newIds = matched.filter((m) => narrowedCurrent.some((c) => adj.get(c)?.includes(m)))
-    const newStep: ChainStep = { ids: newIds, all: newIds }
-    const steps = [...state.steps.slice(0, -1), { ...current, ids: narrowedCurrent }, newStep]
+    let steps: ChainStep[]
+    let dropped: string | undefined
+    const mergedWork = bridge ? bridge.firstWork.all.filter((w) => matched.some((m) => linked(w, m))) : []
 
+    if (bridge && mergedWork.length) {
+      // Also shared the first link with the person before the bridge: skip the bridge.
+      const newIds = matched.filter((m) => mergedWork.some((w) => linked(w, m)))
+      steps = [...state.steps.slice(0, n - 2), { ids: mergedWork, all: bridge.firstWork.all }, { ids: newIds, all: newIds }]
+      dropped = stepName(puzzle, bridge.bridgePerson)
+    } else {
+      // Narrow the current step to only the nodes linked to what was just named
+      // (e.g. only the seasons two players actually shared).
+      const narrowedCurrent = current.ids.filter((c) => matched.some((m) => linked(c, m)))
+      const newIds = matched.filter((m) => narrowedCurrent.some((c) => linked(c, m)))
+      steps = [...state.steps.slice(0, -1), { ...current, ids: narrowedCurrent }, { ids: newIds, all: newIds }]
+    }
+
+    const newIds = steps[steps.length - 1].ids
+    const rec: GuessRecord = { text, outcome: 'correct', matchedName, fromName, dropped }
     if (newIds.includes(puzzle.end)) {
-      const endStep = { ids: [puzzle.end], all: [puzzle.end] }
-      const rec: GuessRecord = { text, outcome: 'correct', matchedName, fromName }
+      steps[steps.length - 1] = { ids: [puzzle.end], all: [puzzle.end] }
       return {
-        state: { ...state, steps: [...steps.slice(0, -1), endStep], guesses: [...state.guesses, rec], won: true, hintLevel: 0 },
+        state: { ...state, steps, guesses: [...state.guesses, rec], won: true, hintLevel: 0 },
         feedback: { kind: 'recorded', record: rec },
       }
     }
 
-    if (!routeToEnd(puzzle, newIds, used)) return record('dead-end', matchedName)
+    const usedBefore = new Set(steps.slice(0, -1).flatMap((s) => s.ids))
+    if (!routeToEnd(puzzle, newIds, usedBefore)) return record('dead-end', matchedName)
 
-    const rec: GuessRecord = { text, outcome: 'correct', matchedName, fromName }
     return {
       state: { ...state, steps, guesses: [...state.guesses, rec], hintLevel: 0 },
       feedback: { kind: 'recorded', record: rec },
@@ -221,7 +262,18 @@ export function submitGuess(puzzle: Puzzle, state: ChainState, text: string): { 
 
   const usedNeighbors = neighborsOfStep(puzzle, current.ids, new Set()).filter((id) => used.has(id))
   const repeat = bestMatch(groupByName(puzzle, usedNeighbors), text)
-  if (repeat) return { state, feedback: { kind: 'repeat', name: puzzle.nodes[repeat[0]].name } }
+  if (repeat) {
+    // Naming the link just before this person again means "go back to it and pick someone else".
+    const previous = n >= 2 ? state.steps[n - 1] : null
+    if (previous && puzzle.nodes[current.ids[0]].type === 'person' && repeat.some((id) => previous.all.includes(id))) {
+      const steps = [...state.steps.slice(0, n - 1), { ...previous, ids: previous.all }]
+      return {
+        state: { ...state, steps, hintLevel: 0 },
+        feedback: { kind: 'reopened', work: stepName(puzzle, previous), person: stepName(puzzle, state.steps[n - 2]) },
+      }
+    }
+    return { state, feedback: { kind: 'repeat', name: puzzle.nodes[repeat[0]].name } }
+  }
 
   const extras = [...new Set(current.ids.flatMap((id) => puzzle.extras?.[id] ?? []))]
   const extraHit = bestMatch(extras.map((n) => ({ value: n, names: [n] })), text)
@@ -244,13 +296,48 @@ export function eraseChain(state: ChainState): ChainState {
   return { ...state, steps: [{ ...first, ids: first.all }], hintLevel: 0 }
 }
 
-/** The next node on a shortest route from the player's current position, if any. */
-export function nextHintNode(puzzle: Puzzle, state: ChainState): PuzzleNode | null {
-  const current = state.steps[state.steps.length - 1]
-  const blocked = usedIds(state)
-  for (const id of current.ids) blocked.delete(id)
-  const route = routeToEnd(puzzle, current.ids, blocked)
-  return route && route.length > 1 ? puzzle.nodes[route[1]] : null
+export interface Hint {
+  node: PuzzleNode
+  /** Set when the best move is to go back: the chain index to rewind to before naming `node`. */
+  rewindTo?: number
+}
+
+/**
+ * The best next link. Usually that's the next step on a shortest route from
+ * the player's position, but if going back and choosing differently gives a
+ * strictly shorter chain — or the forward route would just circle back to
+ * the link the player came from — the hint says to go back instead.
+ */
+export function nextHint(puzzle: Puzzle, state: ChainState): Hint | null {
+  const n = state.steps.length - 1
+  const idsBefore = (i: number) => new Set(state.steps.slice(0, i).flatMap((s) => s.ids))
+
+  const forward = routeToEnd(puzzle, state.steps[n].ids, idsBefore(n))
+  let best = forward && forward.length > 1 ? { index: n, total: n + forward.length - 1, next: forward[1] } : null
+  const circlesBack =
+    !!best && n >= 1 && normalize(puzzle.nodes[best.next].name) === normalize(stepName(puzzle, state.steps[n - 1]))
+
+  for (let i = n - 1; i >= 0; i--) {
+    const route = routeToEnd(puzzle, state.steps[i].all, idsBefore(i))
+    if (!route || route.length < 2 || state.steps[i + 1].all.includes(route[1])) continue
+    const total = i + route.length - 1
+    if (!best || total < best.total || (circlesBack && best.index === n && total <= best.total)) {
+      best = { index: i, total, next: route[1] }
+    }
+  }
+
+  if (!best) return null
+  return best.index === n ? { node: puzzle.nodes[best.next] } : { node: puzzle.nodes[best.next], rewindTo: best.index }
+}
+
+/** Cuts the chain back so `index` is the last link, restoring any narrowing on it. */
+export function rewindTo(state: ChainState, index: number): ChainState {
+  if (state.won || state.revealed || index >= state.steps.length - 1) return state
+  const steps = state.steps.slice(0, index + 1)
+  const last = steps[index]
+  steps[index] = { ...last, ids: last.all }
+  // The hint stays open: after rewinding, the hinted node is simply the next link.
+  return { ...state, steps }
 }
 
 export function takeHint(state: ChainState): ChainState {

@@ -10,7 +10,9 @@ export const OUTCOME_STYLE: Record<Outcome, { icon: string; className: string }>
 export function describeGuess(g: GuessRecord): string {
   switch (g.outcome) {
     case 'correct':
-      return `${g.matchedName} — linked to ${g.fromName}`
+      return g.dropped
+        ? `${g.matchedName} — linked to ${g.fromName}, so ${g.dropped} isn't needed`
+        : `${g.matchedName} — linked to ${g.fromName}`
     case 'dead-end':
       return `${g.matchedName} is real, but it's a dead end today`
     case 'off-graph':

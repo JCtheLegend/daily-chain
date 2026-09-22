@@ -30,9 +30,18 @@ For sports, naming a team stands for every season the current player spent
 there. Naming the next player narrows it to the seasons the two actually
 shared, so "at the same time" is enforced.
 
+Links that double back are cleaned up rather than punished. Say the chain is
+Saturday → Packers → A.J. Hawk, and the player names the Packers again. If the
+next player named also played alongside Saturday, the chain skips Hawk and
+becomes Saturday → Packers → Rodgers. If that player never overlapped with
+Saturday, Hawk stays as the bridge, because merging would claim a false
+teammate. Naming the link you just came from steps back to it.
+
 Players can **undo** the last link or **erase** the chain to try another route.
-A **hint** shows the next link masked ("T__ H____"), then in full. **Reveal**
-gives up and shows a shortest chain. After solving, the result panel shows
+A **hint** shows the next link masked ("T__ H____"), then in full. When going
+back and choosing differently gives a shorter chain, the hint says to swap the
+last choice instead, with a button that rewinds for you. **Reveal** gives up
+and shows a shortest chain. After solving, the result panel shows
 your chain length next to the shortest chain possible that day.
 
 There's no backend. Puzzles are static JSON files generated ahead of time, and

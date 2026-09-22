@@ -5,9 +5,11 @@ import type { CategoryId, Puzzle } from '../engine/types'
 import {
   eraseChain,
   initialChainState,
+  linkedPeople,
   maskName,
-  nextHintNode,
+  nextHint,
   revealSolution,
+  rewindTo,
   solutionPath,
   stepName,
   submitGuess,
@@ -88,12 +90,12 @@ function CategoryGame({ category }: { category: CategoryId }) {
   const over = state.won || state.revealed
   const current = state.steps[state.steps.length - 1]
   const currentNode = puzzle.nodes[current.ids[0]]
-  const previousPerson = state.steps.length >= 2 ? stepName(puzzle, state.steps[state.steps.length - 2]) : ''
   const prompt =
     currentNode.type === 'person'
       ? meta.personToWorkPrompt(currentNode.name)
-      : meta.workToPersonPrompt(currentNode.name, previousPerson)
-  const hintNode = !over && state.hintLevel > 0 ? nextHintNode(puzzle, state) : null
+      : meta.workToPersonPrompt(currentNode.name, linkedPeople(puzzle, state).join(' or '))
+  const hint = !over && state.hintLevel > 0 ? nextHint(puzzle, state) : null
+  const hintText = hint && (state.hintLevel >= 2 ? hint.node.name : maskName(hint.node.name))
 
   function update(next: ChainState) {
     setState(next)
@@ -143,13 +145,32 @@ function CategoryGame({ category }: { category: CategoryId }) {
           />
           {feedback && <FeedbackLine feedback={feedback} />}
 
-          {hintNode && (
+          {hint && hint.rewindTo === undefined && (
             <div className="panel px-4 py-3 text-center text-sm">
               <span className="text-ash">💡 Next link: </span>
-              <span className="font-display font-bold tracking-widest text-ember">
-                {state.hintLevel >= 2 ? hintNode.name : maskName(hintNode.name)}
-              </span>
-              {hintNode.subtitle && <span className="text-ash"> ({hintNode.subtitle})</span>}
+              <span className="font-display font-bold tracking-widest text-ember">{hintText}</span>
+              {hint.node.subtitle && <span className="text-ash"> ({hint.node.subtitle})</span>}
+            </div>
+          )}
+          {hint && hint.rewindTo !== undefined && (
+            <div className="panel flex flex-col items-center gap-2 px-4 py-3 text-center text-sm">
+              <p>
+                <span className="text-ash">💡 Shorter route: swap </span>
+                <span className="font-bold">{stepName(puzzle, state.steps[hint.rewindTo + 1])}</span>
+                {hint.rewindTo + 1 < state.steps.length - 1 && <span className="text-ash"> and what follows</span>}
+                <span className="text-ash"> for </span>
+                <span className="font-display font-bold tracking-widest text-ember">{hintText}</span>
+                {hint.node.subtitle && <span className="text-ash"> ({hint.node.subtitle})</span>}
+              </p>
+              <button
+                className="btn-iron px-3 py-1.5 text-xs"
+                onClick={() => {
+                  update(rewindTo(state, hint.rewindTo!))
+                  setFeedback(null)
+                }}
+              >
+                ↶ Go back to {stepName(puzzle, state.steps[hint.rewindTo])}
+              </button>
             </div>
           )}
 
@@ -187,6 +208,13 @@ function FeedbackLine({ feedback }: { feedback: Feedback }) {
   if (feedback.kind === 'ignored') return null
   if (feedback.kind === 'repeat') {
     return <p className="text-center text-sm text-ash">↩️ {feedback.name} is already in your chain</p>
+  }
+  if (feedback.kind === 'reopened') {
+    return (
+      <p className="text-center text-sm text-ash" role="status">
+        ↩️ Back on {feedback.work} — name someone else there with {feedback.person}
+      </p>
+    )
   }
   const style = OUTCOME_STYLE[feedback.record.outcome]
   return (
