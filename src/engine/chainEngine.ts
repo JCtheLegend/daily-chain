@@ -4,10 +4,12 @@ import type { Puzzle, PuzzleNode } from './types'
 /**
  * - correct: a real link that still has a route to the target
  * - dead-end: a real link in today's graph, but no route to the target from it
+ * - loop: a real link whose only way on is straight back to the link just named,
+ *   when someone else on that link would get there sooner
  * - off-graph: a real-world link that isn't part of today's puzzle
  * - wrong: not a link we know of
  */
-export type Outcome = 'correct' | 'dead-end' | 'off-graph' | 'wrong'
+export type Outcome = 'correct' | 'dead-end' | 'loop' | 'off-graph' | 'wrong'
 
 export interface GuessRecord {
   text: string
@@ -217,6 +219,21 @@ export function submitGuess(puzzle: Puzzle, state: ChainState, text: string): { 
     return { state: { ...state, guesses: [...state.guesses, rec] }, feedback: { kind: 'recorded', record: rec } }
   }
 
+  /**
+   * A person named from a work (A.J. Hawk from the 2012 Packers) is a loop when
+   * every way on goes straight back to that same team, and another player
+   * from the link would reach the target in strictly fewer steps. Without the
+   * second condition, a genuine bridge between seasons would be rejected.
+   */
+  function isLoop(personIds: string[], onward: string[]): boolean {
+    const sameTeam = normalize(fromName)
+    const backToTeam = neighborsOfStep(puzzle, personIds, new Set()).filter((id) => normalize(puzzle.nodes[id].name) === sameTeam)
+    const before = new Set(state.steps.slice(0, n).flatMap((s) => s.ids))
+    if (routeToEnd(puzzle, personIds, new Set([...before, ...current.all, ...backToTeam]))) return false
+    const withoutThem = routeToEnd(puzzle, current.all, new Set([...before, ...personIds]))
+    return !!withoutThem && withoutThem.length - 1 < onward.length
+  }
+
   const bridge = bridgeAt(puzzle, state.steps)
   const neighbors = new Set(neighborsOfStep(puzzle, current.ids, used))
   if (bridge) for (const id of neighborsOfStep(puzzle, bridge.firstWork.all, used)) neighbors.add(id)
@@ -252,7 +269,9 @@ export function submitGuess(puzzle: Puzzle, state: ChainState, text: string): { 
     }
 
     const usedBefore = new Set(steps.slice(0, -1).flatMap((s) => s.ids))
-    if (!routeToEnd(puzzle, newIds, usedBefore)) return record('dead-end', matchedName)
+    const onward = routeToEnd(puzzle, newIds, usedBefore)
+    if (!onward) return record('dead-end', matchedName)
+    if (!dropped && puzzle.nodes[current.ids[0]].type === 'work' && isLoop(newIds, onward)) return record('loop', matchedName)
 
     return {
       state: { ...state, steps, guesses: [...state.guesses, rec], hintLevel: 0 },

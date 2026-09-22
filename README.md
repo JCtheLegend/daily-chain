@@ -21,21 +21,27 @@ Every guess is checked against the real neighbors of your current position
 (exact name, alias like "Lakers" or "LAL", or a close fuzzy match):
 
 - 🟩 **Correct**: a real link that still has a route to the target.
-- 🟨 **Real, but no chain**: a true answer that can't reach today's target. It
-  may be a dead end within today's puzzle, or a real credit or roster spot that
-  isn't part of today's graph. The chain doesn't advance.
+- 🟨 **Real, but no progress**: a true answer that doesn't move you forward.
+  It may be one of these:
+  - a dead end within today's puzzle
+  - a real credit or roster spot that isn't part of today's graph
+  - a loop, like naming A.J. Hawk from the 2012 Packers when his only way on
+    is straight back to the Packers and another player from that season would
+    get there sooner
+
+  The chain doesn't advance.
 - ⬛ **Wrong**: not a link we know of.
 
 For sports, naming a team stands for every season the current player spent
 there. Naming the next player narrows it to the seasons the two actually
 shared, so "at the same time" is enforced.
 
-Links that double back are cleaned up rather than punished. Say the chain is
-Saturday → Packers → A.J. Hawk, and the player names the Packers again. If the
-next player named also played alongside Saturday, the chain skips Hawk and
-becomes Saturday → Packers → Rodgers. If that player never overlapped with
-Saturday, Hawk stays as the bridge, because merging would claim a false
-teammate. Naming the link you just came from steps back to it.
+If a player doubles back through a same-named link anyway (A → Team → B → Team
+→ C), the chain drops B when C also overlapped with A. When C didn't overlap
+with A, B stays as the bridge, because merging would claim a false teammate.
+Naming the link you just came from steps back to it.
+
+The share text is the result line plus a tally, e.g. `🟩×6 🟨×1 ⬛×1`.
 
 Players can **undo** the last link or **erase** the chain to try another route.
 A **hint** shows the next link masked ("T__ H____"), then in full. When going

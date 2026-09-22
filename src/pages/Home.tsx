@@ -59,7 +59,7 @@ export default function Home() {
         <ul className="mt-2 flex flex-col gap-1.5 text-bone/85">
           <li>Start at the top name. Name something they were in, then someone else in it, and so on until you reach the bottom name.</li>
           <li>🟩 a real link that still leads somewhere</li>
-          <li>🟨 a real link, but it won't reach today's target (a dead end, or outside today's puzzle)</li>
+          <li>🟨 a real link that doesn't move you forward: a dead end, one that only loops back where you came from, or one outside today's puzzle</li>
           <li>⬛ not a link we know of</li>
           <li>Stuck? Undo or erase links to try another route, take a hint, or reveal the solution.</li>
         </ul>
