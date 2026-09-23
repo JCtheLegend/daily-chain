@@ -22,6 +22,24 @@ export function saveState(category: CategoryId, date: string, state: ChainState)
   }
 }
 
+const TUTORIAL_KEY = 'daily-chain:tutorial-seen'
+
+export function hasSeenTutorial(): boolean {
+  try {
+    return localStorage.getItem(TUTORIAL_KEY) === '1'
+  } catch {
+    return true // storage blocked: don't nag with the tutorial on every visit
+  }
+}
+
+export function markTutorialSeen(): void {
+  try {
+    localStorage.setItem(TUTORIAL_KEY, '1')
+  } catch {
+    // storage unavailable — nothing to remember it in
+  }
+}
+
 export function solvedStatus(category: CategoryId, date: string): 'solved' | 'revealed' | null {
   const state = loadSavedState(category, date)
   if (state?.won) return 'solved'

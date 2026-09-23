@@ -4,9 +4,11 @@ import { todayDateString } from '../engine/dailyIndex'
 import { solvedStatus } from '../engine/storage'
 import ChainLinks from '../components/ChainLinks'
 import Torchlight from '../components/Torchlight'
+import { useOpenTutorial } from '../tutorialContext'
 
 export default function Home() {
   const today = todayDateString()
+  const openTutorial = useOpenTutorial()
 
   return (
     <div className="relative mx-auto flex w-full max-w-xl flex-1 flex-col items-center px-4 pb-12">
@@ -55,7 +57,12 @@ export default function Home() {
       </div>
 
       <section className="panel relative mt-8 w-full p-5 text-sm">
-        <h2 className="font-display text-base font-bold text-ember">How to play</h2>
+        <div className="flex items-center justify-between gap-2">
+          <h2 className="font-display text-base font-bold text-ember">How to play</h2>
+          <button onClick={openTutorial} className="btn-iron px-3 py-1 text-xs">
+            ▶ Watch the tutorial
+          </button>
+        </div>
         <ul className="mt-2 flex flex-col gap-1.5 text-bone/85">
           <li>Start at the top name. Name something they were in, then someone else in it, and so on until you reach the bottom name.</li>
           <li>🟩 a real link that still leads somewhere</li>

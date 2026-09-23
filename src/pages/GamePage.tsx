@@ -26,6 +26,7 @@ import GuessHistory from '../components/GuessHistory'
 import { OUTCOME_STYLE, describeGuess } from '../components/guessFormat'
 import ResultPanel from '../components/ResultPanel'
 import Torchlight from '../components/Torchlight'
+import { useOpenTutorial } from '../tutorialContext'
 
 function isCategory(value: string | undefined): value is CategoryId {
   return !!value && value in CATEGORY_META
@@ -60,6 +61,7 @@ function CategoryGame({ category }: { category: CategoryId }) {
   const [error, setError] = useState(false)
   const [feedback, setFeedback] = useState<Feedback | null>(null)
   const [confirmReveal, setConfirmReveal] = useState(false)
+  const openTutorial = useOpenTutorial()
 
   useEffect(() => {
     loadTodaysPuzzle(category)
@@ -125,6 +127,13 @@ function CategoryGame({ category }: { category: CategoryId }) {
             </span>
           )}
           #{puzzle.number}
+          <button
+            onClick={openTutorial}
+            aria-label="How to play"
+            className="flex h-6 w-6 items-center justify-center rounded-full border border-ash/50 font-display text-xs font-bold text-ash hover:border-ember hover:text-ember"
+          >
+            ?
+          </button>
         </span>
       </header>
 
