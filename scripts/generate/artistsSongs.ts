@@ -2,6 +2,7 @@ import 'dotenv/config'
 import { createRateLimiter, fetchJsonCached, pMap, WEEK_MS } from './shared/fetchUtil'
 import { GraphBuilder, titleAliases } from './shared/graph'
 import { generateSeries } from './shared/series'
+import { loadHot100 } from './billboard'
 
 const API = 'https://api.deezer.com'
 // Deezer allows 50 requests / 5 seconds per IP.
@@ -27,6 +28,8 @@ const SEED_ARTISTS = [
   'Luke Combs', 'Florida Georgia Line', 'Blake Shelton', 'Carrie Underwood', 'Keith Urban', 'Linkin Park',
 ]
 const MAX_EXPANDED_ARTISTS = 300
+/** An endpoint needs enough charting collaborations that players can find a way in or out. */
+const MIN_ENDPOINT_HITS = 4
 
 interface DzArtist {
   id: number
@@ -86,6 +89,7 @@ async function topTracks(artistId: number): Promise<DzTrack[]> {
 }
 
 export async function main() {
+  const hot100 = await loadHot100()
   console.log('Resolving seed artists on Deezer...')
   const seeds = (await pMap(SEED_ARTISTS, 4, resolveArtist)).filter((a): a is DzArtist => !!a)
   console.log(`Resolved ${seeds.length}/${SEED_ARTISTS.length}`)
@@ -108,15 +112,20 @@ export async function main() {
         const contributors = (track.contributors ?? []).filter((c) => !isPseudoArtist(c.name))
         const unique = [...new Map(contributors.map((c) => [c.id, c])).values()]
         if (unique.length < 2) continue
-        const title = cleanTitle(track)
-        const key = `${norm(title)}|${unique.map((c) => c.id).sort().join(',')}`
+        // Only songs that charted on the Billboard Hot 100 count as links, and only
+        // between artists Billboard credits (so a remixer isn't "on" the song).
+        const hit = hot100.match(cleanTitle(track), unique)
+        if (!hit || hit.credited.length < 2) continue
+        const title = hit.title
+        const key = `${norm(title)}|${hit.credited.map((c) => c.id).sort().join(',')}`
         let workId = songKeys.get(key)
         if (!workId) {
           workId = `dz-t-${track.id}`
           songKeys.set(key, workId)
-          g.addNode({ id: workId, name: title, aliases: songAliases(title), type: 'work' })
+          const aliases = new Set([...(songAliases(title) ?? []), ...(cleanTitle(track) !== title ? [cleanTitle(track)] : [])])
+          g.addNode({ id: workId, name: title, aliases: aliases.size ? [...aliases] : undefined, type: 'work' })
         }
-        for (const c of unique) {
+        for (const c of hit.credited) {
           g.addNode({ id: personId(c.id), name: c.name, type: 'person' })
           g.link(personId(c.id), workId)
           if (c.id !== artist.id && !fetched.has(c.id)) {
@@ -149,9 +158,13 @@ export async function main() {
   const songs = Object.values(g.nodes).filter((n) => n.type === 'work').length
   console.log(`Graph: ${Object.keys(g.nodes).length - songs} artists, ${songs} songs, ${g.edges.length} credits`)
 
-  const seedIds = new Set(seeds.map((s) => personId(s.id)))
+  const hitCount = new Map<string, number>()
+  for (const e of g.edges) hitCount.set(e.a, (hitCount.get(e.a) ?? 0) + 1)
+  const seedIds = new Set(seeds.map((s) => personId(s.id)).filter((id) => (hitCount.get(id) ?? 0) >= MIN_ENDPOINT_HITS))
+  console.log(`${seedIds.size} endpoint candidates (seed artists with ${MIN_ENDPOINT_HITS}+ charting collaborations)`)
   const context = { name: 'artists-songs', nodes: g.nodes, edges: g.edges, isEndpoint: (id: string) => seedIds.has(id), extraNames }
-  generateSeries({ category: 'artists-songs', contexts: [context], contextFor: () => context })
+  // Charting-only collaborations make a sparser graph, so cap puzzles at 3 links to keep them gettable.
+  generateSeries({ category: 'artists-songs', contexts: [context], contextFor: () => context, maxPar: 6 })
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {

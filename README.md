@@ -7,7 +7,7 @@ time. Play it at <https://jcthelegend.github.io/daily-chain/>.
 Three daily games:
 
 - **Actors & Movies**: actors linked through movies they were cast in. Data from [TMDb](https://www.themoviedb.org/).
-- **Artists & Songs**: artists linked through songs they're both credited on. Data from [Deezer](https://developers.deezer.com/).
+- **Artists & Songs**: artists linked through US hits they're both credited on. Only songs that charted on the Billboard Hot 100 count. Data from [Deezer](https://developers.deezer.com/) and [Billboard chart history](https://github.com/mhollingshead/billboard-hot-100).
 - **Athletes & Teams**: players linked through teams they were on **in the same season**. The league rotates daily between the NBA, NFL, MLB and NHL.
 
 ## How the game works
@@ -107,7 +107,7 @@ API responses are cached under `scripts/generate/.cache` (gitignored).
 | Category | Graph | Who can be a start/end |
 |---|---|---|
 | Actors & Movies | TMDb credits; documentaries and cameos as themselves excluded | Top-billed stars of TMDb's 300 most-voted movies |
-| Artists & Songs | Deezer top tracks and their credited contributors, seeded from ~110 well-known artists and their frequent collaborators | The seed artists |
+| Artists & Songs | Deezer top tracks, seeded from ~110 well-known artists and their frequent collaborators, kept only if the song charted on the Billboard Hot 100, and linking only the artists Billboard credits (no remixers). Capped at 3 links | Seed artists with 4+ charting collaborations |
 | NBA | ESPN box scores via [sportsdataverse](https://github.com/sportsdataverse/sportsdataverse-data), 2001–02 on (players who actually appeared in a game) | Most-linked players on Wikipedia/Wikidata |
 | NFL | [nflverse](https://github.com/nflverse/nflverse-data) season rosters, 2000 on (practice squad excluded) | Same |
 | MLB | MLB Stats API full-season rosters, 2000 on | Same |
