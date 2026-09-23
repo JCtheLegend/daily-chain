@@ -5,6 +5,7 @@ import type { CategoryId, Puzzle } from '../engine/types'
 import {
   eraseChain,
   initialChainState,
+  isStateCompatible,
   linkedPeople,
   maskName,
   nextHint,
@@ -67,7 +68,8 @@ function CategoryGame({ category }: { category: CategoryId }) {
     loadTodaysPuzzle(category)
       .then((p) => {
         setPuzzle(p)
-        setState(loadSavedState(category, p.date) ?? initialChainState(p))
+        const saved = loadSavedState(category, p.date)
+        setState(saved && isStateCompatible(p, saved) ? saved : initialChainState(p))
       })
       .catch((e: Error) => {
         console.error(`Failed to load puzzle for ${category}:`, e)

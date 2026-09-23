@@ -118,56 +118,6 @@ export function pickPuzzlePair(
   return path ? { start: best.start, end: best.end, path } : null
 }
 
-/**
- * The slice of the full graph bundled into a puzzle: the solution path, every
- * direct neighbor of it (so any first step off the path is recognised), then
- * second-degree neighbors up to maxNodes. Nodes near the path also carry the
- * names of real-world neighbors that didn't make the cut, so the game can say
- * "real, but not part of today's chain" instead of "wrong".
- */
-export function buildPuzzleGraph(
-  nodes: Record<string, RawNode>,
-  edges: PuzzleEdge[],
-  path: string[],
-  opts: { maxNodes: number; extraNames?: Map<string, string[]>; maxExtrasPerNode?: number },
-): { nodes: Record<string, RawNode>; edges: PuzzleEdge[]; extras: Record<string, string[]> } {
-  const adj = buildAdjacency(edges)
-  const included = new Set(path)
-  const ring1: string[] = []
-  for (const id of path) {
-    for (const n of adj.get(id) ?? []) {
-      if (!included.has(n)) {
-        included.add(n)
-        ring1.push(n)
-      }
-    }
-  }
-  for (const id of ring1) {
-    if (included.size >= opts.maxNodes) break
-    for (const n of adj.get(id) ?? []) {
-      if (included.size >= opts.maxNodes) break
-      included.add(n)
-    }
-  }
-
-  const outNodes: Record<string, RawNode> = {}
-  for (const id of included) outNodes[id] = nodes[id]
-  const outEdges = edges.filter((e) => included.has(e.a) && included.has(e.b))
-
-  const extras: Record<string, string[]> = {}
-  const cap = opts.maxExtrasPerNode ?? 80
-  for (const id of [...path, ...ring1]) {
-    const inGraph = new Set((adj.get(id) ?? []).filter((n) => included.has(n)).map((n) => nodes[n].name))
-    const names = new Set<string>()
-    for (const n of adj.get(id) ?? []) if (!included.has(n)) names.add(nodes[n].name)
-    for (const name of opts.extraNames?.get(id) ?? []) names.add(name)
-    const list = [...names].filter((n) => !inGraph.has(n)).slice(0, cap)
-    if (list.length) extras[id] = list
-  }
-
-  return { nodes: outNodes, edges: outEdges, extras }
-}
-
 /** Extra names a title can be guessed by: "Star Wars: A New Hope" -> ["A New Hope", "Star Wars"]. */
 export function titleAliases(title: string): string[] | undefined {
   const parts = title

@@ -12,13 +12,18 @@ Three daily games:
 
 ## How the game works
 
-Each puzzle bundles a slice of a real-world graph. People connect to "works"
-(a movie, a song, or a *team-season* such as "Lakers 2009–10") wherever they
-really appear on them. You start at one person and type a work connected to
-them, then another person on that work, and so on until you reach the target.
+Each category (and each sports league) has one shared graph in
+`public/graphs/<name>.json`. People connect to "works" (a movie, a song, or a
+*team-season* such as "Lakers 2009–10") wherever they really appear on them.
+A day's puzzle file just names its start, end and graph. Any real route through
+the data is playable, not only routes near the intended one.
+
+You start at one person and type a work connected to them, then another person
+on that work, and so on until you reach the target.
 
 Every guess is checked against the real neighbors of your current position
-(exact name, alias like "Lakers" or "LAL", or a close fuzzy match):
+(exact name, alias like "Lakers" or "LAL", or a close fuzzy match). Common abbreviations
+are expanded, so "Dr Strange" matches "Doctor Strange" and "St Louis" matches "Saint Louis":
 
 - 🟩 **Correct**: a real link that still has a route to the target.
 - 🟨 **Real, but no progress**: a true answer that doesn't move you forward.
@@ -67,8 +72,18 @@ npm run dev
 
 ## Generating puzzles
 
-Puzzle JSON lives in `public/puzzles/<category>/<date>.json`, with an
-`index.json` per category listing the available dates.
+Graphs live in `public/graphs/`, and each day's puzzle is a small
+`public/puzzles/<category>/<date>.json` pointing at one, with an `index.json`
+per category. The shortest chain ("par") is computed in the browser.
+
+Every generation run does three things:
+
+1. Rewrites the graph files. The output is deterministic, so an unchanged graph
+   produces an identical file.
+2. Re-checks every existing puzzle against the new graphs. Valid puzzles keep
+   their start and end. Future puzzles that stopped working are regenerated,
+   and past ones are dropped.
+3. Adds new days.
 
 ```bash
 cp .env.example .env   # then fill in TMDB_API_KEY
@@ -110,8 +125,8 @@ on both teams that season, which is the usual definition of teammates.
 
 `npm run validate` checks every puzzle:
 
-- structure: bipartite edges, endpoints exist, and the stored par matches the
-  real shortest chain
+- structure: graph files exist, links are bipartite, endpoints exist, and
+  endpoints are at least two links apart
 - solvability: it replays the shortest solution through the game engine,
   typing each name exactly as a player would, and the puzzle fails if the game
   doesn't accept it
@@ -133,8 +148,9 @@ triggers a redeploy. It needs the `TMDB_API_KEY` repo secret.
   share text.
 - `src/categories/config.ts`: per-category labels and prompts.
 - `src/components/`, `src/pages/`: UI, including the dungeon theme in `src/index.css`.
-- `scripts/generate/shared/`: graph utilities, the puzzle slicer (it also
-  computes the "real but not today" names), the date-series loop, and the writer.
+- `src/engine/graphFormat.ts`: the compact shared-graph file format (read by the game and the validator).
+- `scripts/generate/shared/`: graph utilities, the graph-file writer (including the "real but not today"
+  names), the date-series loop that repairs and extends puzzles, and the puzzle writer.
 - `scripts/generate/{actorsMovies,artistsSongs,athletesTeams}.ts` plus
   `scripts/generate/sports/`: one data pipeline per category or league.
 - `scripts/validate.ts`: the puzzle validator.

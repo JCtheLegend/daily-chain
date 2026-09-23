@@ -150,11 +150,8 @@ export async function main() {
   console.log(`Graph: ${Object.keys(g.nodes).length - songs} artists, ${songs} songs, ${g.edges.length} credits`)
 
   const seedIds = new Set(seeds.map((s) => personId(s.id)))
-  generateSeries({
-    category: 'artists-songs',
-    maxNodes: 200,
-    contextFor: () => ({ nodes: g.nodes, edges: g.edges, isEndpoint: (id) => seedIds.has(id), extraNames }),
-  })
+  const context = { name: 'artists-songs', nodes: g.nodes, edges: g.edges, isEndpoint: (id: string) => seedIds.has(id), extraNames }
+  generateSeries({ category: 'artists-songs', contexts: [context], contextFor: () => context })
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {

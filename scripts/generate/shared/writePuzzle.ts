@@ -1,39 +1,49 @@
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
-import type { CategoryId, Puzzle } from '../../../src/engine/types'
+import type { CategoryId } from '../../../src/engine/types'
+import type { PuzzleFile } from '../../../src/engine/graphFormat'
 import { puzzleNumberForDate } from '../../../src/engine/dailyIndex'
 
 export const PUZZLES_ROOT = join(import.meta.dirname, '..', '..', '..', 'public', 'puzzles')
 
-export function writePuzzle(puzzle: Omit<Puzzle, 'number'>): void {
+/** Only the fields every puzzle file has had, in both the old (bundled graph) and new format. */
+export interface StoredPuzzle {
+  date: string
+  start: string
+  end: string
+  tag?: string
+  graph?: string
+}
+
+function indexPath(category: CategoryId): string {
+  return join(PUZZLES_ROOT, category, 'index.json')
+}
+
+function writeIndex(category: CategoryId, dates: string[]) {
+  writeFileSync(indexPath(category), JSON.stringify([...new Set(dates)].sort(), null, 2) + '\n')
+}
+
+export function writePuzzle(puzzle: Omit<PuzzleFile, 'number'>, note = ''): void {
   const dir = join(PUZZLES_ROOT, puzzle.category)
   mkdirSync(dir, { recursive: true })
+  const file: PuzzleFile = { ...puzzle, number: puzzleNumberForDate(puzzle.date) }
+  writeFileSync(join(dir, `${puzzle.date}.json`), JSON.stringify(file, null, 2) + '\n')
+  writeIndex(puzzle.category, [...existingPuzzleDates(puzzle.category), puzzle.date])
+  if (note) console.log(`  ${puzzle.date}${puzzle.tag ? ` [${puzzle.tag}]` : ''}: ${note}`)
+}
 
-  const full: Puzzle = { ...puzzle, number: puzzleNumberForDate(puzzle.date) }
-  if (full.extras && Object.keys(full.extras).length === 0) delete full.extras
-  writeFileSync(join(dir, `${puzzle.date}.json`), JSON.stringify(full) + '\n')
-
-  const indexPath = join(dir, 'index.json')
-  const dates: string[] = existsSync(indexPath) ? JSON.parse(readFileSync(indexPath, 'utf-8')) : []
-  if (!dates.includes(puzzle.date)) dates.push(puzzle.date)
-  dates.sort()
-  writeFileSync(indexPath, JSON.stringify(dates, null, 2) + '\n')
-
-  const extrasCount = Object.values(full.extras ?? {}).reduce((n, list) => n + list.length, 0)
-  console.log(
-    `  ${puzzle.date}${puzzle.tag ? ` [${puzzle.tag}]` : ''}: ${full.nodes[puzzle.start].name} → ${full.nodes[puzzle.end].name}, ` +
-      `${puzzle.parMoves / 2} links (${Object.keys(full.nodes).length} nodes, ${extrasCount} extra names)`,
-  )
+export function removePuzzle(category: CategoryId, date: string): void {
+  rmSync(join(PUZZLES_ROOT, category, `${date}.json`), { force: true })
+  writeIndex(category, existingPuzzleDates(category).filter((d) => d !== date))
 }
 
 export function existingPuzzleDates(category: CategoryId): string[] {
-  const indexPath = join(PUZZLES_ROOT, category, 'index.json')
-  return existsSync(indexPath) ? JSON.parse(readFileSync(indexPath, 'utf-8')) : []
+  return existsSync(indexPath(category)) ? JSON.parse(readFileSync(indexPath(category), 'utf-8')) : []
 }
 
-export function readPuzzle(category: CategoryId, date: string): Puzzle | null {
+export function readPuzzle(category: CategoryId, date: string): StoredPuzzle | null {
   const path = join(PUZZLES_ROOT, category, `${date}.json`)
-  return existsSync(path) ? (JSON.parse(readFileSync(path, 'utf-8')) as Puzzle) : null
+  return existsSync(path) ? (JSON.parse(readFileSync(path, 'utf-8')) as StoredPuzzle) : null
 }
 
 /**
@@ -44,12 +54,14 @@ export function readPuzzle(category: CategoryId, date: string): Puzzle | null {
  */
 export function nextStartDate(category: CategoryId): string {
   const dates = existingPuzzleDates(category)
-  const today = new Date().toISOString().slice(0, 10)
+  const today = todayUtc()
   if (dates.length === 0) return today
-  const d = new Date(`${[...dates].sort().at(-1)}T00:00:00Z`)
-  d.setUTCDate(d.getUTCDate() + 1)
-  const next = d.toISOString().slice(0, 10)
+  const next = addDays([...dates].sort().at(-1)!, 1)
   return next > today ? next : today
+}
+
+export function todayUtc(): string {
+  return new Date().toISOString().slice(0, 10)
 }
 
 export function addDays(date: string, days: number): string {

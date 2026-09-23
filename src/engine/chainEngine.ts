@@ -88,6 +88,17 @@ export function normalize(s: string): string {
     .replace(/[^a-z0-9 ]/g, '')
     .replace(/\s+/g, ' ')
     .replace(/^the /, '')
+    .replace(/\b(dr|mr|mrs|st|mt|jr|sr)\b/g, (abbr) => ABBREVIATIONS[abbr])
+}
+
+/** Applied to both guesses and names, so "Dr Strange" matches "Doctor Strange". */
+const ABBREVIATIONS: Record<string, string> = {
+  dr: 'doctor', mr: 'mister', mrs: 'missus', st: 'saint', mt: 'mount', jr: 'junior', sr: 'senior',
+}
+
+/** False if a saved game refers to nodes that are no longer in the puzzle's graph. */
+export function isStateCompatible(puzzle: Puzzle, state: ChainState): boolean {
+  return state.steps.length > 0 && state.steps[0].ids[0] === puzzle.start && state.steps.every((s) => s.all.every((id) => puzzle.nodes[id]))
 }
 
 function namesOf(node: PuzzleNode): string[] {

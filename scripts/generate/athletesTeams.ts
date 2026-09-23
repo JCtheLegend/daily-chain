@@ -44,7 +44,7 @@ function buildLeagueContext(league: League, entries: RosterEntry[], fame: (playe
   console.log(`${league}: ${people} players, ${Object.keys(g.nodes).length - people} team-seasons, ${g.edges.length} links, ${pool.size} endpoint candidates`)
   console.log(`  e.g. ${[...pool].slice(0, 8).map((id) => g.nodes[id].name).join(', ')}`)
 
-  return { nodes: g.nodes, edges: g.edges, isEndpoint: (id) => pool.has(id), tag: league }
+  return { name: `athletes-${league.toLowerCase()}`, nodes: g.nodes, edges: g.edges, isEndpoint: (id) => pool.has(id), tag: league }
 }
 
 export async function main() {
@@ -71,7 +71,7 @@ export async function main() {
   console.log('Generating puzzles (leagues rotate by day)...')
   generateSeries({
     category: 'athletes-teams',
-    maxNodes: 300,
+    contexts: Object.values(contexts),
     contextFor: (date) => contexts[LEAGUES[puzzleNumberForDate(date) % LEAGUES.length]],
   })
 }

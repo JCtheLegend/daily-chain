@@ -10,10 +10,9 @@ const rateLimit = createRateLimiter(30) // TMDb allows ~50 req/s
 const DISCOVER_PAGES = 15 // 20 movies per page, most-voted first
 const STARS_PER_MOVIE = 3
 const MOVIES_PER_ACTOR = 15
-const CAST_PER_MOVIE = 12
+const CAST_PER_MOVIE = 15
 const GRAPH_MIN_VOTES = 500 // links in the puzzle graph use well-known movies only
-const EXTRA_MIN_VOTES = 20 // "real, but not today" recognition accepts much more
-const EXTRA_CAST = 40
+const EXTRA_MIN_VOTES = 100 // "real, but not today" recognition accepts much more
 const DOCUMENTARY = 99
 
 // A puzzle endpoint must have led (top-5 billing) several widely seen movies.
@@ -114,7 +113,6 @@ export async function main() {
       subtitle: movie.release_date?.slice(0, 4),
       year: Number(movie.release_date?.slice(0, 4)) || undefined,
     })
-    extraNames.set(movieId(movie.id), roles.slice(0, EXTRA_CAST).map((c) => c.name))
     // Stars are linked to every graph movie they're really in, not just the top-billed few.
     for (const c of roles) {
       if (roles.indexOf(c) < CAST_PER_MOVIE || stars.has(c.id)) {
@@ -135,11 +133,8 @@ export async function main() {
       .map(([id]) => id),
   )
   console.log(`${starIds.size} endpoint candidates, e.g. ${[...starIds].slice(0, 10).map((id) => g.nodes[id].name).join(', ')}`)
-  generateSeries({
-    category: 'actors-movies',
-    maxNodes: 200,
-    contextFor: () => ({ nodes: g.nodes, edges: g.edges, isEndpoint: (id) => starIds.has(id), extraNames }),
-  })
+  const context = { name: 'actors-movies', nodes: g.nodes, edges: g.edges, isEndpoint: (id: string) => starIds.has(id), extraNames }
+  generateSeries({ category: 'actors-movies', contexts: [context], contextFor: () => context })
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {

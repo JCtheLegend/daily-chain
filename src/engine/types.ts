@@ -28,8 +28,10 @@ export interface Puzzle {
   end: string
   nodes: Record<string, PuzzleNode>
   edges: PuzzleEdge[]
-  /** Hop count (edges) of a shortest start->end path. Links = parMoves / 2. */
+  /** Hop count (edges) of a shortest start->end path, computed when loaded. Links = parMoves / 2. */
   parMoves: number
+  /** Graph file the nodes/edges came from. */
+  graph?: string
   /** Extra label for the puzzle, e.g. the league for sports puzzles. */
   tag?: string
   /**
