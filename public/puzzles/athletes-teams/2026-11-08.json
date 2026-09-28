@@ -1,0 +1,9 @@
+{
+  "date": "2026-11-08",
+  "category": "athletes-teams",
+  "start": "NBA-p-640",
+  "end": "NBA-p-3112335",
+  "tag": "NBA",
+  "graph": "graphs/athletes-nba.json",
+  "number": 312
+}
