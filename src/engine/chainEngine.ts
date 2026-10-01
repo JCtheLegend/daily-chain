@@ -157,8 +157,20 @@ function neighborsOfStep(puzzle: Puzzle, ids: string[], exclude: Set<string>): s
   return [...out]
 }
 
+/**
+ * Shortest route to the target, preferring one through well-known people when
+ * it's no longer — what hints and revealed solutions show, so they don't
+ * suggest an obscure backup when a star would do.
+ */
+export function bestRoute(puzzle: Puzzle, from: string[], blocked: Set<string>): string[] | null {
+  const shortest = routeToEnd(puzzle, from, blocked)
+  if (!shortest) return null
+  const famous = routeToEnd(puzzle, from, blocked, true)
+  return famous && famous.length <= shortest.length ? famous : shortest
+}
+
 /** Shortest route (node ids, starting with one of `from`) to the target, avoiding `blocked`. */
-export function routeToEnd(puzzle: Puzzle, from: string[], blocked: Set<string>): string[] | null {
+export function routeToEnd(puzzle: Puzzle, from: string[], blocked: Set<string>, famousOnly = false): string[] | null {
   const adj = adjacency(puzzle)
   const prev = new Map<string, string | null>()
   const queue: string[] = []
@@ -179,6 +191,8 @@ export function routeToEnd(puzzle: Puzzle, from: string[], blocked: Set<string>)
     }
     for (const n of adj.get(cur) ?? []) {
       if (prev.has(n) || blocked.has(n)) continue
+      const node = puzzle.nodes[n]
+      if (famousOnly && node.type === 'person' && !node.famous && n !== puzzle.end) continue
       prev.set(n, cur)
       queue.push(n)
     }
@@ -187,7 +201,7 @@ export function routeToEnd(puzzle: Puzzle, from: string[], blocked: Set<string>)
 }
 
 export function solutionPath(puzzle: Puzzle): string[] {
-  return routeToEnd(puzzle, [puzzle.start], new Set()) ?? [puzzle.start]
+  return bestRoute(puzzle, [puzzle.start], new Set()) ?? [puzzle.start]
 }
 
 export function stepName(puzzle: Puzzle, step: ChainStep): string {
@@ -342,13 +356,13 @@ export function nextHint(puzzle: Puzzle, state: ChainState): Hint | null {
   const n = state.steps.length - 1
   const idsBefore = (i: number) => new Set(state.steps.slice(0, i).flatMap((s) => s.ids))
 
-  const forward = routeToEnd(puzzle, state.steps[n].ids, idsBefore(n))
+  const forward = bestRoute(puzzle, state.steps[n].ids, idsBefore(n))
   let best = forward && forward.length > 1 ? { index: n, total: n + forward.length - 1, next: forward[1] } : null
   const circlesBack =
     !!best && n >= 1 && normalize(puzzle.nodes[best.next].name) === normalize(stepName(puzzle, state.steps[n - 1]))
 
   for (let i = n - 1; i >= 0; i--) {
-    const route = routeToEnd(puzzle, state.steps[i].all, idsBefore(i))
+    const route = bestRoute(puzzle, state.steps[i].all, idsBefore(i))
     if (!route || route.length < 2 || state.steps[i + 1].all.includes(route[1])) continue
     const total = i + route.length - 1
     if (!best || total < best.total || (circlesBack && best.index === n && total <= best.total)) {

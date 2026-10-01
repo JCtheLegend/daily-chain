@@ -1,8 +1,8 @@
 {
   "date": "2026-10-27",
   "category": "athletes-teams",
-  "start": "NBA-p-6583",
-  "end": "NBA-p-446",
+  "start": "NBA-p-turkohe01",
+  "end": "NBA-p-curryst01",
   "tag": "NBA",
   "graph": "graphs/athletes-nba.json",
   "number": 300

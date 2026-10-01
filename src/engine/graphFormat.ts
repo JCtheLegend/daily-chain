@@ -7,8 +7,8 @@ import type { CategoryId, PuzzleEdge, PuzzleNode } from './types'
  */
 export interface GraphFile {
   version: 1
-  /** [id, name, 'p'|'w', subtitle, year, aliases] — empty trailing fields are omitted. */
-  nodes: [string, string, 'p' | 'w', string?, number?, string[]?][]
+  /** [id, name, type, subtitle, year, aliases] — type 'p' person, 'P' well-known person, 'w' work; empty trailing fields are omitted. */
+  nodes: [string, string, 'p' | 'P' | 'w', string?, number?, string[]?][]
   /** [workIndex, ...personIndices]: everyone linked to each work. */
   links: number[][]
   /** Node index -> real-world neighbor names that aren't in the graph. */
@@ -36,7 +36,8 @@ export interface ExpandedGraph {
 export function expandGraph(file: GraphFile): ExpandedGraph {
   const nodes: Record<string, PuzzleNode> = {}
   const ids = file.nodes.map(([id, name, type, subtitle, year, aliases]) => {
-    const node: PuzzleNode = { id, name, type: type === 'p' ? 'person' : 'work' }
+    const node: PuzzleNode = { id, name, type: type === 'w' ? 'work' : 'person' }
+    if (type === 'P') node.famous = true
     if (subtitle) node.subtitle = subtitle
     if (year) node.year = year
     if (aliases?.length) node.aliases = aliases

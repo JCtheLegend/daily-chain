@@ -8,13 +8,13 @@ Three daily games:
 
 - **Actors & Movies**: actors linked through movies they were cast in. Data from [TMDb](https://www.themoviedb.org/).
 - **Artists & Songs**: artists linked through US hits they're both credited on. Only songs that charted on the Billboard Hot 100 count. Data from [Deezer](https://developers.deezer.com/) and [Billboard chart history](https://github.com/mhollingshead/billboard-hot-100).
-- **Athletes & Teams**: players linked through teams they were on **in the same season**. The league rotates daily between the NBA, NFL, MLB and NHL.
+- **Athletes & Teams**: players linked through teams they both played for, in any year. The league rotates daily between the NBA, NFL, MLB and NHL, and every sports puzzle is exactly 2 links.
 
 ## How the game works
 
 Each category (and each sports league) has one shared graph in
 `public/graphs/<name>.json`. People connect to "works" (a movie, a song, or a
-*team-season* such as "Lakers 2009–10") wherever they really appear on them.
+team franchise) wherever they really appear on them.
 A day's puzzle file just names its start, end and graph. Any real route through
 the data is playable, not only routes near the intended one.
 
@@ -30,21 +30,19 @@ are expanded, so "Dr Strange" matches "Doctor Strange" and "St Louis" matches "S
   It may be one of these:
   - a dead end within today's puzzle
   - a real credit or roster spot that isn't part of today's graph
-  - a loop, like naming A.J. Hawk from the 2012 Packers when his only way on
-    is straight back to the Packers and another player from that season would
-    get there sooner
+  - a loop: a person whose only way on is straight back to the link you just
+    named, when someone else on that link would get there sooner
 
   The chain doesn't advance.
 - ⬛ **Wrong**: not a link we know of.
 
-For sports, naming a team stands for every season the current player spent
-there. Naming the next player narrows it to the seasons the two actually
-shared, so "at the same time" is enforced.
+For sports, a team is the whole franchise across every era. Relocated teams
+answer to all their names, so "SuperSonics" counts as the Thunder.
 
-If a player doubles back through a same-named link anyway (A → Team → B → Team
-→ C), the chain drops B when C also overlapped with A. When C didn't overlap
-with A, B stays as the bridge, because merging would claim a false teammate.
-Naming the link you just came from steps back to it.
+If a chain doubles back through a same-named link (A → Movie → B → Movie → C),
+the chain drops B when C is also linked to A. When C isn't, B stays as the
+bridge, because merging would claim a link that doesn't exist. Naming the link
+you just came from steps back to it.
 
 The share text is the result line plus a tally, e.g. `🟩×6 🟨×1 ⬛×1`.
 
@@ -108,18 +106,21 @@ API responses are cached under `scripts/generate/.cache` (gitignored).
 |---|---|---|
 | Actors & Movies | TMDb credits; documentaries and cameos as themselves excluded | Top-billed stars of TMDb's 300 most-voted movies |
 | Artists & Songs | Deezer top tracks, seeded from ~110 well-known artists and their frequent collaborators, kept only if the song charted on the Billboard Hot 100, and linking only the artists Billboard credits (no remixers). Capped at 3 links | Seed artists with 4+ charting collaborations |
-| NBA | ESPN box scores via [sportsdataverse](https://github.com/sportsdataverse/sportsdataverse-data), 2001–02 on (players who actually appeared in a game) | Most-linked players on Wikipedia/Wikidata |
-| NFL | [nflverse](https://github.com/nflverse/nflverse-data) season rosters, 2000 on (practice squad excluded) | Same |
-| MLB | MLB Stats API full-season rosters, 2000 on | Same |
-| NHL | NHL API season rosters, 2000–01 on | Same |
+| NBA | Basketball-Reference season data via [bball-reference-datasets](https://github.com/sumitrodatta/bball-reference-datasets), 1949–50 on | Most-linked players on Wikipedia/Wikidata |
+| NFL | [nflverse](https://github.com/nflverse/nflverse-data) season rosters, 2000 on (practice squad excluded) | Same, careers starting 2000 or later |
+| MLB | MLB Stats API full-season rosters, 1975 on | Same |
+| NHL | NHL API season rosters, 1979–80 on (franchises merged by the NHL's franchise id) | Same |
 
 Fame for athletes is the number of Wikipedia/Wikimedia sitelinks on the
 player's Wikidata item. It's looked up through each league's player-ID property
 (for example P3541, MLB.com player ID) on the
 [QLever](https://qlever.cs.uni-freiburg.de/) SPARQL endpoint.
 
-"Same season" is the granularity for sports. A player traded mid-season appears
-on both teams that season, which is the usual definition of teammates.
+Sports puzzles must have a **famous route**: a 2-link chain whose middle player
+is also well known (top 250 per league). Endpoints are the top 80. Only
+players whose whole career falls inside the data qualify for either role, so
+nobody's earlier teams are missing. Any real teammate is still accepted as an
+answer.
 
 ### Validation
 

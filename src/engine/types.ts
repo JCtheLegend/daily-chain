@@ -12,6 +12,8 @@ export interface PuzzleNode {
   subtitle?: string
   /** Sort key for ordering same-name nodes (e.g. the seasons of one team). */
   year?: number
+  /** A well-known person; hints and revealed solutions route through these when they can. */
+  famous?: boolean
 }
 
 export interface PuzzleEdge {

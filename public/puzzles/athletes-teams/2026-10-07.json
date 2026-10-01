@@ -1,8 +1,8 @@
 {
   "date": "2026-10-07",
   "category": "athletes-teams",
-  "start": "NBA-p-862",
-  "end": "NBA-p-4279888",
+  "start": "NBA-p-gasolma01",
+  "end": "NBA-p-mingya01",
   "tag": "NBA",
   "graph": "graphs/athletes-nba.json",
   "number": 280

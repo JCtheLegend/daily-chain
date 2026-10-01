@@ -1,12 +1,19 @@
 import { parseCsv } from '../shared/csv'
 import { fetchBytesCached, WEEK_MS } from '../shared/fetchUtil'
-import { currentYear, FIRST_SEASON, teamAliases, type RosterEntry } from './common'
+import { currentYear, teamAliases, type LeagueRosters, type RosterEntry } from './common'
 
 // nflverse season rosters (open data, one file per season).
 const url = (season: number) => `https://github.com/nflverse/nflverse-data/releases/download/rosters/roster_${season}.csv`
 
+// Pre-2000 rosters lack the ids used for fame and reuse codes across franchises
+// ("STL" was the Cardinals, then the Rams), so the NFL starts in 2000.
+const FIRST_SEASON = 2000
+
 /** nflverse has used a few different codes for the same franchise over the years. */
 const CODE_ALIASES: Record<string, string> = { ARZ: 'ARI', BLT: 'BAL', CLV: 'CLE', HST: 'HOU', JAC: 'JAX', SL: 'STL', LAR: 'LA' }
+
+/** Relocated franchises, keyed to today's code. */
+const FRANCHISE: Record<string, string> = { STL: 'LA', SD: 'LAC', OAK: 'LV' }
 
 function teamName(code: string, season: number): string | null {
   switch (code) {
@@ -54,12 +61,13 @@ function teamName(code: string, season: number): string | null {
 
 /**
  * Everyone on an NFL roster during a season (active, injured reserve, etc. —
- * practice squad excluded). Player ids are nflverse gsis ids; `pfr` maps them
- * to Pro-Football-Reference ids for the fame lookup.
+ * practice squad excluded). Player ids are nflverse gsis ids; `pfrIds` maps
+ * them to Pro-Football-Reference ids for the fame lookup.
  */
-export async function nflRosters(): Promise<{ entries: RosterEntry[]; pfrIds: Map<string, string> }> {
+export async function nflRosters(): Promise<LeagueRosters & { pfrIds: Map<string, string> }> {
   const entries: RosterEntry[] = []
   const pfrIds = new Map<string, string>()
+  const rookieYears = new Map<string, number>()
   const unknownCodes = new Set<string>()
 
   for (let season = FIRST_SEASON; season <= currentYear(); season++) {
@@ -79,9 +87,11 @@ export async function nflRosters(): Promise<{ entries: RosterEntry[]; pfrIds: Ma
       if (seen.has(key)) continue
       seen.add(key)
       if (r.pfr_id) pfrIds.set(playerId, r.pfr_id)
+      const rookie = Number(r.rookie_year || r.entry_year)
+      if (rookie) rookieYears.set(playerId, rookie)
       entries.push({
         season,
-        teamKey: code,
+        teamKey: FRANCHISE[code] ?? code,
         teamName: name,
         teamAliases: teamAliases(name, code, code === 'WAS' ? 'Washington' : undefined),
         playerId,
@@ -91,5 +101,6 @@ export async function nflRosters(): Promise<{ entries: RosterEntry[]; pfrIds: Ma
     console.log(`  NFL ${season}: ${seen.size} player-team seasons`)
   }
   if (unknownCodes.size) console.warn(`  NFL: skipped unknown team codes ${[...unknownCodes].join(', ')}`)
-  return { entries, pfrIds }
+  // Careers that began before 2000 have teams missing from the data.
+  return { entries, pfrIds, careerCovered: (id) => (rookieYears.get(id) ?? 0) >= FIRST_SEASON }
 }

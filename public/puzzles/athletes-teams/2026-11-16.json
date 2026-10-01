@@ -1,8 +1,8 @@
 {
   "date": "2026-11-16",
   "category": "athletes-teams",
-  "start": "NBA-p-2798",
-  "end": "NBA-p-2806",
+  "start": "NBA-p-gasolpa01",
+  "end": "NBA-p-barklch01",
   "tag": "NBA",
   "graph": "graphs/athletes-nba.json",
   "number": 320

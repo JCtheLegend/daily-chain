@@ -16,6 +16,7 @@ export function writeGraph(
   nodes: Record<string, RawNode>,
   edges: PuzzleEdge[],
   extraNames?: Map<string, string[]>,
+  isFamous: (id: string) => boolean = () => false,
 ): string {
   const adj = buildAdjacency(edges)
   const ids = Object.keys(nodes).filter((id) => adj.has(id)).sort()
@@ -29,7 +30,8 @@ export function writeGraph(
       const isEmpty = (v: string | number | string[]) => !v || (Array.isArray(v) && v.length === 0)
       let keep = optional.length
       while (keep > 0 && isEmpty(optional[keep - 1])) keep--
-      return [id, n.name, n.type === 'person' ? 'p' : 'w', ...optional.slice(0, keep)] as GraphFile['nodes'][number]
+      const type = n.type === 'work' ? 'w' : isFamous(id) ? 'P' : 'p'
+      return [id, n.name, type, ...optional.slice(0, keep)] as GraphFile['nodes'][number]
     }),
     links: ids
       .filter((id) => nodes[id].type === 'work')

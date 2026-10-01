@@ -1,8 +1,8 @@
 {
   "date": "2026-10-19",
   "category": "athletes-teams",
-  "start": "NBA-p-110",
-  "end": "NBA-p-4065648",
+  "start": "NBA-p-duncati01",
+  "end": "NBA-p-stockjo01",
   "tag": "NBA",
   "graph": "graphs/athletes-nba.json",
   "number": 292

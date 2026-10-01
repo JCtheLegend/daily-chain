@@ -1,7 +1,8 @@
 import { createRateLimiter, fetchJsonCached, pMap, WEEK_MS } from '../shared/fetchUtil'
-import { currentYear, FIRST_SEASON, teamAliases, type RosterEntry } from './common'
+import { coveredAfter, currentYear, teamAliases, type LeagueRosters, type RosterEntry } from './common'
 
 const API = 'https://statsapi.mlb.com/api/v1'
+const FIRST_SEASON = 1975
 const rateLimit = createRateLimiter(100)
 
 interface MlbTeam {
@@ -11,8 +12,12 @@ interface MlbTeam {
   abbreviation: string
 }
 
-/** Everyone on a club's roster at any point in a season (MLB Stats API "fullSeason" roster). */
-export async function mlbRosters(): Promise<RosterEntry[]> {
+/**
+ * Everyone on a club's roster at any point in a season (MLB Stats API
+ * "fullSeason" roster). Team ids stay the same through moves (Expos ->
+ * Nationals), so they double as franchise keys.
+ */
+export async function mlbRosters(): Promise<LeagueRosters> {
   const entries: RosterEntry[] = []
   for (let season = FIRST_SEASON; season <= currentYear(); season++) {
     const maxAgeMs = season >= currentYear() ? WEEK_MS : undefined
@@ -29,10 +34,8 @@ export async function mlbRosters(): Promise<RosterEntry[]> {
       return { team, roster: data.roster ?? [] }
     })
 
-    let count = 0
     for (const { team, roster } of rosters) {
       for (const { person } of roster) {
-        count++
         entries.push({
           season,
           teamKey: String(team.id),
@@ -43,7 +46,7 @@ export async function mlbRosters(): Promise<RosterEntry[]> {
         })
       }
     }
-    console.log(`  MLB ${season}: ${count} player-team seasons`)
   }
-  return entries
+  console.log(`  MLB: ${entries.length} player-team seasons since ${FIRST_SEASON}`)
+  return { entries, careerCovered: coveredAfter(entries, FIRST_SEASON) }
 }

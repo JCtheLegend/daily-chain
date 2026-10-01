@@ -40,9 +40,9 @@ export const CATEGORY_META: Record<CategoryId, CategoryMeta> = {
     emoji: '🏆',
     personLabel: 'player',
     workLabel: 'team',
-    tagline: 'Link two NBA, NFL, MLB or NHL players through teammates from the same season.',
+    tagline: 'Link two NBA, NFL, MLB or NHL players through teams they both played for, in any year.',
     personToWorkPrompt: (person) => `Name a team ${person} played for`,
-    workToPersonPrompt: (work, prev) => `Name a player on the ${work} at the same time as ${prev}`,
+    workToPersonPrompt: (work) => `Name another player who played for the ${work}`,
   },
 }
 

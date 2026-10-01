@@ -1,8 +1,8 @@
 {
   "date": "2026-10-15",
   "category": "athletes-teams",
-  "start": "NBA-p-3989",
-  "end": "NBA-p-510",
+  "start": "NBA-p-pippesc01",
+  "end": "NBA-p-westje01",
   "tag": "NBA",
   "graph": "graphs/athletes-nba.json",
   "number": 288

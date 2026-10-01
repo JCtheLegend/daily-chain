@@ -10,6 +10,8 @@ export interface GraphContext {
   edges: PuzzleEdge[]
   /** Who may be a puzzle's start/end — a notability floor so nobody obscure is the answer. */
   isEndpoint: (id: string) => boolean
+  /** If set, every puzzle must have a route through only endpoints and these (well-known) people. */
+  isConnector?: (id: string) => boolean
   tag?: string
   /** Real-world neighbor names beyond the crawled graph (e.g. an actor's full filmography). */
   extraNames?: Map<string, string[]>
@@ -40,7 +42,12 @@ export function generateSeries(opts: {
 }): void {
   const minPar = opts.minPar ?? 4
   const maxPar = opts.maxPar ?? 8
-  const graphPath = new Map(opts.contexts.map((ctx) => [ctx.name, writeGraph(ctx.name, ctx.nodes, ctx.edges, ctx.extraNames)]))
+  const graphPath = new Map(
+    opts.contexts.map((ctx) => [
+      ctx.name,
+      writeGraph(ctx.name, ctx.nodes, ctx.edges, ctx.extraNames, (id) => ctx.isEndpoint(id) || !!ctx.isConnector?.(id)),
+    ]),
+  )
   const today = todayUtc()
 
   const toGenerate: string[] = []
@@ -77,7 +84,7 @@ export function generateSeries(opts: {
 
   for (const date of toGenerate) {
     const ctx = opts.contextFor(date)
-    const pair = pickPuzzlePair(ctx.nodes, ctx.edges, { minPar, maxPar, isEndpoint: ctx.isEndpoint, excludePairs, excludeEndpoints: recent })
+    const pair = pickPuzzlePair(ctx.nodes, ctx.edges, { minPar, maxPar, isEndpoint: ctx.isEndpoint, isConnector: ctx.isConnector, excludePairs, excludeEndpoints: recent })
     if (!pair) {
       console.warn(`  ${date}: no valid pair found — skipping`)
       continue

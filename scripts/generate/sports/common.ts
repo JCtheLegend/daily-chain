@@ -2,7 +2,11 @@ import { fetchJsonCached, WEEK_MS } from '../shared/fetchUtil'
 
 export type League = 'NBA' | 'NFL' | 'MLB' | 'NHL'
 
-/** One player on one team in one season. Season = the year the season started. */
+/**
+ * One player on one team in one season. Season = the year the season started.
+ * `teamKey` identifies the franchise (stable through relocations and renames),
+ * `teamName` is what it was called that season.
+ */
 export interface RosterEntry {
   season: number
   teamKey: string
@@ -12,12 +16,20 @@ export interface RosterEntry {
   playerName: string
 }
 
-export const FIRST_SEASON = 2000
+export interface LeagueRosters {
+  entries: RosterEntry[]
+  /**
+   * Whether the data covers this player's whole career (it didn't start
+   * before the data does), so none of their teams are missing.
+   */
+  careerCovered: (playerId: string) => boolean
+}
 
-/** Seasons that span two calendar years get a "2009–10" label; the rest use the single year. */
-export function seasonLabel(league: League, season: number): string {
-  if (league === 'NBA' || league === 'NHL') return `${season}–${String((season + 1) % 100).padStart(2, '0')}`
-  return String(season)
+/** Covered when the player's first season in the data is after the data's first season. */
+export function coveredAfter(entries: RosterEntry[], firstSeason: number): (playerId: string) => boolean {
+  const debut = new Map<string, number>()
+  for (const e of entries) debut.set(e.playerId, Math.min(debut.get(e.playerId) ?? Infinity, e.season))
+  return (id) => (debut.get(id) ?? firstSeason) > firstSeason
 }
 
 const MULTI_WORD_PLACES = [
@@ -51,7 +63,7 @@ export async function sitelinksByExternalId(property: string): Promise<Map<strin
 PREFIX wikibase: <http://wikiba.se/ontology#>
 SELECT ?id ?sl WHERE { ?p wdt:${property} ?id . ?p wikibase:sitelinks ?sl . }`
   const data = await fetchJsonCached<{ results: { bindings: { id: { value: string }; sl: { value: string } }[] } }>(
-    'https://qlever.cs.uni-freiburg.de/api/wikidata',
+    'https://qlever.dev/api/wikidata',
     {
       method: 'POST',
       body: 'query=' + encodeURIComponent(query),
@@ -61,7 +73,8 @@ SELECT ?id ?sl WHERE { ?p wdt:${property} ?id . ?p wikibase:sitelinks ?sl . }`
   )
   const map = new Map<string, number>()
   for (const row of data.results.bindings) {
-    const id = row.id.value
+    // Sports-Reference ids are stored with their URL folder ("j/jordami01").
+    const id = row.id.value.split('/').pop()!
     map.set(id, Math.max(map.get(id) ?? 0, Number(row.sl.value)))
   }
   return map

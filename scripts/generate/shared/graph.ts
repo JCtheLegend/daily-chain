@@ -90,12 +90,20 @@ export function pickPuzzlePair(
     minPar: number
     maxPar: number
     isEndpoint: (id: string) => boolean
+    /**
+     * When set, the pair must be joined by a route whose people are all
+     * endpoints or connectors (a "famous route"), so the puzzle is solvable
+     * without knowing obscure names. Obscure answers are still accepted in play.
+     */
+    isConnector?: (id: string) => boolean
     excludePairs: Set<string>
     excludeEndpoints: Set<string>
   },
 ): { start: string; end: string; path: string[] } | null {
   const allowed = (id: string) =>
     nodes[id]?.type === 'person' && opts.isEndpoint(id) && !opts.excludeEndpoints.has(id)
+  const isConnector = opts.isConnector
+  const routeEdges = isConnector ? famousEdges(nodes, edges, (id) => opts.isEndpoint(id) || isConnector(id)) : edges
   const pool = Object.keys(nodes).filter(allowed)
   // Even edge counts only: person -> work -> person ...
   const targets: number[] = []
@@ -105,8 +113,11 @@ export function pickPuzzlePair(
 
   let best: { start: string; end: string; score: number } | null = null
   for (const start of shuffled.slice(0, 60)) {
-    for (const [end, d] of bfsDistances(edges, start)) {
+    // Shortest chain overall must not be shorter than the minimum (no direct link).
+    const overall = routeEdges === edges ? null : bfsDistances(edges, start)
+    for (const [end, d] of bfsDistances(routeEdges, start)) {
       if (end === start || d < opts.minPar || d > opts.maxPar || !allowed(end)) continue
+      if (overall && (overall.get(end) ?? 0) < opts.minPar) continue
       if (opts.excludePairs.has(pairKey(start, end))) continue
       const score = Math.abs(d - target) + Math.random() * 0.5
       if (!best || score < best.score) best = { start, end, score }
@@ -114,8 +125,20 @@ export function pickPuzzlePair(
     if (best && best.score < 0.5) break
   }
   if (!best) return null
-  const path = shortestPath(edges, best.start, best.end)
+  const path = shortestPath(routeEdges, best.start, best.end)
   return path ? { start: best.start, end: best.end, path } : null
+}
+
+const famousCache = new WeakMap<PuzzleEdge[], PuzzleEdge[]>()
+
+/** Only the links whose person is well known. */
+function famousEdges(nodes: Record<string, RawNode>, edges: PuzzleEdge[], isFamous: (id: string) => boolean): PuzzleEdge[] {
+  let out = famousCache.get(edges)
+  if (!out) {
+    out = edges.filter((e) => (nodes[e.a].type === 'person' ? isFamous(e.a) : isFamous(e.b)))
+    famousCache.set(edges, out)
+  }
+  return out
 }
 
 /** Extra names a title can be guessed by: "Star Wars: A New Hope" -> ["A New Hope", "Star Wars"]. */
