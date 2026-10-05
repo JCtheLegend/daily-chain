@@ -1,0 +1,9 @@
+{
+  "date": "2026-12-02",
+  "category": "athletes-teams",
+  "start": "NBA-p-stojape01",
+  "end": "NBA-p-iguodan01",
+  "tag": "NBA",
+  "graph": "graphs/athletes-nba.json",
+  "number": 336
+}

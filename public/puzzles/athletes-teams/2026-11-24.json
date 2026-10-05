@@ -1,0 +1,9 @@
+{
+  "date": "2026-11-24",
+  "category": "athletes-teams",
+  "start": "NBA-p-westbru01",
+  "end": "NBA-p-kirilan01",
+  "tag": "NBA",
+  "graph": "graphs/athletes-nba.json",
+  "number": 328
+}
